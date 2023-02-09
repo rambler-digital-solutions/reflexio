@@ -1,0 +1,22 @@
+{
+    "name": "@reflexio/reflexio-on-redux",
+    "version": "0.2.15",
+    "description": "Reflexion with redux state manager",
+    "files": ["lib", "index.d.ts", "readme.md"],
+    "keywords": ["react", "redux"],
+    "repository": "github:reflexio/reflexio-on-redux",
+    "main": "lib/index.js",
+    "scripts": {
+      "build": "npx tsc",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Konstantin Astapov",
+    "license": "MIT",
+    "peerDependencies": {
+      "redux": "^4.2.0",
+      "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+      "typescript": "^4.7.4"
+    }
+  }
