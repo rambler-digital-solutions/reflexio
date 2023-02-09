@@ -1,0 +1,23 @@
+{
+  "name": "reflexio",
+  "private": true,
+  "description": "Business flow  manager",
+  "scripts": {},
+  "workspaces": [
+    "packages/*"
+  ],
+  "author": "Konstantin Astapov",
+  "license": "MIT",
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/reflexio/reflexio.git"
+  },
+  "keywords": [
+    "reflexio"
+  ],
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

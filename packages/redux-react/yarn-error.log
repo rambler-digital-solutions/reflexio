@@ -1,0 +1,51 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js
+
+PATH: 
+  /Users/shintokaido/Downloads/flutter/bin:/Users/shintokaido/.dvm/bin:/Users/shintokaido/.deno/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/opt/sqlite/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/shintokaido/Downloads/flutter/bin:/Users/shintokaido/.dvm/bin:/Users/shintokaido/.deno/bin:/Users/shintokaido/.cargo/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/opt/sqlite/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  12.15.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/shintokaido/magokoro/reflexio/packages/effective/package.json: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:310:30)
+      at /usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:321:13
+
+npm manifest: 
+  {
+      "name": "@reflexio/react-connector",
+      "version": "0.0.1",
+      "description": "HOC for connecting react to reflexio",
+      "files": ["lib", "index.d.ts", "readme.md"],
+      "keywords": ["react", "reflexio"],
+      "repository": "github:seijs/redux-hang-on",
+      "main": "lib/index.tsx",
+      "scripts": {
+        "build": "npx tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "Konstantin Astapov",
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^18.2.0"
+      },
+      "devDependencies": {
+        "typescript": "^4.7.4"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

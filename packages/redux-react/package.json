@@ -1,0 +1,22 @@
+{
+    "name": "@reflexio/react-connector",
+    "version": "0.0.1",
+    "description": "HOC for connecting react to reflexio",
+    "files": ["lib", "index.d.ts", "readme.md"],
+    "keywords": ["react", "reflexio"],
+    "repository": "github:seijs/redux-hang-on",
+    "main": "lib/index.tsx",
+    "scripts": {
+      "build": "npx tsc",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Konstantin Astapov",
+    "license": "MIT",
+    "peerDependencies": {
+      "react": "^18.2.0"
+    },
+    "devDependencies": {
+      "typescript": "^4.7.4"
+    }
+}
+  
