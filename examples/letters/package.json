@@ -1,0 +1,83 @@
+{
+  "name": "redux-hang-on-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.15.0"
+  },
+  "scripts": {
+    "start": "webpack serve --config webpack/webpack.dev.config.js",
+    "build": "webpack --config webpack/webpack.prod.config.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,tsx,js,jsx}": [
+      "prettier --end-of-line auto --single-quote --jsx-single-quote --write",
+      "eslint --fix --quiet"
+    ]
+  },
+  "dependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@babel/runtime": "7.8.4",
+    "@seijs/redux-hang-on": "*",
+    "@svgr/webpack": "^6.2.1",
+    "axios": "^0.27.2",
+    "babel-loader": "^8.2.5",
+    "classnames": "^2.3.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.23.4",
+    "css-loader": "^6.7.1",
+    "fork-ts-checker-webpack-plugin": "^7.2.12",
+    "html-webpack-plugin": "^5.5.0",
+    "less": "^4.1.3",
+    "less-loader": "^11.0.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "redux": "^4.2.0",
+    "reselect": "^4.1.6",
+    "style-loader": "^3.3.1",
+    "uuid": "^8.3.2",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.18.10",
+    "@types/axios": "^0.14.0",
+    "@types/classnames": "^2.3.1",
+    "@types/history": "^5.0.0",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-redux": "^7.1.24",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^5.30.6",
+    "babel-eslint": "^10.1.0",
+    "eslint": "7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "typescript": "^4.7.4",
+    "webpack-dev-server": "^4.9.3"
+  }
+}

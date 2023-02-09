@@ -1,3 +1,5 @@
+import { TaskQueue } from "./TaskQueue";
+
 interface ProcessorOpts {
   propagate: boolean;
 }
@@ -14,10 +16,15 @@ export class System {
     }
   }
 
+  public taksQueue: TaskQueue;
+
+  constructor() {
+      this.taksQueue = new TaskQueue()
+  }
+
   public afterHandlers: Array<any> = []
 
   public context: { [triggerer: string]: any } = {};
- 
 
   private waits: { [triggerer: string]: any } = {};
 

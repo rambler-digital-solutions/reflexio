@@ -1,7 +1,7 @@
 {
   "name": "reflexio",
   "private": true,
-  "description": "Business flow  manager",
+  "description": "Business flow manager, more then state manager",
   "scripts": {},
   "workspaces": [
     "packages/*"
@@ -17,7 +17,9 @@
     "reflexio"
   ],
   "devDependencies": {
+    "redux": "^4.2.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^8.3.2"
   }
 }

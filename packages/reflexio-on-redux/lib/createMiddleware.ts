@@ -16,9 +16,15 @@ export const makeProcMiddleware = (
 ): Middleware => {
   const system = useSystem();
 
+ 
+
   return (store) => (next) => (action) => {
     let forceStopPropagate = false;
     const actionType = action.type;
+    const nexio = (args) => {
+      system.taksQueue.setCurrentTask(actionType)
+      next(args)
+    }
     const actionPayload = action.payload || null;
     const skipInit = action.opts && action.opts.noInit;
     const skipUpdate = action.opts && action.opts.noUpdate;
@@ -66,6 +72,6 @@ export const makeProcMiddleware = (
 
     return forceStopPropagate || (isBiteHit && processorOpts && (!processorOpts.propagate)) 
       ? 0
-      : next(action);
+      : nexio(action);
   };
 };

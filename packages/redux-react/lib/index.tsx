@@ -1,7 +1,8 @@
 import React from 'react';
 import {useState, useEffect} from 'react'
-import {store} from '.'
-import {Queue} from '.'
+import { useSystem } from '../../reflexio-on-redux/dist';
+import { matchActionType } from './matchActionType';
+
 export const connector = (condition) => (WrappedComponent) => {
 
 
@@ -17,18 +18,23 @@ export const connector = (condition) => (WrappedComponent) => {
     ** 
     */
     return (props) => {
+        const system = useSystem();
+        const store: any = {};// get from context
         const initialState = store.getState().module
         const [state, setState] = useState(initialState);
 
+
+
         useEffect(()=> {
             store.subscribe(()=> {
-                if(Queue.includes(condition)) {
+                const task = system.taksQueue.getCurrentTask()
+                if(task && matchActionType(task, condition)) {
                     setState(store.getState().module)
                 }
             })
         },[])
 
-        return (<WrappedComponent {...props}/>)
+        return (<WrappedComponent {...props, ...state}/>)
     }
 
 }

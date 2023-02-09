@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom.iterable",
+      "es2015",
+      "es2016.array.include",
+      "es2017.object",
+      "es2017.string",
+      "es2018.promise",
+      "esnext",
+      "es2017",
+      "dom",
+    ],
+    "baseUrl": ".",
+    "sourceMap": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+   "experimentalDecorators": true,
+  },
+  "include": [
+    "src/**/*.tsx",
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.js",
+    "build",
+  ],
+}
