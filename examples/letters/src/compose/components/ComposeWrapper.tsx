@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import  './ComposeGrid.less';
+import './ComposeGrid.less';
 
 export const ComposeWrapper = ({
   children,

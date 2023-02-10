@@ -1,4 +1,4 @@
-const webpack = require("webpack")
+const webpack = require('webpack');
 const baseConfig = require('./webpack.base.config');
 
 module.exports = Object.assign(baseConfig, {
@@ -12,8 +12,5 @@ module.exports = Object.assign(baseConfig, {
     hot: true,
     historyApiFallback: true,
   },
-  plugins: [
-    ...baseConfig.plugins,
-    new webpack.HotModuleReplacementPlugin()
-  ],
-})
+  plugins: [...baseConfig.plugins, new webpack.HotModuleReplacementPlugin()],
+});

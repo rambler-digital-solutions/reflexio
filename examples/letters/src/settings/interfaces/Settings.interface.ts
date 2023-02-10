@@ -1,7 +1,3 @@
-
-
-
-
 export interface ISettings {
-    login: string
+  login: string;
 }

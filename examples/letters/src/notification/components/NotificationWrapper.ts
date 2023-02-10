@@ -1,7 +1,1 @@
-
-
-
-
-export const NotificationWrapper = () => {
-    
-}
+export const NotificationWrapper = () => {};

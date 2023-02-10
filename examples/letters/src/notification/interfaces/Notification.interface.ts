@@ -1,7 +1,3 @@
-
-
-
-
 export interface INotification {
-    content: string
+  content: string;
 }

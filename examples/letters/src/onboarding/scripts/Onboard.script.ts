@@ -1,7 +1,1 @@
-
-
-
-
-export class OnboardScript {
-    
-}
+export class OnboardScript {}

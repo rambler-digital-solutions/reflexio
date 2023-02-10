@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   ...settingsSlice.reducer,
   ...composeSlice.reducer,
   ...notificationSlice.reducer,
-  ...popupSlice.reducer
+  ...popupSlice.reducer,
 });
 
 export default rootReducer;
