@@ -34,7 +34,7 @@ export const connector = (condition) => (WrappedComponent) => {
             })
         },[])
 
-        return (<WrappedComponent {...props, ...state}/>)
+        return <WrappedComponent state={state} props={props} />
     }
 
 }
