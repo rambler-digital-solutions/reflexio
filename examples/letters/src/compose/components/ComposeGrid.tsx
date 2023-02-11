@@ -58,8 +58,8 @@ export const ComposeGrid = () => {
     >
       {items
         .filter((a) => a.id === opened)
-        .map((c) => (
-          <Compose />
+        .map((c, i) => (
+          <Compose key={i} />
         ))}
     </ComposeWrapper>
   );

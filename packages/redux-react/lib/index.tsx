@@ -1,9 +1,10 @@
 import React from 'react';
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import { useSystem } from '../../reflexio-on-redux/dist';
 import { matchActionType } from './matchActionType';
+import { StoreContext } from './ReflexProvider';
 
-export const connector = (condition) => (WrappedComponent) => {
+export const useReflector = (mapState, condition) => {
 
 
 
@@ -17,25 +18,23 @@ export const connector = (condition) => (WrappedComponent) => {
     ** In listener check wait buffer - pick first and remove 
     ** 
     */
-    return (props) => {
         const system = useSystem();
-        const store: any = {};// get from context
-        const initialState = store.getState().module
+        const store = useContext(StoreContext)// get from context
+        const initialState = mapState(store.getState())
         const [state, setState] = useState(initialState);
-
-
 
         useEffect(()=> {
             store.subscribe(()=> {
                 const task = system.taksQueue.getCurrentTask()
+                console.log('current task');
+                console.log(task);
                 if(task && matchActionType(task, condition)) {
-                    setState(store.getState().module)
+                    setState(mapState(store.getState()))
                 }
             })
         },[])
 
-        return <WrappedComponent state={state} props={props} />
-    }
+        return state
 
 }
 

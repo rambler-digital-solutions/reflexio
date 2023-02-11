@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { IState, ITriggers } from 'src/_redux/types';
 import {
   ScriptInitArgsType,

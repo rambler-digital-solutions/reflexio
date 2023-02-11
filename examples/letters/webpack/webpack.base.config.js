@@ -1,14 +1,14 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-const ProjectDIR = path.resolve(__dirname, '../') + '/'
-const SourceDIR = ProjectDIR + 'src/'
-const BuildDIR = ProjectDIR + './build/'
+const ProjectDIR = path.resolve(__dirname, '../') + '/';
+const SourceDIR = ProjectDIR + 'src/';
+const BuildDIR = ProjectDIR + './build/';
 
 module.exports = {
   entry: {
-    app: SourceDIR + '_root/index.tsx'
+    app: SourceDIR + '_root/index.tsx',
   },
   externals: {},
   output: {
@@ -26,31 +26,20 @@ module.exports = {
             presets: [
               '@babel/preset-env',
               '@babel/preset-typescript',
-              '@babel/preset-react'
+              '@babel/preset-react',
             ],
-            plugins: [
-              ["@babel/plugin-proposal-decorators", { "legacy": true }]
-            ]
-          }
+            plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
+          },
         },
-        include: [
-          path.resolve(SourceDIR),
-        ],
+        include: [path.resolve(SourceDIR)],
       },
       {
         test: /\.less$/i,
-        use: [
-          "style-loader",
-          "css-loader",
-          "less-loader",
-        ],
+        use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
         test: /\.css$/i,
-        use: [
-          "style-loader",
-          "css-loader",
-        ],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.svg$/,
@@ -67,8 +56,8 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules', SourceDIR],
-    alias: { 'src': SourceDIR },
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+    alias: { src: SourceDIR },
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
 
   target: 'web',
@@ -83,12 +72,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(ProjectDIR, './public/index.html')
+      template: path.resolve(ProjectDIR, './public/index.html'),
     }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {
-        configFile: '../tsconfig.json'
-      }
-    })
-  ]
-}
+        configFile: '../tsconfig.json',
+      },
+    }),
+  ],
+};
