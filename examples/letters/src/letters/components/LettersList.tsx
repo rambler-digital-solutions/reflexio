@@ -19,7 +19,7 @@ export const LettersList = () => {
       letters: state.letters.lettersList.data,
       isLoading: state.letters.lettersList.loading,
     }),
-    ['lettersLisst']
+    ['lettersList']
   );
 
   React.useEffect(() => {
@@ -52,8 +52,8 @@ export const LettersList = () => {
                   })
                 }
               >
-              {l.subject}{' '}
-            </div>
+                {l.subject}{' '}
+              </div>
             ))
           : null}
       </div>

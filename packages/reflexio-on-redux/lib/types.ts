@@ -104,6 +104,14 @@ type OmitNever<T> = { [K in keyof T as T[K] extends never ? never : K]: T[K] };
 
 export type TriggerPhaseWrapper<Args> = (args: Args) => Args;
 
+export type UpdateOnType<ITrigger> = | Array<
+Partial<
+  Record<keyof ITrigger, TriggerPhaseKeys<ITrigger, keyof ITrigger>>
+> | keyof ITrigger
+>
+| Array<keyof ITrigger>;
+
+
 export type MakeBiteReducerType<
   ITrigger,
   IState,
@@ -132,7 +140,7 @@ export type MakeBiteProcessorType<
     | Array<
         Partial<
           Record<keyof ITrigger, TriggerPhaseKeys<ITrigger, keyof ITrigger>>
-        >
+        > | keyof ITrigger
       >
     | Array<keyof ITrigger>;
   instance: 'stable' | 'multiple' | 'refreshing';

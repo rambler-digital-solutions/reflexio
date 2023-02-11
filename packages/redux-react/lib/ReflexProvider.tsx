@@ -1,7 +1,6 @@
-import React, {createContext} from 'react'
+import React from 'react'
+import { StoreContext } from './constext'
 
-
-export const StoreContext = createContext(null);
 
 export const ReflexProvider = (props) => {
 
