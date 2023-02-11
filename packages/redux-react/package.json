@@ -1,11 +1,11 @@
 {
     "name": "@reflexio/redux-react",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Connecting react with reflexio-on-redux",
     "files": ["lib", "index.d.ts", "readme.md"],
     "keywords": ["react", "redux", "reflexio"],
     "repository": "github:seijs/redux-hang-on",
-    "main": "lib/index.tsx",
+    "main": "lib/index.js",
     "scripts": {
       "build": "npx tsc",
       "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,6 +14,7 @@
     "license": "MIT",
     "peerDependencies": {
       "react": "^18.2.0",
+      "@reflexio/reflexio-on-redux": "^0.2.16",
       "redux": "4.2.1"
     },
     "devDependencies": {

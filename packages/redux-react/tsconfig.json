@@ -26,8 +26,9 @@
      "experimentalDecorators": true,
     },
     "include": [
-      "lib/**/*.tsx",
       "lib/**/*.ts",
+      "*.ts",
+      "package.json"
     ],
     "exclude": [
       "node_modules",
