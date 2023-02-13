@@ -4,7 +4,7 @@ Library for nice and scalable organizing of business logic in web applications.
 
 
 ## Motivation
-**Use Dispatch for Free**. It was Initially build on the top of redux to make powerful tool for implementing business flow of large enterprise-level web applications.  No more *store.dispatch* hell. Just nicely readable and configurable in one place class-definitively styled description of the business logic of your application. 
+It was Initially build on the top of redux to make powerful tool for implementing business flow of large enterprise-level web applications.  No more *store.dispatch* hell. Just nicely readable and configurable in one place class-definitively styled description of the business logic of your application. 
 Comes with ecosistem of helper packages and adapters to ui libries such as react.
 ## Installation
 
