@@ -3,7 +3,7 @@ import { useTrigger } from 'src/_redux/useTrigger';
 import { useSelector } from 'react-redux';
 import { IState } from 'src/_redux/types';
 import { ComposeGrid } from 'src/compose/components/ComposeGrid';
-import { useReflector } from '../../../../../packages/redux-react/dist/index';
+import { useReflector } from '../../../../../packages/redux-react/dist/lib';
 import './styles.less';
 
 export const LettersList = () => {

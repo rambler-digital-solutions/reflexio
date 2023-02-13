@@ -17,10 +17,10 @@
     "reflexio"
   ],
   "devDependencies": {
-    "@reflexio/reflexio-on-redux": "^0.2.16",
-    "redux": "^4.2.1",
+    "@reflexio/reflexio-on-redux": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "redux": "^4.2.1",
     "uuid": "^8.3.2"
   }
 }

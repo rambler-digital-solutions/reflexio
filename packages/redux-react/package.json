@@ -1,6 +1,6 @@
 {
     "name": "@reflexio/redux-react",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Connecting react with reflexio-on-redux",
     "files": ["lib", "index.d.ts", "readme.md"],
     "keywords": ["react", "redux", "reflexio"],
@@ -14,7 +14,7 @@
     "license": "MIT",
     "peerDependencies": {
       "react": "^18.2.0",
-      "@reflexio/reflexio-on-redux": "^0.2.16",
+      "@reflexio/reflexio-on-redux": "*",
       "redux": "4.2.1"
     },
     "devDependencies": {
