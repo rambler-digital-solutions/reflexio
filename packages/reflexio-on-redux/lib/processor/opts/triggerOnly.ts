@@ -15,7 +15,7 @@ export function TriggerOnly(store, config, system, uid) {
             noUpdate: true,
           },
         });
-      } else {
+      } else if (system.config.env === 'dev') {
         console.log(
           `WARNING!: ${config.trigger} can not trigger ${actionType}`
         );

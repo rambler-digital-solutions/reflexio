@@ -15,7 +15,7 @@ export function Save(store, config, system, uid) {
             noInit: true,
           },
         });
-      } else {
+      } else if (system.config.env === 'dev') {
         console.log(
           `WARNING!: ${config.trigger} can not trigger ${actionType}`
         );

@@ -24,8 +24,14 @@ export function matchUpdateTrigger(configs, actionType) {
           ) {
             return true;
           }
+          else if(Array.isArray(matchedTrigger[Object.keys(matchedTrigger)[0]])) {
+            if (matchedTrigger[Object.keys(matchedTrigger)[0]].includes(status)) {
+              return true
+            }
+          }
         }
       }
+      return false
     })
     .map((c) => ({
       config: configs[c],

@@ -5,7 +5,7 @@ import { matchActionType } from './matchActionType';
 import { StoreContext } from './constext';
 import { UpdateOnType } from '@reflexio/reflexio-on-redux/lib/types';
 
-export const useReflector = <Triggers,K, S>(
+export const useReflector = <Triggers,K = unknown, S=unknown>(
             mapState: (args: K)=> S, 
             condition: UpdateOnType<Triggers>
         ): S => {

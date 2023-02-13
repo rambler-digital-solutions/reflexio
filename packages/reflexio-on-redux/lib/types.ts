@@ -1,5 +1,10 @@
 import { Dispatch } from "redux";
 
+export type SystemConfig = {
+  env: 'dev' | 'prod' | 'test'
+}
+
+
 export type GetByKey<T, K> = K extends keyof T ? T[K] : null;
 
 export type MakeReducerType<AC, StoreType> = {
@@ -106,10 +111,10 @@ export type TriggerPhaseWrapper<Args> = (args: Args) => Args;
 
 export type UpdateOnType<ITrigger> = | Array<
 Partial<
-  Record<keyof ITrigger, TriggerPhaseKeys<ITrigger, keyof ITrigger>>
-> | keyof ITrigger
->
-| Array<keyof ITrigger>;
+  Record<keyof ITrigger, TriggerPhaseKeys<ITrigger, keyof ITrigger> 
+    | Array<TriggerPhaseKeys<ITrigger, keyof ITrigger>> 
+  >
+> | keyof ITrigger>
 
 
 export type MakeBiteReducerType<
@@ -139,7 +144,9 @@ export type MakeBiteProcessorType<
   updateOn?:
     | Array<
         Partial<
-          Record<keyof ITrigger, TriggerPhaseKeys<ITrigger, keyof ITrigger>>
+          Record<keyof ITrigger, TriggerPhaseKeys<ITrigger, keyof ITrigger> 
+            | Array<TriggerPhaseKeys<ITrigger, keyof ITrigger>> 
+          >
         > | keyof ITrigger
       >
     | Array<keyof ITrigger>;

@@ -1,6 +1,6 @@
 {
     "name": "@reflexio/redux-react",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Connecting react with reflexio-on-redux",
     "files": ["lib", "index.d.ts", "readme.md"],
     "keywords": ["react", "redux", "reflexio"],

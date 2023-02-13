@@ -21,5 +21,13 @@ export function matchActionType(actionType, updateOn) {
         ) {
           return true;
         }
+        else if(Array.isArray(matchedTrigger[Object.keys(matchedTrigger)[0]])) {
+          if (matchedTrigger[Object.keys(matchedTrigger)[0]].includes(status)) {
+            return true
+          }
+        }
+        
       }
+      return false
+
 }

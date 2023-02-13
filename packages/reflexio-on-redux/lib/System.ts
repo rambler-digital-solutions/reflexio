@@ -1,4 +1,5 @@
 import { TaskQueue } from "./TaskQueue";
+import { SystemConfig } from "./types";
 
 interface ProcessorOpts {
   propagate: boolean;
@@ -16,10 +17,18 @@ export class System {
     }
   }
 
+  static config: SystemConfig = {
+    'env': 'prod'
+  };
+
   public taksQueue: TaskQueue;
 
   constructor() {
       this.taksQueue = new TaskQueue()
+  }
+
+  public setConfig(conf: SystemConfig) {
+    System.config = conf;
   }
 
   public afterHandlers: Array<any> = []
