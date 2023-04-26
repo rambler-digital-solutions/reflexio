@@ -1,9 +1,9 @@
 import React from 'react';
 import {useState, useEffect, useContext} from 'react'
-import { useSystem } from '@reflexio/reflexio-on-redux';
+import { useSystem } from '../../reflexio-on-redux/lib';
 import { matchActionType } from './matchActionType';
 import { StoreContext } from './constext';
-import { UpdateOnType } from '@reflexio/reflexio-on-redux/lib/types';
+import { UpdateOnType } from '../../reflexio-on-redux/lib/types';
 
 export const useReflector = <Triggers,K = unknown, S=unknown>(
             mapState: (args: K)=> S, 
