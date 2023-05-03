@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`some test 1`] = `
+{
+  "compose": {
+    "body": "",
+    "composeItems": [],
+    "from": "",
+    "openedComposeId": null,
+    "subject": "",
+    "to": "",
+  },
+  "letters": {
+    "deleteLetter": {
+      "data": null,
+      "loaded": false,
+      "loading": false,
+    },
+    "lettersList": {
+      "data": null,
+      "input": null,
+      "loaded": false,
+      "loading": true,
+    },
+    "saveLetter": {
+      "data": null,
+      "loaded": false,
+      "loading": false,
+    },
+    "updateLetter": {
+      "data": null,
+      "loaded": false,
+      "loading": false,
+    },
+  },
+  "notification": {
+    "notifications": [],
+  },
+  "popup": {
+    "content": "",
+    "isOpen": false,
+  },
+  "settings": {
+    "loadSettings": {
+      "data": null,
+      "loaded": false,
+      "loading": false,
+    },
+  },
+}
+`;

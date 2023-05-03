@@ -7,6 +7,10 @@
     "node": ">=16.15.0"
   },
   "scripts": {
+    "jest": "jest test/main.spec.js",
+    "make-test": "webpack --config  test/webpack.node.ts",
+    "test1": "ts-node test/main.ts",
+    "test": "jest",
     "start": "webpack serve --config webpack/webpack.dev.config.js",
     "build": "webpack --config webpack/webpack.prod.config.js"
   },
@@ -19,6 +23,17 @@
     "./src/**/*.{ts,tsx,js,jsx}": [
       "prettier --end-of-line auto --single-quote --jsx-single-quote --write",
       "eslint --fix --quiet"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "rootDir": "./",
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
     ]
   },
   "dependencies": {
@@ -50,9 +65,11 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.18.10",
+    "@jest/globals": "^29.5.0",
     "@types/axios": "^0.14.0",
     "@types/classnames": "^2.3.1",
     "@types/history": "^5.0.0",
+    "@types/jest": "^29.5.1",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
@@ -72,8 +89,11 @@
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^6.0.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
     "webpack-dev-server": "^4.9.3"
   }
