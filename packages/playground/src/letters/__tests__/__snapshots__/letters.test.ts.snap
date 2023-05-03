@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`some test 1`] = `
+exports[`letters test 1`] = `
 {
   "compose": {
     "body": "",

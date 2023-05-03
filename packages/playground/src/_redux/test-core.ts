@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const store = require('./build');
-import { ITriggers } from '../src/_redux/types';
-import { DispatcherType } from '../../reflexio-on-redux/lib/types';
-import { getActionType } from '../../reflexio-on-redux/lib/utils';
+const store = require('../../build');
+import { ITriggers } from './types';
+import { DispatcherType } from '../../../reflexio-on-redux/lib/types';
+import { getActionType } from '../../../reflexio-on-redux/lib/utils';
 
 export const useTrigger = () => {
   const dispatch = store.default.dispatch;

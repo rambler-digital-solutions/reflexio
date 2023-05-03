@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const webpack = require('webpack');
-const ProjectDIR = path.resolve(__dirname, '../../') + '/';
+const ProjectDIR = path.resolve(__dirname, '../') + '/';
 const SourceDIR = ProjectDIR + '/';
-const BuildDIR = ProjectDIR + 'playground/test/build/';
+const BuildDIR = ProjectDIR + 'playground/build/';
 
 module.exports = {
   module: {

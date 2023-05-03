@@ -8,7 +8,7 @@
   },
   "scripts": {
     "jest": "jest test/main.spec.js",
-    "make-test": "webpack --config  test/webpack.node.ts",
+    "make-test": "webpack --config  webpack.node.js",
     "test1": "ts-node test/main.ts",
     "test": "jest",
     "start": "webpack serve --config webpack/webpack.dev.config.js",

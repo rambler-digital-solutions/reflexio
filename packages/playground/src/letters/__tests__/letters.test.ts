@@ -1,6 +1,6 @@
-import { getState, useTrigger } from '../core';
+import { getState, useTrigger } from '../../_redux/test-core';
 
-test('some test', () => {
+test('letters test', () => {
   const trigger = useTrigger();
   trigger('lettersList', 'init', null);
   expect(getState()).toMatchSnapshot();
