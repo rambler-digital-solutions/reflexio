@@ -2,50 +2,26 @@
 
 exports[`letters test 1`] = `
 {
-  "compose": {
-    "body": "",
-    "composeItems": [],
-    "from": "",
-    "openedComposeId": null,
-    "subject": "",
-    "to": "",
+  "deleteLetter": {
+    "data": null,
+    "loaded": false,
+    "loading": false,
   },
-  "letters": {
-    "deleteLetter": {
-      "data": null,
-      "loaded": false,
-      "loading": false,
-    },
-    "lettersList": {
-      "data": null,
-      "input": null,
-      "loaded": false,
-      "loading": true,
-    },
-    "saveLetter": {
-      "data": null,
-      "loaded": false,
-      "loading": false,
-    },
-    "updateLetter": {
-      "data": null,
-      "loaded": false,
-      "loading": false,
-    },
+  "lettersList": {
+    "data": null,
+    "input": null,
+    "loaded": false,
+    "loading": true,
   },
-  "notification": {
-    "notifications": [],
+  "saveLetter": {
+    "data": null,
+    "loaded": false,
+    "loading": false,
   },
-  "popup": {
-    "content": "",
-    "isOpen": false,
-  },
-  "settings": {
-    "loadSettings": {
-      "data": null,
-      "loaded": false,
-      "loading": false,
-    },
+  "updateLetter": {
+    "data": null,
+    "loaded": false,
+    "loading": false,
   },
 }
 `;

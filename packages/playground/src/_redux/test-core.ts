@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const store = require('../../build');
-import { ITriggers } from './types';
+import { IState, ITriggers } from './types';
 import { DispatcherType } from '../../../reflexio-on-redux/lib/types';
 import { getActionType } from '../../../reflexio-on-redux/lib/utils';
 
@@ -15,4 +15,4 @@ export const useTrigger = () => {
   return trigger;
 };
 
-export const getState = store.default.getState;
+export const getState: () => IState = store.default.getState;
