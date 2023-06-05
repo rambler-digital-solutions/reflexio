@@ -17,7 +17,7 @@ export class System {
     }
   }
 
-  static config: SystemConfig = {
+  public config: SystemConfig = {
     'env': 'prod'
   };
 
@@ -27,8 +27,9 @@ export class System {
       this.taksQueue = new TaskQueue()
   }
 
+
   public setConfig(conf: SystemConfig) {
-    System.config = conf;
+    this.config = conf;
   }
 
   public afterHandlers: Array<any> = []

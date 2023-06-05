@@ -12,7 +12,7 @@ export function Trigger(store, config, system, uid) {
           type: combynedType,
           payload: actionArgs,
         });
-      } else if(system.config.env === 'dev') {
+      } else if (system.config.env === 'dev') {
         console.log(
           `WARNING!: ${config.trigger} can not trigger ${actionType}`
         );

@@ -4,7 +4,7 @@ const ProjectDIR = path.resolve(__dirname, '../') + '/';
 const SourceDIR = ProjectDIR + '/';
 const BuildDIR = ProjectDIR + 'playground/build/';
 
-module.exports = {
+module.exports = ({
   module: {
     rules: [
       {
