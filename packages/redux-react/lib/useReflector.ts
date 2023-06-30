@@ -7,7 +7,8 @@ import { UpdateOnType } from '../../reflexio-on-redux/lib/types';
 
 export const useReflector = <Triggers,K = unknown, S=unknown>(
             mapState: (args: K)=> S, 
-            condition: UpdateOnType<Triggers>
+            condition: UpdateOnType<Triggers>,
+            shouldUpdate?: (payload: any) => boolean
         ): S => {
     const system = useSystem();
     const store = useContext(StoreContext)
@@ -18,9 +19,16 @@ export const useReflector = <Triggers,K = unknown, S=unknown>(
         const subscribtion =  store.subscribe(()=> {
             const task = system.taksQueue.getCurrentTask()
             if(!condition.length || 
-                    (task && matchActionType(task, condition))
+                    (task && matchActionType(task.type, condition))
                 ) {
-                setState(mapState(store.getState()))
+                    if(shouldUpdate) {
+                        if(shouldUpdate(task.payload)) {
+                            setState(mapState(store.getState()))  
+                        }
+                    }
+                    else {
+                        setState(mapState(store.getState()))
+                    }
             }
         })
         return () => subscribtion()

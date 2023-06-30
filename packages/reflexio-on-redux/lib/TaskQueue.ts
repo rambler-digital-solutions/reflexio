@@ -4,14 +4,14 @@
 
 export class TaskQueue {
 
-    private currentTask: string;
+    private currentTask: {type: string, payload: any};
     
     private taskQueue: Array<string>
 
-    public setCurrentTask(task: string) {
-        this.currentTask = task;
+    public setCurrentTask(action: {type: string, payload: any}) {
+        this.currentTask = action;
     }
-    public getCurrentTask(): string {
+    public getCurrentTask(): {type: string, payload: any} {
         return this.currentTask;
     }
 

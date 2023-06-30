@@ -21,7 +21,12 @@ export const LettersList = () => {
       isLoading: state.letters.lettersList.loading,
     }),
     //@ts-ignore
-    ['lettersList']
+    ['lettersList'],
+    (payload) => {
+      console.log(payload);
+
+      return true;
+    }
   );
 
   React.useEffect(() => {

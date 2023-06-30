@@ -21,11 +21,12 @@ export const makeProcMiddleware = (
   return (store) => (next) => (action) => {
     let forceStopPropagate = false;
     const actionType = action.type;
+    const actionPayload = action.payload || null;
     const nexio = (args) => {
-      system.taksQueue.setCurrentTask(actionType)
+      system.taksQueue.setCurrentTask(action)
       next(args)
     }
-    const actionPayload = action.payload || null;
+   
     const skipInit = action.opts && action.opts.noInit;
     const skipUpdate = action.opts && action.opts.noUpdate;
     const initConfig = matchInitTrigger(configs, actionType); /// Возвращает  1 конфиг
