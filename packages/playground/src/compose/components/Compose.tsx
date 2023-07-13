@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { IState } from '../../_redux/types';
+import { IState, ITriggers } from '../../_redux/types';
 import { useTrigger } from 'src/_redux/useTrigger';
 import { ComposeWrapper } from './ComposeWrapper';
 import './Compose.less';
 import { PopupComposeContent } from './PopupComposeContent';
+import { useReflector } from '../../../../redux-react/lib/useReflector';
 
 export const Compose = () => {
-  const { subject, body, to } = useSelector((state: IState) => ({
-    subject: state.compose.subject,
-    body: state.compose.body,
-    to: state.compose.to,
-  }));
+  const { subject, to, from, body } = useReflector(
+    (state: IState) => state.compose,
+    ['setContent']
+  );
   const trigger = useTrigger();
 
   React.useEffect(() => {
