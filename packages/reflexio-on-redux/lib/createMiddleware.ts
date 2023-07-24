@@ -24,7 +24,7 @@ export const makeProcMiddleware = (
     const actionPayload = action.payload || null;
     const nexio = (args) => {
       system.taksQueue.setCurrentTask(action)
-      next(args)
+      return next(args)
     }
    
     const skipInit = action.opts && action.opts.noInit;

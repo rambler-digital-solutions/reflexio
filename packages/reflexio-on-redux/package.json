@@ -1,6 +1,6 @@
 {
     "name": "@reflexio/reflexio-on-redux",
-    "version": "0.9.1",
+    "version": "0.9.2",
     "description": "Reflexion with redux state manager",
     "files": ["lib", "index.d.ts", "readme.md"],
     "keywords": ["react", "redux"],
