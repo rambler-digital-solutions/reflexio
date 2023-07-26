@@ -29,7 +29,7 @@ else {
 useEffect(()=> {
 const subscribtion =  store.subscribe(()=> {
     const task = system.taksQueue.getCurrentTask()
-    if(c.length || 
+    if(!c.length || 
             (task && matchActionType(task.type, c))
         ) {
             if(shouldUpdate) {
