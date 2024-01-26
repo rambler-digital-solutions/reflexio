@@ -1,34 +1,33 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { IState, ITriggers } from 'src/_redux/types';
+import { Script } from '../../../../reflexio-on-redux/lib/interfaces/IScript';
 import {
-  ScriptInitArgsType,
-  ScriptOptsType,
-  ScriptUpdateArgsType,
+  ScriptAbstractInitArgsType,
+  ScriptAbstractUpdateArgsType,
+  ScriptAbstractOptsType,
 } from '@reflexio/reflexio-on-redux/lib/types';
-import { IComposeTriggers } from '../compose.config';
 
-export class PreventCloseScript {
-  constructor(
-    private opts: ScriptOptsType<
-      IComposeTriggers,
-      ITriggers,
-      IState,
-      'preventClose'
-    >
-  ) {}
-
+export class PreventCloseScript extends Script<
+  ITriggers,
+  IState,
+  'preventClose',
+  {}
+> {
   private body: string = '';
   private subject: string = '';
   private passCb: () => void;
 
-  public init(
-    args: ScriptInitArgsType<IComposeTriggers, 'preventClose', 'init'>
+  constructor(
+    public opts: ScriptAbstractOptsType<ITriggers, IState, 'preventClose'>
   ) {
-    console.log('PREVENT INIT');
+    super();
   }
 
-  private handleCheck(
-    args: ScriptUpdateArgsType<IComposeTriggers, 'preventClose', 'checkReq'>
-  ) {
+  init(
+    args: ScriptAbstractInitArgsType<ITriggers, 'preventClose', 'init'>
+  ): void {}
+
+  private handleCheck(args) {
     this.passCb = args.payload.passCb;
     if (
       typeof args.payload.subject === 'undefined' &&
@@ -49,35 +48,30 @@ export class PreventCloseScript {
       this.opts.trigger('preventClose', 'checkResp', true);
     }
   }
-  private handleClear(
-    args: ScriptUpdateArgsType<IComposeTriggers, 'preventClose', 'clear'>
-  ) {
+  private handleClear() {
     if (this.passCb) {
       this.passCb();
     }
   }
-  private handleSet(
-    args: ScriptUpdateArgsType<IComposeTriggers, 'preventClose', 'set'>
-  ) {
+  private handleSet(args) {
     this.body = args.payload.body;
     this.subject = args.payload.subject;
   }
 
-  public update(
-    args: ScriptUpdateArgsType<
-      IComposeTriggers,
-      'preventClose',
-      'checkReq' | 'clear' | 'set'
-    >
-  ) {
-    if (args.status === 'checkReq') {
-      this.handleCheck(args as any);
+  public update(args: ScriptAbstractUpdateArgsType<ITriggers, 'preventClose'>) {
+    const checkReqEvent = this.opts.catchStatus('checkReq');
+    if (checkReqEvent.isCatched) {
+      this.handleCheck(checkReqEvent.payload);
     }
-    if (args.status === 'clear') {
-      this.handleClear(args as any);
+
+    const clearEvent = this.opts.catchStatus('clear');
+    if (clearEvent.isCatched) {
+      this.handleClear();
     }
-    if (args.status === 'set') {
-      this.handleSet(args as any);
+
+    const setEvent = this.opts.catchStatus('set');
+    if (setEvent.isCatched) {
+      this.handleSet(setEvent.payload);
     }
   }
 }

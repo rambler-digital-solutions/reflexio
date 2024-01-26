@@ -40,6 +40,14 @@ type TriggerPhasePayload<
   ? GetByKey<ReturnType<IR[K]>, S>
   : IR[K];
 
+
+  type TriggerPhasePayload2<
+  IR,
+  K extends keyof IR,
+> = IR[K] extends TriggerPhaseWrapper<Record<string, unknown>>
+  ? GetByKey<ReturnType<IR[K]>, TriggerPhaseKeys<IR, K>>
+  : IR[K];
+
 export type DispatcherType<IR> = <
   K extends keyof IR,
   S extends TriggerPhaseKeys<IR, K>
@@ -58,6 +66,8 @@ export type WaiterType<IR> = <
   timeout?: number
 ) => Promise<TriggerPhasePayload<IR, K, S>>;
 
+
+
 export type HookerType<IR> = <
   K extends keyof IR,
   S extends TriggerPhaseKeys<IR, K>,
@@ -69,6 +79,22 @@ export type HookerType<IR> = <
   startArgs: TriggerPhasePayload<IR, K, S>,
   timeout?: number
 ) => Promise<TriggerPhasePayload<IR, K, P>>;
+
+
+export type CatchStatusType<IR, K extends keyof IR> = <
+  S extends TriggerPhaseKeys<IR, K>
+>(
+  status: S,
+) => {payload: TriggerPhasePayload<IR, K, S>, isCatched: boolean};
+
+export type CatchEventType<IR> = <
+  K extends keyof IR,
+  S extends TriggerPhaseKeys<IR, K>
+>(
+  type: K,
+  status: S,
+) => {payload: TriggerPhasePayload<IR, K, S>, isCatched: boolean};
+
 
 
 export type SetStatusType<IR, K extends keyof IR> = <
@@ -104,6 +130,30 @@ export type DefautOpts<
   state: IState;
   bind: BindHandlerType<ITrigger, BiteName>
 };
+
+export type DefautOpts2<
+  IRootTrigger,
+  IState,
+  BiteName extends keyof IRootTrigger
+> = {
+  customOpts: unknown;
+  dispatch: Dispatch;
+  setStatus: SetStatusType<IRootTrigger, BiteName>;
+  trigger: DispatcherType<IRootTrigger>;
+  triggerOnly: DispatcherType<IRootTrigger>;
+  wait: WaiterType<IRootTrigger>;
+  hook: HookerType<IRootTrigger>;
+  save: DispatcherType<IRootTrigger>;
+  uid: string;
+  getCurrentState: () => IState;
+  drop: () => void;
+  state: IState;
+  bind: BindHandlerType<IRootTrigger, BiteName>;
+  catchStatus: CatchStatusType<IRootTrigger, BiteName>;
+  catchEvent: CatchEventType<IRootTrigger>;
+};
+
+
 
 type OmitNever<T> = { [K in keyof T as T[K] extends never ? never : K]: T[K] };
 
@@ -177,6 +227,13 @@ export type ScriptOptsType<
   BiteName extends keyof ITrigger
 > = DefautOpts<ITrigger, IRootTrigger, IState, BiteName>;
 
+export type ScriptAbstractOptsType<
+  IRootTrigger,
+  IRootState,
+  BiteName extends keyof IRootTrigger
+> = DefautOpts2<IRootTrigger, IRootState, BiteName>;
+
+
 export type ScriptInitArgsType<
   ITrigger,
   Tr extends keyof ITrigger,
@@ -186,10 +243,27 @@ export type ScriptInitArgsType<
 export type ScriptUpdateArgsType<
   ITrigger,
   Tr extends keyof ITrigger,
-  PhK extends TriggerPhaseKeys<ITrigger, Tr>
+  S extends TriggerPhaseKeys<ITrigger, Tr>
 > = {
-  payload: TriggerPhasePayload<ITrigger, Tr, PhK>;
-  trigger: ITrigger;
-  status: PhK;
+  payload: TriggerPhasePayload<ITrigger, Tr, S>;
+  trigger: keyof ITrigger;
+  status: S;
   hangOn: (args?: { keepUpdate: boolean }) => void;
 };
+
+
+export type ScriptAbstractUpdateArgsType<
+  ITrigger,
+  Tr extends keyof ITrigger,
+> = {
+  payload: TriggerPhasePayload2<ITrigger, Tr>;
+  trigger: keyof ITrigger;
+  status: TriggerPhaseKeys<ITrigger, Tr>;
+  hangOn: (args?: { keepUpdate: boolean }) => void;
+};
+
+export type ScriptAbstractInitArgsType<
+  ITrigger,
+  Tr extends keyof ITrigger,
+  PhK extends TriggerPhaseKeys<ITrigger, Tr>
+> = TriggerPhasePayload<ITrigger, Tr, PhK>;
