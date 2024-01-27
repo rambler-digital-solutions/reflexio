@@ -1,14 +1,15 @@
 # Reflexio
-Business flow manager. 
-Library for nice and scalable organizing of business logic in web applications.
+State manager based on redux for nice and scalable organizing of business logic in web applications.
+It helps you to build big enterprize level application with modular architecture. 
 
-It was Initially build on the top of redux to make powerful tool for implementing business flow of large enterprise-level web applications.  No more *store.dispatch* hell. Just nicely readable and configurable in one place class-definitively styled description of the business logic of your application. 
+
+This is powerful tool for implementing business flow of large enterprise-level web applications.  No more *store.dispatch* hell. Just nicely readable and configurable in one place class-definitively styled description of the business logic of your application. 
 Comes with ecosistem of helper packages and adapters to ui libries such as react.
 
 ## Installation
 
 ```bash
-yarn add @reflexio/reflexio-on-redux
+yarn add @reflexio/core-v1
 
 ```
 
@@ -28,7 +29,7 @@ It accepts slice name literal, initial state and Bites. Bites are created with  
 
 ```typescript
 
-import {Slice, Bite} from '@reflexio/reflexio-on-redux'
+import {Slice, Bite} from '@reflexio/react-v1'
 
 
 const loadUserBite = Bite(
@@ -46,11 +47,10 @@ const loadUserBite = Bite(
          },
   },
   {
-    updateOn: ['loadUser'],
-    canTrigger: ['loadUser'],
+    watchScope: ['loadUser'],
     instance: 'stable',
     script: LoadUser,
-    triggerStatus: 'wait',
+    initOn: 'wait',
   }
 );
 const resetUserStateBite = Bite(
@@ -88,7 +88,7 @@ is a middleware handler class.
 
  configures mode of creating of *LoadUser* class instance. There are three types of modes: **stable**, **refreshing** and **multiple**. **stable** means instance is created once when triggering action is dispatched and lives in the context until it will be manually dropped. On **refreshing** mode, instance is getting dropped and recreated every time. On **multiple**, the new instance of corresponding script class is created (with different uid).
 
-> triggerStatus: wait 
+> initOn: wait 
 
 means that middleware handler (script class instance) inits when *action* with the type *loadUser/wait* is dispatched.
 
@@ -97,9 +97,9 @@ means that middleware handler (script class instance) inits when *action* with t
 
 Script class has required method **init(...)** which accepts triggered action payload and
 is called when this action is dispatched.
-It also has the non-required method **update(...)**, which is called every time when
+It also has the non-required method **watch(...)**, which is called every time when
 actions with types specified in 
->updateOn: [....] are dispatched.
+>watchScope: [....] are dispatched.
 
 In array you can specify types of actions like ['actionOne', 'actionTwo'] or even specify more precisely [{actionOne: 'init' }] 
 
@@ -115,25 +115,19 @@ export  class  LoadUser {
         ** Here you can call side effects, 
 		** dispatch actions 
 		** via this.opts.trigger('actionName', 'actionStatus',{...payload})
-		** safely trigger action which does not affect updateOn watchers
-		** via this.opts.triggerOnly('actionName', 'actionStatus',{...payload})
-        ** get current state via
-        ** this.opts.getCurrentState()
+    ** get current state via
+    ** this.opts.getCurrentState()
 		*/ 
 		setTimeout(() => {
 			this.opts.trigger('loadUser', 'fail', this.opts.uid);
 		}, 5000);
 	}
 
-	public async  update(args) {
+	public async  watch(args) {
 
 		this.opts.hangOn()
 		/* 
         ** Here you can do all the same staff and 
-		** call args.hangOn() to prevent reducer call. WOW!
-		** this is not all  - you can call it like args.hangOn({keepUpdate: true}) 
-		** to update state but without reducer call ( and subsequent  rendering in
-		** react components). 
 		*/
 		
 	}
