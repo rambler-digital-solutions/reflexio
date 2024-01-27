@@ -2,6 +2,7 @@ import { getActionType } from '../../utils';
 
 export function Hook(store, config, system, uid) {
   //const canTrigger = config.config.canTrigger;
+  const sourceTrigger = config.trigger;
 
   return (actionType, actionStatusStart, actionStatusStop, startPAyload, timeout) => {
 
@@ -12,6 +13,7 @@ export function Hook(store, config, system, uid) {
         store.dispatch({
             type: combynedTypeStart,
             payload: startPAyload,
+            source: `${sourceTrigger}:${uid}`
         });
     }, 0)  
     return new Promise((resolve, reject)=> { 

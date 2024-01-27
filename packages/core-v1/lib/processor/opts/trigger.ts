@@ -1,7 +1,7 @@
 import { getActionType } from '../../utils';
 
 export function Trigger(store, config, system, uid) {
-  //const canTrigger = config.config.canTrigger;
+  const sourceTrigger = config.trigger;
 
   return (actionType, actionStatus, actionArgs) => {
     const process = system.findProcessByUid(uid);
@@ -11,6 +11,7 @@ export function Trigger(store, config, system, uid) {
         store.dispatch({
           type: combynedType,
           payload: actionArgs,
+          source: `${sourceTrigger}:${uid}`
         });
       // } else if (system.config.env === 'dev') {
       //   console.log(

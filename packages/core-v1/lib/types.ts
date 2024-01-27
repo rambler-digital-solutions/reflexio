@@ -125,6 +125,7 @@ export type DefautOpts<
   wait: WaiterType<IRootTrigger>;
   hook: HookerType<IRootTrigger>;
   save: DispatcherType<IRootTrigger>;
+  biteName: string;
   uid: string;
   getCurrentState: () => IState;
   drop: () => void;
@@ -213,7 +214,7 @@ export type WatchArgsType<
   payload: TriggerPhasePayload2<ITrigger, Tr>;
   trigger: keyof ITrigger;
   status: TriggerPhaseKeys<ITrigger, Tr>;
-  source: string;
+  source?: string;
   hangOn: () => void;
 };
 

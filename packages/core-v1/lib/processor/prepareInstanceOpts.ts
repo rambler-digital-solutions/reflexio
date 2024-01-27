@@ -24,6 +24,7 @@ export function prepareOpts(config, store, system) {
   return {
     dispatch: store.dispatch,
     uid: processUid,
+    biteName: config.trigger,
     wait,
     hook, 
     trigger,

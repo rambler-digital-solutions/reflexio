@@ -9,7 +9,7 @@ export function BeforeUpdate(
   reducers,
   sliceName
 ) {
-  const { trigger, status } = getTriggerAndStatus(actionType);
+  //const { trigger, status } = getTriggerAndStatus(actionType);
 
   //const reducer = pickReducer(reducers, trigger, status);
   let propagate = true;

@@ -7,6 +7,7 @@ export function SetStatus(store, config, system, uid) {
       store.dispatch({
         type: getActionType(config.trigger, status),
         payload: args,
+        source: `${config.trigger}:${uid}`
       });
     }
   };

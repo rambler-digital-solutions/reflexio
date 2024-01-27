@@ -17,7 +17,7 @@ export function createProcessorInstance(
     case 'multiple':
       return multipleMode(system, config, opt, actionType);
     default:
-      throw Error('Unknown instantiating mode');
+      throw Error('Unknown instance mode');
   }
 }
 
