@@ -1,4 +1,4 @@
-import { Slice } from '../../../core-v1/lib';
+import { Slice } from '../../../v1-core/lib';
 import {
   effectiveBite,
   EffectiveState,

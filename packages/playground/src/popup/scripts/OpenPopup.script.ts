@@ -4,8 +4,8 @@ import {
   InitArgsType,
   ScriptOptsType,
   WatchArgsType,
-} from '../../../../core-v1/lib/types';
-import { Script } from '../../../../core-v1/lib/interfaces/IScript';
+} from '../../../../v1-core/lib/types';
+import { Script } from '../../../../v1-core/lib/interfaces/IScript';
 import { IPopupTriggers } from '../popup.config';
 
 export class OpenPopupScript extends Script<

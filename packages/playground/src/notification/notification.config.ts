@@ -1,6 +1,6 @@
 import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '../../../core-v1/lib';
-import { BiteStatusWrap } from '../../../core-v1/lib/types';
+import { Bite, Slice } from '../../../v1-core/lib';
+import { BiteStatusWrap } from '../../../v1-core/lib/types';
 import { INotification } from './interfaces/Notification.interface';
 import { NotificationScrit } from './scripts/Notification.script';
 

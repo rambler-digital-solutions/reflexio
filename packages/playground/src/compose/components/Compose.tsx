@@ -5,7 +5,7 @@ import { useTrigger } from 'src/_redux/useTrigger';
 import { ComposeWrapper } from './ComposeWrapper';
 import './Compose.less';
 import { PopupComposeContent } from './PopupComposeContent';
-import { useReflector } from '../../../../redux-react/lib/useReflector';
+import { useReflector } from '../../../../v1-react/lib/useReflector';
 
 export const Compose = () => {
   const { subject, to, from, body } = useReflector(

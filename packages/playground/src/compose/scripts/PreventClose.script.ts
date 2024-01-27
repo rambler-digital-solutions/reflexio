@@ -4,8 +4,8 @@ import {
   InitArgsType,
   ScriptOptsType,
   WatchArgsType,
-} from '../../../../core-v1/lib/types';
-import { Script } from '../../../../core-v1/lib/interfaces/IScript';
+} from '../../../../v1-core/lib/types';
+import { Script } from '../../../../v1-core/lib/interfaces/IScript';
 export class PreventCloseScript extends Script<
   ITriggers,
   IState,

@@ -1,7 +1,7 @@
 import { ILetter } from 'src/letters/interfaces/Letter.interface';
 import { IState, ITriggers } from '../_redux/types';
-import { Bite, Slice } from '../../../core-v1/lib';
-import { BiteStatusWrap } from '../../../core-v1/lib/types';
+import { Bite, Slice } from '../../../v1-core/lib';
+import { BiteStatusWrap } from '../../../v1-core/lib/types';
 import { changeItemReducer } from './reducers/changeItem.reducer';
 import { closeWindowRecucer } from './reducers/closeWindow.reducer';
 import { openWindowReducer } from './reducers/openWindow.reducer';

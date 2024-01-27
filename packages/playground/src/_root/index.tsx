@@ -8,7 +8,7 @@ import { ErrorBoundary } from '../_components';
 import { LettersList } from '../letters/components/LettersList';
 import { Notification } from '../notification/components/Notification';
 import { Window } from '../popup/components/Window';
-import { ReflexProvider } from '../../../redux-react/lib';
+import { ReflexProvider } from '../../../v1-react/lib';
 
 /*
  ** In MULD-4 we implement popup window

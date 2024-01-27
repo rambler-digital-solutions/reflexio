@@ -3,10 +3,10 @@ import {
   InitArgsType,
   ScriptOptsType,
   WatchArgsType,
-} from '../../../../core-v1/lib/types';
+} from '../../../../v1-core/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
 import { IComposeTriggers } from '../compose.config';
-import { Script } from '../../../../core-v1/lib/interfaces/IScript';
+import { Script } from '../../../../v1-core/lib/interfaces/IScript';
 
 export class SubmitLetterScript extends Script<
   ITriggers,

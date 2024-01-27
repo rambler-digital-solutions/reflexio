@@ -4,7 +4,7 @@ import { useTrigger } from 'src/_redux/useTrigger';
 import { useSelector } from 'react-redux';
 import { IState } from 'src/_redux/types';
 import { ComposeGrid } from 'src/compose/components/ComposeGrid';
-import { useReflector } from '../../../../redux-react/lib';
+import { useReflector } from '../../../../v1-react/lib';
 import './styles.less';
 
 export const LettersList = () => {

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { WatchArgsType } from '../../../../core-v1/lib/types';
+import { WatchArgsType } from '../../../../v1-core/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
-import { useSystem } from '../../../../core-v1/lib';
-import { InitArgsType, ScriptOptsType } from '../../../../core-v1/lib/types';
-import { Script } from '../../../../core-v1/lib/interfaces/IScript';
+import { useSystem } from '../../../../v1-core/lib';
+import { InitArgsType, ScriptOptsType } from '../../../../v1-core/lib/types';
+import { Script } from '../../../../v1-core/lib/interfaces/IScript';
 import { PopupComposeContent } from '../components/PopupComposeContent';
 import { IComposeTriggers } from '../compose.config';
 

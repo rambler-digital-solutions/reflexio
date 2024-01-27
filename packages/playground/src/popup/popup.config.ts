@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '../../../core-v1/lib';
-import { BiteStatusWrap } from '../../../core-v1/lib/types';
+import { Bite, Slice } from '../../../v1-core/lib';
+import { BiteStatusWrap } from '../../../v1-core/lib/types';
 import { OpenPopupScript } from './scripts/OpenPopup.script';
 
 export interface IPopupState {

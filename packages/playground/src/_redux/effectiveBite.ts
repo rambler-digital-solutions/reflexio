@@ -1,5 +1,5 @@
-import { Bite } from '../../../core-v1/lib';
-import { DispatcherType, BiteStatusWrap } from '../../../core-v1/lib/types';
+import { Bite } from '../../../v1-core/lib';
+import { DispatcherType, BiteStatusWrap } from '../../../v1-core/lib/types';
 
 export type EffectiveState<I, D, E> = {
   input?: I;

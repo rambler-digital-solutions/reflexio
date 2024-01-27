@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { ITriggers } from './types';
-import { DispatcherType } from '../../../core-v1/lib/types';
-import { getActionType } from '../../../core-v1/lib/utils';
+import { DispatcherType } from '../../../v1-core/lib/types';
+import { getActionType } from '../../../v1-core/lib/utils';
 
 export const useTrigger = () => {
   const dispatch = useDispatch();

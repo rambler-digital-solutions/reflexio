@@ -1,9 +1,9 @@
 import React from 'react';
 import {useState, useEffect, useContext} from 'react'
-import { useSystem } from '../../core-v1/lib';
+import { useSystem } from '../../v1-core/lib';
 import { matchActionType } from './matchActionType';
 import { StoreContext } from './constext';
-import { UpdateOnType } from '../../core-v1/lib/types';
+import { UpdateOnType } from '../../v1-core/lib/types';
 
 
 

@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '../../../core-v1/lib';
+import { Bite, Slice } from '../../../v1-core/lib';
 import { OnboardScript } from './scripts/Onboard.script';
-import { BiteStatusWrap } from '../../../core-v1/lib/types';
+import { BiteStatusWrap } from '../../../v1-core/lib/types';
 
 export interface IOnboardingState {
   stage: number;
