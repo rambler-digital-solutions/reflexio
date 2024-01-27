@@ -1,5 +1,5 @@
 import { Bite, Slice } from '../../../core-v1/lib';
-import { TriggerPhaseWrapper } from '@reflexio/reflexio-on-redux/lib/types';
+import { BiteStatusWrap } from '../../../core-v1/lib/types';
 import {
   effectiveBite,
   EffectiveState,
@@ -44,48 +44,39 @@ export const lettersInitialState: ILettersState = {
 
 const lettersListBite = effectiveBite<
   ILettersTriggers,
-  ITriggers,
   ILettersState,
-  IState,
-  'lettersList'
+  'lettersList',
+  ITriggers
 >(loadLetters, 'lettersList');
 
 const saveLetterBite = effectiveBite<
   ILettersTriggers,
-  ITriggers,
   ILettersState,
-  IState,
-  'saveLetter'
+  'saveLetter',
+  ITriggers
 >(createLetter, 'saveLetter', {
   doneReducer: saveLetterReducer,
 });
 
 const updateLetterBite = effectiveBite<
   ILettersTriggers,
-  ITriggers,
   ILettersState,
-  IState,
-  'updateLetter'
+  'updateLetter',
+  ITriggers
 >(updateLetter, 'updateLetter', {
   doneReducer: updateLetterReducer,
 });
 
 const deleteLetterBite = effectiveBite<
   ILettersTriggers,
-  ITriggers,
   ILettersState,
-  IState,
-  'deleteLetter'
+  'deleteLetter',
+  ITriggers
 >(loadLetters, 'deleteLetter', {
   doneReducer: deleteLetterReducer,
 });
 
-export const lettersSlice = Slice<
-  ILettersTriggers,
-  ITriggers,
-  ILettersState,
-  IState
->(
+export const lettersSlice = Slice<ILettersTriggers, ILettersState, ITriggers>(
   'letters',
   {
     lettersList: lettersListBite,

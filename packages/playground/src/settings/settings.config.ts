@@ -23,17 +23,15 @@ export const settingsInitialState: ISettingsState = {
 
 const loadSettingsBite = effectiveBite<
   ISettingsTriggers,
-  ITriggers,
   ISettingsState,
-  IState,
-  'loadSettings'
+  'loadSettings',
+  ITriggers
 >(loadSetting, 'loadSettings');
 
 export const settingsSlice = Slice<
   ISettingsTriggers,
-  ITriggers,
   ISettingsState,
-  IState
+  ITriggers
 >(
   'settings',
   {

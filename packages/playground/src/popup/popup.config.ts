@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { IState, ITriggers } from 'src/_redux/types';
 import { Bite, Slice } from '../../../core-v1/lib';
-import { TriggerPhaseWrapper } from '../../../core-v1/lib/types';
+import { BiteStatusWrap } from '../../../core-v1/lib/types';
 import { OpenPopupScript } from './scripts/OpenPopup.script';
 
 export interface IPopupState {
@@ -10,7 +10,7 @@ export interface IPopupState {
 }
 
 export interface IPopupTriggers {
-  openPopup: TriggerPhaseWrapper<{
+  openPopup: BiteStatusWrap<{
     init: string | ReactElement;
     open: null;
     close: null;
@@ -22,13 +22,7 @@ export const popupInitialState: IPopupState = {
   isOpen: false,
 };
 
-const openPopupBite = Bite<
-  IPopupTriggers,
-  ITriggers,
-  IPopupState,
-  IState,
-  'openPopup'
->(
+const openPopupBite = Bite<IPopupTriggers, IPopupState, 'openPopup', ITriggers>(
   {
     init: (state, payload) => {
       state.content = payload;
@@ -41,15 +35,14 @@ const openPopupBite = Bite<
     },
   },
   {
-    canTrigger: ['openPopup'],
-    updateOn: ['openPopup'],
+    watchScope: ['openPopup'],
     instance: 'stable',
     script: OpenPopupScript,
-    triggerStatus: 'init',
+    initOn: 'init',
   }
 );
 
-export const popupSlice = Slice<IPopupTriggers, ITriggers, IPopupState, IState>(
+export const popupSlice = Slice<IPopupTriggers, IPopupState, ITriggers>(
   'popup',
   {
     openPopup: openPopupBite,

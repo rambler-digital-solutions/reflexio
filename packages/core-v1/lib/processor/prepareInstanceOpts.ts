@@ -32,6 +32,28 @@ export function prepareOpts(config, store, system) {
     drop,
     getCurrentState,
     customOpts: config.config.customOpts,
-    bind
+    bind,
+    catchStatus: (status, args) => {
+      if(status === args.status && config.config.initOn === args.trigger) {
+        return {
+          isCatched: true,
+          payload: args.payload,
+        }
+      }
+      return {
+        isCatched: false,
+      }
+    },
+    catchEvent: (trigger, status, args) => {
+      if(status === args.status && trigger === args.trigger) {
+        return {
+          isCatched: true,
+          payload: args.payload,
+        }
+      }
+      return {
+        isCatched: false,
+      }
+    }
   };
 }

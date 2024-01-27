@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { ScriptUpdateArgsType } from '../../../../core-v1/lib/types';
+import { WatchArgsType } from '../../../../core-v1/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
 import { useSystem } from '../../../../core-v1/lib';
-import {
-  ScriptInitArgsType,
-  ScriptOptsType,
-} from '../../../../core-v1/lib/types';
+import { InitArgsType, ScriptOptsType } from '../../../../core-v1/lib/types';
+import { Script } from '../../../../core-v1/lib/interfaces/IScript';
 import { PopupComposeContent } from '../components/PopupComposeContent';
 import { IComposeTriggers } from '../compose.config';
 
@@ -13,37 +11,29 @@ import { IComposeTriggers } from '../compose.config';
  ** This script is responsible for opening
  ** and closing window, managing form content.
  */
-export class SetContentScript {
-  constructor(
-    private opts: ScriptOptsType<
-      IComposeTriggers,
-      ITriggers,
-      IState,
-      'setContent'
-    >
-  ) {}
+export class SetContentScript extends Script<
+  ITriggers,
+  IState,
+  'setContent',
+  'init',
+  {}
+> {
+  constructor(public opts: ScriptOptsType<ITriggers, IState, 'setContent'>) {
+    super();
+  }
 
   private forms: { [key: string]: { subject: string; body: string } } = {};
 
   private system;
 
-  public init(
-    args: ScriptInitArgsType<IComposeTriggers, 'setContent', 'init'>
-  ) {
+  public init(args: InitArgsType<IComposeTriggers, 'setContent', 'init'>) {
     console.log('CONTENT INIT');
     this.system = useSystem();
     this.opts.bind('openFromList', 'handleOpenFromList');
   }
 
-  public updateAfter() {
-    console.log('afterHandler');
-    console.log(this.opts.uid);
-  }
-
   // clear local saved data , then state will be changed by reducer
-  private async handleCloseWindow(
-    args: ScriptUpdateArgsType<IComposeTriggers, 'setContent', 'closeWindow'>
-  ) {
+  private async handleCloseWindow(args) {
     if (!args.payload || !args.payload.noCheck) {
       args.hangOn();
 
@@ -76,9 +66,7 @@ export class SetContentScript {
   }
 
   // when window is getting opened we need this to restore saved state
-  private handleOpenFromList(
-    args: ScriptUpdateArgsType<IComposeTriggers, 'setContent', 'openFromList'>
-  ) {
+  private handleOpenFromList(args) {
     console.log('OPEN FROM LIST');
     this.opts.trigger('setFormState', '', {
       body: args.payload.body,
@@ -93,9 +81,7 @@ export class SetContentScript {
 
   // if id = -1 => means we open brand new window
   // if id = null => means we hide currently opened window
-  private handleOpenWindow(
-    args: ScriptUpdateArgsType<IComposeTriggers, 'setContent', 'openWindow'>
-  ) {
+  private handleOpenWindow(args) {
     this.opts.trigger('preventClose', 'init', null);
     if (args.payload.id) {
       const savedData = this.forms[args.payload.id];
@@ -133,9 +119,7 @@ export class SetContentScript {
   }
 
   //save form input into class property
-  private handleSyncForm(
-    args: ScriptUpdateArgsType<IComposeTriggers, 'setContent', 'syncForm'>
-  ) {
+  private handleSyncForm(args) {
     const currentId = this.opts.getCurrentState().compose.openedComposeId;
     if (currentId) {
       if (!this.forms[currentId]) {
@@ -150,13 +134,7 @@ export class SetContentScript {
     }
   }
 
-  public handleCommitFormContent(
-    args: ScriptUpdateArgsType<
-      IComposeTriggers,
-      'setContent',
-      'commitFormContent'
-    >
-  ) {
+  public handleCommitFormContent(args) {
     const currentId = this.opts.getCurrentState().compose.openedComposeId;
     if (currentId) {
       const savedData = this.forms[currentId];
@@ -169,17 +147,7 @@ export class SetContentScript {
     }
   }
 
-  public update(
-    args: ScriptUpdateArgsType<
-      IComposeTriggers,
-      'setContent',
-      | 'syncForm'
-      | 'openWindow'
-      | 'closeWindow'
-      | 'commitFormContent'
-      | 'openFromList'
-    >
-  ) {
+  public watch(args) {
     //console.log(this.opts.getCurrentState())
     console.log(args.status);
     console.log(args.payload);
@@ -194,7 +162,7 @@ export class SetContentScript {
       this.handleCloseWindow(args as any);
     }
     if (args.status === 'commitFormContent') {
-      this.handleCommitFormContent(args as any);
+      this.handleCommitFormContent(args);
     }
     // if(args.status === 'openFromList') {
     //     this.handleOpenFromList(args as any)

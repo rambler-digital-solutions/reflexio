@@ -1,31 +1,29 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { IState, ITriggers } from 'src/_redux/types';
-import { Script } from '../../../../reflexio-on-redux/lib/interfaces/IScript';
 import {
-  ScriptAbstractInitArgsType,
-  ScriptAbstractUpdateArgsType,
-  ScriptAbstractOptsType,
-} from '@reflexio/core-v1/lib/types';
-
+  InitArgsType,
+  ScriptOptsType,
+  WatchArgsType,
+} from '../../../../core-v1/lib/types';
+import { Script } from '../../../../core-v1/lib/interfaces/IScript';
 export class PreventCloseScript extends Script<
   ITriggers,
   IState,
   'preventClose',
+  'init',
   {}
 > {
   private body: string = '';
   private subject: string = '';
   private passCb: () => void;
 
-  constructor(
-    public opts: ScriptAbstractOptsType<ITriggers, IState, 'preventClose'>
-  ) {
+  constructor(public opts: ScriptOptsType<ITriggers, IState, 'preventClose'>) {
     super();
   }
 
-  init(
-    args: ScriptAbstractInitArgsType<ITriggers, 'preventClose', 'init'>
-  ): void {}
+  init(args: InitArgsType<ITriggers, 'preventClose', 'init'>): void {
+    console.log('prevent close init');
+  }
 
   private handleCheck(args) {
     this.passCb = args.payload.passCb;
@@ -58,7 +56,8 @@ export class PreventCloseScript extends Script<
     this.subject = args.payload.subject;
   }
 
-  public update(args: ScriptAbstractUpdateArgsType<ITriggers, 'preventClose'>) {
+  public watch(args: WatchArgsType<ITriggers, 'preventClose'>) {
+    console.log('preventClose event');
     const checkReqEvent = this.opts.catchStatus('checkReq', args);
     if (checkReqEvent.isCatched) {
       this.handleCheck(checkReqEvent.payload);

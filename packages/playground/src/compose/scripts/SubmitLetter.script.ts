@@ -1,24 +1,26 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {
-  ScriptInitArgsType,
+  InitArgsType,
   ScriptOptsType,
-  ScriptUpdateArgsType,
-} from '@reflexio/reflexio-on-redux/lib/types';
+  WatchArgsType,
+} from '../../../../core-v1/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
 import { IComposeTriggers } from '../compose.config';
+import { Script } from '../../../../core-v1/lib/interfaces/IScript';
 
-export class SubmitLetterScript {
-  constructor(
-    private opts: ScriptOptsType<
-      IComposeTriggers,
-      ITriggers,
-      IState,
-      'submitLetter'
-    >
-  ) {}
+export class SubmitLetterScript extends Script<
+  ITriggers,
+  IState,
+  'submitLetter',
+  'init',
+  {}
+> {
+  constructor(public opts: ScriptOptsType<ITriggers, IState, 'submitLetter'>) {
+    super();
+  }
 
   public async init(
-    args: ScriptInitArgsType<IComposeTriggers, 'submitLetter', 'init'>
+    args: InitArgsType<IComposeTriggers, 'submitLetter', 'init'>
   ) {
     const { openedComposeId } = this.opts.getCurrentState().compose;
     // save
@@ -43,11 +45,5 @@ export class SubmitLetterScript {
     this.opts.drop(); // убиваем инстанс
   }
 
-  public update(
-    args: ScriptUpdateArgsType<
-      IComposeTriggers,
-      'submitLetter',
-      'init' | 'done' | 'save'
-    >
-  ) {}
+  public watch(args: WatchArgsType<IComposeTriggers, 'submitLetter'>) {}
 }

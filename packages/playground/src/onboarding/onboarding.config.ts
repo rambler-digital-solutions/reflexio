@@ -1,15 +1,15 @@
 import { ReactElement } from 'react';
 import { IState, ITriggers } from 'src/_redux/types';
 import { Bite, Slice } from '../../../core-v1/lib';
-import { TriggerPhaseWrapper } from '@reflexio/reflexio-on-redux/lib/types';
 import { OnboardScript } from './scripts/Onboard.script';
+import { BiteStatusWrap } from '../../../core-v1/lib/types';
 
 export interface IOnboardingState {
   stage: number;
 }
 
 export interface IOnboardingTriggers {
-  onboard: TriggerPhaseWrapper<{
+  onboard: BiteStatusWrap<{
     init: null;
     start: null;
     next: null;
@@ -23,10 +23,9 @@ export const onboardingInitialState: IOnboardingState = {
 
 const onboardBite = Bite<
   IOnboardingTriggers,
-  ITriggers,
   IOnboardingState,
-  IState,
-  'onboard'
+  'onboard',
+  ITriggers
 >(
   {
     init: null,
@@ -41,19 +40,17 @@ const onboardBite = Bite<
     },
   },
   {
-    canTrigger: ['openPopup'],
-    updateOn: [],
+    watchScope: [],
     instance: 'stable',
     script: OnboardScript,
-    triggerStatus: 'init',
+    initOn: 'init',
   }
 );
 
 export const popupSlice = Slice<
   IOnboardingTriggers,
-  ITriggers,
   IOnboardingState,
-  IState
+  ITriggers
 >(
   'onboarding',
   {

@@ -1,6 +1,6 @@
 import { IState, ITriggers } from 'src/_redux/types';
 import { Bite, Slice } from '../../../core-v1/lib';
-import { TriggerPhaseWrapper } from '../../../core-v1/lib/types';
+import { BiteStatusWrap } from '../../../core-v1/lib/types';
 import { INotification } from './interfaces/Notification.interface';
 import { NotificationScrit } from './scripts/Notification.script';
 
@@ -9,7 +9,7 @@ export interface INotificationState {
 }
 
 export interface INotificationTriggers {
-  showNotification: TriggerPhaseWrapper<{
+  showNotification: BiteStatusWrap<{
     init: string;
     close: null;
   }>;
@@ -21,10 +21,9 @@ export const notificationInitialState: INotificationState = {
 
 export const showNotificationBite = Bite<
   INotificationTriggers,
-  ITriggers,
   INotificationState,
-  IState,
-  'showNotification'
+  'showNotification',
+  ITriggers
 >(
   {
     init: (state, payload) => {
@@ -37,17 +36,15 @@ export const showNotificationBite = Bite<
   {
     script: NotificationScrit,
     instance: 'stable',
-    triggerStatus: 'init',
-    updateOn: ['showNotification'],
-    canTrigger: ['showNotification'],
+    initOn: 'init',
+    watchScope: ['showNotification'],
   }
 );
 
 export const notificationSlice = Slice<
   INotificationTriggers,
-  ITriggers,
   INotificationState,
-  IState
+  ITriggers
 >(
   'notification',
   {

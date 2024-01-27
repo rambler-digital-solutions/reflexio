@@ -1,7 +1,7 @@
 import { getActionType } from '../../utils';
 
 export function Bind(system, config) {
-  const actionType = getActionType(config.trigger, config.config.triggerStatus);
+  const actionType = getActionType(config.trigger, config.config.initOn);
      
   return (eventName, handlerName, targetName) => {
     const instances = system.findProcess(actionType);

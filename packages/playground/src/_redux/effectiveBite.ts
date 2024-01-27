@@ -1,8 +1,5 @@
 import { Bite } from '../../../core-v1/lib';
-import {
-  DispatcherType,
-  TriggerPhaseWrapper,
-} from '../../../core-v1/lib/types';
+import { DispatcherType, BiteStatusWrap } from '../../../core-v1/lib/types';
 
 export type EffectiveState<I, D, E> = {
   input?: I;
@@ -12,7 +9,7 @@ export type EffectiveState<I, D, E> = {
   error?: E;
 };
 
-export type EffectiveTrigger<I, D, E> = TriggerPhaseWrapper<{
+export type EffectiveTrigger<I, D, E> = BiteStatusWrap<{
   init: I;
   done: D;
   error: E;
@@ -30,10 +27,9 @@ export interface EffectiveBiteOpts<State, Trigger> {
 
 export const effectiveBite = <
   ITrigger,
-  IRootTrigger,
   IState,
-  IRootState,
-  K extends keyof ITrigger
+  K extends keyof ITrigger,
+  IRootTrigger
 >(
   promise,
   name: string,
@@ -55,7 +51,7 @@ export const effectiveBite = <
     state[name].error = payload;
   };
 
-  return Bite<ITrigger, IRootTrigger, IState, IRootState, K>(
+  return Bite<ITrigger, IState, K, IRootTrigger>(
     {
       init: opts && opts.initReducer ? opts.initReducer : defaultStartReducer,
       done: opts && opts.doneReducer ? opts.doneReducer : defaultDoneReducer,
@@ -63,15 +59,14 @@ export const effectiveBite = <
         opts && opts.errorReducer ? opts.errorReducer : defaultErrorReducer,
     } as any,
     {
-      triggerStatus: 'init',
+      initOn: 'init',
       customOpts: {
         promise,
         onStart: opts && opts.onStart ? opts.onStart : null,
         onError: opts && opts.onError ? opts.onError : null,
         onDone: opts && opts.onDone ? opts.onDone : null,
       },
-      updateOn: [name],
-      canTrigger: [name],
+      watchScope: [name],
       instance: opts && opts.mode ? (opts.mode as any) : 'stable',
       script: EffectScript,
     } as any
