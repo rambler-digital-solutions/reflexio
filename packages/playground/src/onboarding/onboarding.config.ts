@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '@reflexio/reflexio-on-redux';
+import { Bite, Slice } from '../../../core-v1/lib';
 import { TriggerPhaseWrapper } from '@reflexio/reflexio-on-redux/lib/types';
 import { OnboardScript } from './scripts/Onboard.script';
 

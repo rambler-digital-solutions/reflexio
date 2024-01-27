@@ -5,7 +5,7 @@ import { notificationSlice } from '../notification/notification.config';
 import { popupSlice } from '../popup/popup.config';
 import { settingsSlice } from '../settings/settings.config';
 import rootReducer from './reducer';
-import { useSystem } from '../../../reflexio-on-redux/lib/System';
+import { useSystem } from '../../../core-v1/lib/System';
 
 function configureStore() {
   const system = useSystem();

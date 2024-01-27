@@ -6,12 +6,12 @@ export function matchUpdateTrigger(configs, actionType) {
   return Object.keys(configs)
     .filter((c) => {
       const conf = configs[c];
-      const updateOn = conf.updateOn;
-      if (updateOn) {
-        if (updateOn.length === 0) {
+      const watchScope = conf.watchScope;
+      if (watchScope) {
+        if (watchScope.length === 0) {
           return true;
         }
-        const matchedTrigger = updateOn.find((t) => {
+        const matchedTrigger = watchScope.find((t) => {
           const firstKey = Object.keys(t)[0];
 
           return t === trigger || firstKey === trigger;

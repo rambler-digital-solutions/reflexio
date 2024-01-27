@@ -5,7 +5,7 @@ import {
   ScriptAbstractInitArgsType,
   ScriptAbstractUpdateArgsType,
   ScriptAbstractOptsType,
-} from '@reflexio/reflexio-on-redux/lib/types';
+} from '@reflexio/core-v1/lib/types';
 
 export class PreventCloseScript extends Script<
   ITriggers,
@@ -59,17 +59,17 @@ export class PreventCloseScript extends Script<
   }
 
   public update(args: ScriptAbstractUpdateArgsType<ITriggers, 'preventClose'>) {
-    const checkReqEvent = this.opts.catchStatus('checkReq');
+    const checkReqEvent = this.opts.catchStatus('checkReq', args);
     if (checkReqEvent.isCatched) {
       this.handleCheck(checkReqEvent.payload);
     }
 
-    const clearEvent = this.opts.catchStatus('clear');
+    const clearEvent = this.opts.catchStatus('clear', args);
     if (clearEvent.isCatched) {
       this.handleClear();
     }
 
-    const setEvent = this.opts.catchStatus('set');
+    const setEvent = this.opts.catchStatus('set', args);
     if (setEvent.isCatched) {
       this.handleSet(setEvent.payload);
     }

@@ -1,10 +1,11 @@
-import { ScriptUpdateArgsType } from '../../../../reflexio-on-redux/lib/types';
+/* eslint-disable no-unused-vars */
+import { ScriptUpdateArgsType } from '../../../../core-v1/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
-import { useSystem } from '../../../../reflexio-on-redux/lib';
+import { useSystem } from '../../../../core-v1/lib';
 import {
   ScriptInitArgsType,
   ScriptOptsType,
-} from '../../../../reflexio-on-redux/lib/types';
+} from '../../../../core-v1/lib/types';
 import { PopupComposeContent } from '../components/PopupComposeContent';
 import { IComposeTriggers } from '../compose.config';
 

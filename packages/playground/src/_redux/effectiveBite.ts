@@ -1,8 +1,8 @@
-import { Bite } from '../../../reflexio-on-redux/lib';
+import { Bite } from '../../../core-v1/lib';
 import {
   DispatcherType,
   TriggerPhaseWrapper,
-} from '../../../reflexio-on-redux/lib/types';
+} from '../../../core-v1/lib/types';
 
 export type EffectiveState<I, D, E> = {
   input?: I;

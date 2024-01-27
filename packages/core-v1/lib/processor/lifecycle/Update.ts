@@ -20,7 +20,7 @@ export function BeforeUpdate(
   };
 
 
-  if (instance.update) {
+  if (instance.watch) {
     const { trigger, status } = getTriggerAndStatus(actionType);
     const updateArgs = {
       payload: actionPayload,
@@ -36,11 +36,11 @@ export function BeforeUpdate(
         instance[instance.updatable[foundKey]](updateArgs)
       }
       else {
-        instance.update(updateArgs);
+        instance.watch(updateArgs);
       }
     }
     else {
-      instance.update(updateArgs);
+      instance.watch(updateArgs);
     }
   }
 

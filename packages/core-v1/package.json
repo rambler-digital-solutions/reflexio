@@ -1,7 +1,7 @@
 {
-    "name": "@reflexio/reflexio-on-redux",
-    "version": "0.9.2",
-    "description": "Reflexion with redux state manager",
+    "name": "@reflexio/core-v1",
+    "version": "1.0.0",
+    "description": "Reflexio core-v1 package",
     "files": ["lib", "index.d.ts", "readme.md"],
     "keywords": ["react", "redux"],
     "repository": "github:reflexio/reflexio-on-redux",

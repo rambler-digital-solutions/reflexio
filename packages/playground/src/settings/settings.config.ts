@@ -1,4 +1,4 @@
-import { Slice } from '../../../reflexio-on-redux/lib';
+import { Slice } from '../../../core-v1/lib';
 import {
   effectiveBite,
   EffectiveState,

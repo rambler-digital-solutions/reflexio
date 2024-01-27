@@ -22,7 +22,7 @@ export type MakeActionCreatorsType<AC> = {
 };
 
 export type TriggerPhaseVals<IR> = {
-  [K in keyof IR]: IR[K] extends TriggerPhaseWrapper<Record<string, unknown>>
+  [K in keyof IR]: IR[K] extends BiteStatusWrap<Record<string, unknown>>
     ? ReturnType<IR[K]>
     : never;
 };
@@ -36,7 +36,7 @@ type TriggerPhasePayload<
   IR,
   K extends keyof IR,
   S extends TriggerPhaseKeys<IR, K>
-> = IR[K] extends TriggerPhaseWrapper<Record<string, unknown>>
+> = IR[K] extends BiteStatusWrap<Record<string, unknown>>
   ? GetByKey<ReturnType<IR[K]>, S>
   : IR[K];
 
@@ -44,7 +44,7 @@ type TriggerPhasePayload<
   type TriggerPhasePayload2<
   IR,
   K extends keyof IR,
-> = IR[K] extends TriggerPhaseWrapper<Record<string, unknown>>
+> = IR[K] extends BiteStatusWrap<Record<string, unknown>>
   ? GetByKey<ReturnType<IR[K]>, TriggerPhaseKeys<IR, K>>
   : IR[K];
 
@@ -85,6 +85,7 @@ export type CatchStatusType<IR, K extends keyof IR> = <
   S extends TriggerPhaseKeys<IR, K>
 >(
   status: S,
+  args: unknown,
 ) => {payload: TriggerPhasePayload<IR, K, S>, isCatched: boolean};
 
 export type CatchEventType<IR> = <
@@ -93,6 +94,7 @@ export type CatchEventType<IR> = <
 >(
   type: K,
   status: S,
+  args: unknown,
 ) => {payload: TriggerPhasePayload<IR, K, S>, isCatched: boolean};
 
 
@@ -110,44 +112,22 @@ S extends TriggerPhaseKeys<IR, K>>(
   handlerName: string
 ) => void;
 
-export type DefautOpts<
-  ITrigger,
-  IRootTrigger,
-  IState,
-  BiteName extends keyof ITrigger
-> = {
-  customOpts: unknown;
-  dispatch: Dispatch;
-  setStatus: SetStatusType<ITrigger, BiteName>;
-  trigger: DispatcherType<IRootTrigger>;
-  triggerOnly: DispatcherType<IRootTrigger>;
-  wait: WaiterType<IRootTrigger>;
-  hook: HookerType<IRootTrigger>;
-  save: DispatcherType<IRootTrigger>;
-  uid: string;
-  getCurrentState: () => IState;
-  drop: () => void;
-  state: IState;
-  bind: BindHandlerType<ITrigger, BiteName>
-};
 
-export type DefautOpts2<
+export type DefautOpts<
   IRootTrigger,
   IState,
   BiteName extends keyof IRootTrigger
 > = {
-  customOpts: unknown;
+  customTools: unknown;
   dispatch: Dispatch;
   setStatus: SetStatusType<IRootTrigger, BiteName>;
   trigger: DispatcherType<IRootTrigger>;
-  triggerOnly: DispatcherType<IRootTrigger>;
   wait: WaiterType<IRootTrigger>;
   hook: HookerType<IRootTrigger>;
   save: DispatcherType<IRootTrigger>;
   uid: string;
   getCurrentState: () => IState;
   drop: () => void;
-  state: IState;
   bind: BindHandlerType<IRootTrigger, BiteName>;
   catchStatus: CatchStatusType<IRootTrigger, BiteName>;
   catchEvent: CatchEventType<IRootTrigger>;
@@ -157,7 +137,7 @@ export type DefautOpts2<
 
 type OmitNever<T> = { [K in keyof T as T[K] extends never ? never : K]: T[K] };
 
-export type TriggerPhaseWrapper<Args> = (args: Args) => Args;
+export type BiteStatusWrap<Args> = (args: Args) => Args;
 
 export type UpdateOnType<ITrigger> = | Array<
 Partial<
@@ -169,9 +149,10 @@ Partial<
 
 export type MakeBiteReducerType<
   ITrigger,
+  IRootTrigger,
   IState,
   BiteName extends keyof ITrigger
-> = ITrigger[BiteName] extends TriggerPhaseWrapper<Record<string, unknown>>
+> = ITrigger[BiteName] extends BiteStatusWrap<Record<string, unknown>>
   ? {
       [S in keyof ReturnType<ITrigger[BiteName]>]: (
         state: IState,
@@ -181,88 +162,62 @@ export type MakeBiteReducerType<
   : (state: IState, payload: ITrigger[BiteName]) => void;
 
 export type MakeBiteProcessorType<
-  ITrigger,
+  ITriggers,
   IRootTrigger,
-  IState,
-  BiteName extends keyof ITrigger
+  BiteName extends keyof ITriggers
 > = {
-  triggerStatus: ITrigger[BiteName] extends TriggerPhaseWrapper<
+  initOn: ITriggers[BiteName] extends BiteStatusWrap<
     Record<string, unknown>
   >
-    ? keyof ReturnType<ITrigger[BiteName]>
+    ? keyof ReturnType<ITriggers[BiteName]>
     : '';
-  updateOn?:
+  watchScope:
     | Array<
         Partial<
-          Record<keyof ITrigger, TriggerPhaseKeys<ITrigger, keyof ITrigger> 
-            | Array<TriggerPhaseKeys<ITrigger, keyof ITrigger>> 
+          Record<keyof IRootTrigger, TriggerPhaseKeys<IRootTrigger, keyof IRootTrigger> 
+            | Array<TriggerPhaseKeys<IRootTrigger, keyof IRootTrigger>> 
           >
-        > | keyof ITrigger
+        > | keyof IRootTrigger
       >
-    | Array<keyof ITrigger>;
+    | Array<keyof IRootTrigger>;
   instance: 'stable' | 'multiple' | 'refreshing';
-
+  
   script: unknown; //IA[key];
-  opts?: DefautOpts<ITrigger, IRootTrigger, IState, BiteName>;
+  //opts?: DefautOpts2<IRootTrigger, IState, BiteName>;
   customOpts?: unknown;
-  canTrigger?: Array<keyof IRootTrigger>;
+  //canTrigger?: Array<keyof IRootTrigger>;
 };
 
-export type MakeBiteType<ITrigger, IRootTrigger, IState, IRootState> = {
-  [key in keyof ITrigger]: {
-    reducer: MakeBiteReducerType<ITrigger, IState, key> | null;
+export type MakeBiteType<ITriggers, IState, IRootTrigger> = {
+  [key in keyof ITriggers]: {
+    reducer: MakeBiteReducerType<ITriggers, IRootTrigger, IState, key> | null;
     processor: MakeBiteProcessorType<
-      ITrigger,
-      IRootTrigger,
-      IRootState,
+    ITriggers,
+    IRootTrigger,
       key
     > | null;
   };
 };
 
 export type ScriptOptsType<
-  ITrigger,
-  IRootTrigger,
-  IState,
-  BiteName extends keyof ITrigger
-> = DefautOpts<ITrigger, IRootTrigger, IState, BiteName>;
-
-export type ScriptAbstractOptsType<
   IRootTrigger,
   IRootState,
   BiteName extends keyof IRootTrigger
-> = DefautOpts2<IRootTrigger, IRootState, BiteName>;
+> = DefautOpts<IRootTrigger, IRootState, BiteName>;
 
 
-export type ScriptInitArgsType<
-  ITrigger,
-  Tr extends keyof ITrigger,
-  PhK extends TriggerPhaseKeys<ITrigger, Tr>
-> = TriggerPhasePayload<ITrigger, Tr, PhK>;
-
-export type ScriptUpdateArgsType<
-  ITrigger,
-  Tr extends keyof ITrigger,
-  S extends TriggerPhaseKeys<ITrigger, Tr>
-> = {
-  payload: TriggerPhasePayload<ITrigger, Tr, S>;
-  trigger: keyof ITrigger;
-  status: S;
-  hangOn: (args?: { keepUpdate: boolean }) => void;
-};
-
-
-export type ScriptAbstractUpdateArgsType<
+export type WatchArgsType<
   ITrigger,
   Tr extends keyof ITrigger,
 > = {
   payload: TriggerPhasePayload2<ITrigger, Tr>;
   trigger: keyof ITrigger;
   status: TriggerPhaseKeys<ITrigger, Tr>;
-  hangOn: (args?: { keepUpdate: boolean }) => void;
+  source: string;
+  hangOn: () => void;
 };
 
-export type ScriptAbstractInitArgsType<
+export type InitArgsType<
   ITrigger,
   Tr extends keyof ITrigger,
   PhK extends TriggerPhaseKeys<ITrigger, Tr>

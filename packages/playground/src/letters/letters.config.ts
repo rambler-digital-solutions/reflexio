@@ -1,4 +1,4 @@
-import { Bite, Slice } from '../../../reflexio-on-redux/lib';
+import { Bite, Slice } from '../../../core-v1/lib';
 import { TriggerPhaseWrapper } from '@reflexio/reflexio-on-redux/lib/types';
 import {
   effectiveBite,

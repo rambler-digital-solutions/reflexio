@@ -1,7 +1,7 @@
 import { ILetter } from 'src/letters/interfaces/Letter.interface';
 import { IState, ITriggers } from '../_redux/types';
-import { Bite, Slice } from '../../../reflexio-on-redux/lib';
-import { TriggerPhaseWrapper } from '../../../reflexio-on-redux/lib/types';
+import { Bite, Slice } from '../../../core-v1/lib';
+import { BiteStatusWrap } from '../../../core-v1/lib/types';
 import { changeItemReducer } from './reducers/changeItem.reducer';
 import { closeWindowRecucer } from './reducers/closeWindow.reducer';
 import { openWindowReducer } from './reducers/openWindow.reducer';
@@ -31,7 +31,7 @@ const composeInitialState: IComposeState = {
 };
 
 export interface IComposeTriggers {
-  setContent: TriggerPhaseWrapper<{
+  setContent: BiteStatusWrap<{
     init: null;
     changeItem: { id: string; subject?: string };
     openFromList: { subject: string; body: string };
@@ -45,12 +45,12 @@ export interface IComposeTriggers {
     };
     done: null;
   }>;
-  submitLetter: TriggerPhaseWrapper<{
+  submitLetter: BiteStatusWrap<{
     init: null;
     save: null;
     done: null;
   }>;
-  preventClose: TriggerPhaseWrapper<{
+  preventClose: BiteStatusWrap<{
     init: null;
     set: { subject: string; body: string };
     clear: null;
@@ -62,10 +62,9 @@ export interface IComposeTriggers {
 
 const setContentBite = Bite<
   IComposeTriggers,
-  ITriggers,
   IComposeState,
-  IState,
-  'setContent'
+  'setContent',
+  ITriggers
 >(
   {
     init: null,
@@ -79,20 +78,18 @@ const setContentBite = Bite<
     done: null,
   },
   {
-    updateOn: ['setContent', 'preventClose'],
-    canTrigger: ['setFormState', 'setContent', 'preventClose', 'openPopup'],
+    watchScope: ['setContent', 'preventClose'],
     script: SetContentScript,
     instance: 'stable',
-    triggerStatus: 'init',
+    initOn: 'init',
   }
 );
 
 const submitLetterBite = Bite<
   IComposeTriggers,
-  ITriggers,
   IComposeState,
-  IState,
-  'submitLetter'
+  'submitLetter',
+  ITriggers
 >(
   {
     init: null,
@@ -100,35 +97,27 @@ const submitLetterBite = Bite<
     done: null,
   },
   {
-    updateOn: ['submitLetter'],
-    canTrigger: [
-      'saveLetter',
-      'submitLetter',
-      'setContent',
-      'showNotification',
-    ],
+    watchScope: ['submitLetter'],
     script: SubmitLetterScript,
     instance: 'stable',
-    triggerStatus: 'init',
+    initOn: 'init',
   }
 );
 
 const setFormStateBite = Bite<
   IComposeTriggers,
-  ITriggers,
   IComposeState,
-  IState,
-  'setFormState'
+  'setFormState',
+  ITriggers
 >((state, payload) => {
   Object.assign(state, payload);
 }, null);
 
 const preventCloseBite = Bite<
   IComposeTriggers,
-  ITriggers,
   IComposeState,
-  IState,
-  'preventClose'
+  'preventClose',
+  ITriggers
 >(
   {
     init: null,
@@ -138,20 +127,14 @@ const preventCloseBite = Bite<
     clear: null,
   },
   {
-    updateOn: ['preventClose'],
-    canTrigger: ['preventClose'],
+    watchScope: ['preventClose'],
     script: PreventCloseScript,
     instance: 'stable',
-    triggerStatus: 'init',
+    initOn: 'init',
   }
 );
 
-export const composeSlice = Slice<
-  IComposeTriggers,
-  ITriggers,
-  IComposeState,
-  IState
->(
+export const composeSlice = Slice<IComposeTriggers, IComposeState, ITriggers>(
   'compose',
   {
     setContent: setContentBite,

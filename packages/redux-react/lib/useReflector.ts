@@ -1,9 +1,9 @@
 import React from 'react';
 import {useState, useEffect, useContext} from 'react'
-import { useSystem } from '../../reflexio-on-redux/lib';
+import { useSystem } from '../../core-v1/lib';
 import { matchActionType } from './matchActionType';
 import { StoreContext } from './constext';
-import { UpdateOnType } from '../../reflexio-on-redux/lib/types';
+import { UpdateOnType } from '../../core-v1/lib/types';
 
 
 

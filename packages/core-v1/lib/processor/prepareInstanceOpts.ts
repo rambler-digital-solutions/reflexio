@@ -13,10 +13,10 @@ export function prepareOpts(config, store, system) {
   const trigger = Trigger(store, config, system, processUid);
 
   const setStatus = SetStatus(store, config, system, processUid);
-  const save = Save(store, config, system, processUid);
-  const triggerOnly = TriggerOnly(store, config, system, processUid);
+  //const save = Save(store, config, system, processUid);
+  //const triggerOnly = TriggerOnly(store, config, system, processUid);
   const drop = Drop(system, config);
-  const state = store.getState();
+  //const state = store.getState();
   const getCurrentState = store.getState;
   const wait = Wait(store, config, system, processUid);
   const hook = Hook(store, config, system, processUid);
@@ -27,12 +27,9 @@ export function prepareOpts(config, store, system) {
     wait,
     hook, 
     trigger,
-    triggerOnly,
-    save,
     setStatus,
     drop,
     getCurrentState,
-    state,
     customOpts: config.config.customOpts,
     bind
   };

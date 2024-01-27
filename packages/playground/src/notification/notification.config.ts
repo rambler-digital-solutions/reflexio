@@ -1,6 +1,6 @@
 import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '../../../reflexio-on-redux/lib';
-import { TriggerPhaseWrapper } from '../../../reflexio-on-redux/lib/types';
+import { Bite, Slice } from '../../../core-v1/lib';
+import { TriggerPhaseWrapper } from '../../../core-v1/lib/types';
 import { INotification } from './interfaces/Notification.interface';
 import { NotificationScrit } from './scripts/Notification.script';
 

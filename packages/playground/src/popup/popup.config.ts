@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '../../../reflexio-on-redux/lib';
-import { TriggerPhaseWrapper } from '../../../reflexio-on-redux/lib/types';
+import { Bite, Slice } from '../../../core-v1/lib';
+import { TriggerPhaseWrapper } from '../../../core-v1/lib/types';
 import { OpenPopupScript } from './scripts/OpenPopup.script';
 
 export interface IPopupState {
