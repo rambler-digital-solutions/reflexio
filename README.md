@@ -29,7 +29,7 @@ It accepts slice name literal, initial state and Bites. Bites are created with  
 
 ```typescript
 
-import {Slice, Bite} from '@reflexio/react-v1'
+import {Slice, Bite} from '@reflexio/core-v1'
 
 
 const loadUserBite = Bite(
