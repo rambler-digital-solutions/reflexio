@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { IState } from 'src/_redux/types';
+import { IState, ITriggers } from 'src/_redux/types';
 import { IPopupState } from '../popup.config';
 import './style.less';
+import { useReflector } from '@reflexio/react-v1/lib/useReflector';
+import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
 
 export const Window = () => {
-  const popupState: IPopupState = useSelector(
-    (state: IState) => state.popup,
-    shallowEqual
-  );
+  const popupState: IPopupState = useReflector<
+    ITriggers,
+    IState,
+    IState['popup']
+  >((state: IState) => state.popup, ['openPopup']);
 
   return popupState.isOpen ? (
     <div className='popupBackground'>

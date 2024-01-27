@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { IState } from '../../_redux/types';
-import { useTrigger } from 'src/_redux/useTrigger';
+//import { useSelector } from 'react-redux';
+import { IState, ITriggers } from '../../_redux/types';
+import { useReflector } from '@reflexio/react-v1/lib/useReflector';
+import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
 import { Compose } from './Compose';
 import './ComposeGrid.less';
 import { ComposeWrapper } from './ComposeWrapper';
@@ -33,11 +34,18 @@ const ComposePanel = ({
 );
 
 export const ComposeGrid = () => {
-  const { items, opened } = useSelector((state: IState) => ({
-    items: state.compose.composeItems,
-    opened: state.compose.openedComposeId,
-  }));
-  const trigger = useTrigger();
+  const { items, opened } = useReflector<
+    ITriggers,
+    IState,
+    { items: IState['compose']['composeItems']; opened: string }
+  >(
+    (state) => ({
+      items: state.compose.composeItems,
+      opened: state.compose.openedComposeId,
+    }),
+    ['setContent']
+  );
+  const trigger = useTrigger<ITriggers>();
 
   //composeItems  from redux
   // openedComposeId from redux

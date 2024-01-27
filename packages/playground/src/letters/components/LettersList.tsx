@@ -1,26 +1,28 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react';
-import { useTrigger } from 'src/_redux/useTrigger';
-import { useSelector } from 'react-redux';
-import { IState } from 'src/_redux/types';
+import { useReflector } from '@reflexio/react-v1/lib/useReflector';
+import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
+import { IState, ITriggers } from 'src/_redux/types';
 import { ComposeGrid } from 'src/compose/components/ComposeGrid';
-import { useReflector } from '../../../../v1-react/lib';
 import './styles.less';
 
 export const LettersList = () => {
-  const trigger = useTrigger();
+  const trigger = useTrigger<ITriggers>();
 
   // const { letters, isLoading } = useSelector((state: IState) => ({
   //   letters: state.letters.lettersList.data,
   //   isLoading: state.letters.lettersList.loading,
   // }));
 
-  const { letters, isLoading } = useReflector(
+  const { letters, isLoading } = useReflector<
+    ITriggers,
+    IState,
+    { letters: IState['letters']['lettersList']['data']; isLoading: boolean }
+  >(
     (state: IState) => ({
       letters: state.letters.lettersList.data,
       isLoading: state.letters.lettersList.loading,
     }),
-    //@ts-ignore
     ['lettersList'],
     (payload) => {
       console.log(payload);
@@ -59,8 +61,8 @@ export const LettersList = () => {
                   })
                 }
               >
-                {l.subject}{' '}
-              </div>
+              {l.subject}{' '}
+            </div>
             ))
           : null}
       </div>

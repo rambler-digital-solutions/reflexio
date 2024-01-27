@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
 import { IState, ITriggers } from '../../_redux/types';
-import { useTrigger } from 'src/_redux/useTrigger';
+import { useReflector } from '@reflexio/react-v1/lib/useReflector';
+import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
 import { ComposeWrapper } from './ComposeWrapper';
 import './Compose.less';
 import { PopupComposeContent } from './PopupComposeContent';
-import { useReflector } from '../../../../v1-react/lib/useReflector';
 
 export const Compose = () => {
-  const { subject, to, from, body } = useReflector(
-    (state: IState) => state.compose,
-    ['setContent']
-  );
-  const trigger = useTrigger();
+  const { subject, to, from, body } = useReflector<
+    ITriggers,
+    IState,
+    IState['compose']
+  >((state: IState) => state.compose, ['setContent']);
+  const trigger = useTrigger<ITriggers>();
 
   React.useEffect(() => {
     trigger('openPopup', 'init', <PopupComposeContent />);

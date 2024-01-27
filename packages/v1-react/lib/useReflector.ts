@@ -2,8 +2,13 @@ import {useState, useEffect, useContext} from 'react'
 import { matchActionType } from './matchActionType';
 import { StoreContext } from './context';
 import { UpdateOnType } from '@reflexio/core-v1/lib/types';
-import { UseReflectorType } from './types';
 
+
+export type UseReflectorType = <Tr, K, S>(
+    mapState: (args: K)=> S, 
+    condition: UpdateOnType<Tr>,
+    shouldUpdate?: (payload: any) => boolean
+) => S
 
 
 export const useReflector: UseReflectorType = (

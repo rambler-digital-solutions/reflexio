@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { IState } from 'src/_redux/types';
-import { useTrigger } from 'src/_redux/useTrigger';
+//import { useSelector } from 'react-redux';
+import { IState, ITriggers } from 'src/_redux/types';
+import { useReflector } from '@reflexio/react-v1/lib/useReflector';
+import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
 import './style.less';
 
 export const Notification = () => {
-  const notifications = useSelector(
-    (state: IState) => state.notification.notifications
-  );
-  const trigger = useTrigger();
+  const notifications = useReflector<
+    ITriggers,
+    IState,
+    IState['notification']['notifications']
+  >((state) => state.notification.notifications, ['showNotification']);
+  const trigger = useTrigger<ITriggers>();
 
   return notifications.length ? (
     <div

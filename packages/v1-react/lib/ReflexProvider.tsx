@@ -1,7 +1,6 @@
 import React from 'react'
 import { StoreContext } from './context'
-import {Store} from 'redux';
-import { useSystem } from '../../v1-core/lib/System';
+import { useSystem } from '@reflexio/core-v1/lib/System';
 
 export const ReflexProvider = (props) => {
     const system = useSystem();
