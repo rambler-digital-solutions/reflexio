@@ -23,6 +23,7 @@
       "downlevelIteration": true,
       "resolveJsonModule": true,
       "esModuleInterop": true,
+      "declaration": true
     },
     "include": [
       "lib/**/*.ts",

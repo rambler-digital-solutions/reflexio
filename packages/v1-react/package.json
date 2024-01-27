@@ -1,7 +1,7 @@
 {
-    "name": "@reflexio/redux-react",
-    "version": "0.9.3",
-    "description": "Connecting react with reflexio-on-redux",
+    "name": "@reflexio/react-v1",
+    "version": "1.0.0",
+    "description": "Connecting react with reflexio core-v1",
     "files": ["lib", "index.d.ts", "readme.md"],
     "keywords": ["react", "redux", "reflexio"],
     "repository": "github:seijs/redux-hang-on",
@@ -14,7 +14,7 @@
     "license": "MIT",
     "peerDependencies": {
       "react": "^16.8.0",
-      "@reflexio/reflexio-on-redux": "*",
+      "@reflexio/core-v1": "1.0.0",
       "redux": "^4.0.5"
     },
     "devDependencies": {

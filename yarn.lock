@@ -1403,6 +1403,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@reflexio/reflexio-on-redux@*":
+  version "0.9.2"
+  resolved "https://registry.npmjs.org/@reflexio/reflexio-on-redux/-/reflexio-on-redux-0.9.2.tgz#f6ae89eb80513631b3fad7e32e77c925e3c16f67"
+  integrity sha512-77fgFPUQ9OcDXk4UDasPydOulRu3lMAAaykhnjZAGMx038kg7/xrEPI/WnXgCzDnGdKM+meiO8K9qy2IN+8j9A==
+
 "@remix-run/router@1.7.1":
   version "1.7.1"
   resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.7.1.tgz#fea7ac35ae4014637c130011f59428f618730498"

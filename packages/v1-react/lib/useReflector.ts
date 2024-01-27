@@ -1,19 +1,18 @@
-import React from 'react';
 import {useState, useEffect, useContext} from 'react'
-import { useSystem } from '../../v1-core/lib';
 import { matchActionType } from './matchActionType';
-import { StoreContext } from './constext';
-import { UpdateOnType } from '../../v1-core/lib/types';
+import { StoreContext } from './context';
+import { UpdateOnType } from '@reflexio/core-v1/lib/types';
+import { UseReflectorType } from './types';
 
 
 
-export const useReflector = <Tr, K, S>(
-    mapState: (args: K)=> S, 
-    condition: ((args?: Tr) => UpdateOnType<Tr>) | Array<any>,
-    shouldUpdate?: (payload: any) => boolean
-): S => {
-const system = useSystem();
-const store = useContext(StoreContext)
+export const useReflector: UseReflectorType = (
+    mapState, 
+    condition,
+    shouldUpdate) => {
+const ctx = useContext(StoreContext)
+const store = ctx.store;
+const system = ctx.system;
 const initialState = mapState(store.getState())
 const [state, setState] = useState(initialState);
 
