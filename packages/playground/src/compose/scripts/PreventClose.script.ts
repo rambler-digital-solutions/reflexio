@@ -11,34 +11,39 @@ export class PreventCloseScript extends Script<
   IState,
   'preventClose',
   'init',
-  {}
+  { someData: string }
 > {
   private body: string = '';
   private subject: string = '';
   private passCb: () => void;
 
-  constructor(public opts: ScriptOptsType<ITriggers, IState, 'preventClose'>) {
+  constructor(
+    public opts: ScriptOptsType<
+      ITriggers,
+      IState,
+      'preventClose',
+      { someData: string }
+    >
+  ) {
     super();
   }
 
   init(args: InitArgsType<ITriggers, 'preventClose', 'init'>): void {
     console.log('prevent close init');
+    console.log(this.opts.injected);
   }
 
   private handleCheck(args) {
-    this.passCb = args.payload.passCb;
+    this.passCb = args.passCb;
     if (
-      typeof args.payload.subject === 'undefined' &&
-      typeof args.payload.body === 'undefined'
+      typeof args.subject === 'undefined' &&
+      typeof args.body === 'undefined'
     ) {
       this.opts.trigger('preventClose', 'checkResp', true);
-    } else if (
-      args.payload.subject !== this.subject ||
-      args.payload.body !== this.body
-    ) {
+    } else if (args.subject !== this.subject || args.body !== this.body) {
       console.log('COMPARE');
-      console.log(args.payload.subject);
-      console.log(args.payload.body);
+      console.log(args.subject);
+      console.log(args.body);
       console.log(this.body);
       console.log(this.subject);
       this.opts.trigger('preventClose', 'checkResp', false);
@@ -59,7 +64,12 @@ export class PreventCloseScript extends Script<
   public watch(args: WatchArgsType<ITriggers, 'preventClose'>) {
     console.log('preventClose event');
     const checkReqEvent = this.opts.catchStatus('checkReq', args);
+    console.log(args.trigger);
+    console.log(args.status);
+    console.log(args.source);
+    console.log(args);
     if (checkReqEvent.isCatched) {
+      console.log('CHECK REQ CATCH');
       this.handleCheck(checkReqEvent.payload);
     }
 

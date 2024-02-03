@@ -116,16 +116,19 @@ S extends TriggerPhaseKeys<IR, K>>(
 export type DefautOpts<
   IRootTrigger,
   IState,
-  BiteName extends keyof IRootTrigger
+  BiteName extends keyof IRootTrigger,
+  Inj
 > = {
-  customTools: unknown;
+  injected?: Inj;
+  sliceName: keyof IState;
   dispatch: Dispatch;
   setStatus: SetStatusType<IRootTrigger, BiteName>;
   trigger: DispatcherType<IRootTrigger>;
   wait: WaiterType<IRootTrigger>;
   hook: HookerType<IRootTrigger>;
+  addOpts?: unknown;
   save: DispatcherType<IRootTrigger>;
-  biteName: string;
+  biteName: keyof IRootTrigger;
   uid: string;
   getCurrentState: () => IState;
   drop: () => void;
@@ -185,7 +188,6 @@ export type MakeBiteProcessorType<
   
   script: unknown; //IA[key];
   //opts?: DefautOpts2<IRootTrigger, IState, BiteName>;
-  customOpts?: unknown;
   //canTrigger?: Array<keyof IRootTrigger>;
 };
 
@@ -203,8 +205,8 @@ export type MakeBiteType<ITriggers, IState, IRootTrigger> = {
 export type ScriptOptsType<
   IRootTrigger,
   IRootState,
-  BiteName extends keyof IRootTrigger
-> = DefautOpts<IRootTrigger, IRootState, BiteName>;
+  BiteName extends keyof IRootTrigger, Inj
+> = DefautOpts<IRootTrigger, IRootState, BiteName, Inj>;
 
 
 export type WatchArgsType<
@@ -215,6 +217,8 @@ export type WatchArgsType<
   trigger: keyof ITrigger;
   status: TriggerPhaseKeys<ITrigger, Tr>;
   source?: string;
+  sourceSlice?: string; 
+  uiSource?: string;
   hangOn: () => void;
 };
 

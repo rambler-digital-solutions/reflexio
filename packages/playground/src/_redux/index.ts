@@ -7,6 +7,10 @@ import { settingsSlice } from '../settings/settings.config';
 import rootReducer from './reducer';
 import { useSystem } from '../../../v1-core/lib/System';
 
+composeSlice.inject({
+  someData: 'someData For Testing',
+});
+
 function configureStore() {
   const system = useSystem();
   system.setConfig({

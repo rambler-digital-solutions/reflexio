@@ -13,10 +13,12 @@ export class SubmitLetterScript extends Script<
   IState,
   'submitLetter',
   'init',
-  {}
+  null
 > {
-  constructor(public opts: ScriptOptsType<ITriggers, IState, 'submitLetter'>) {
+  public opts: ScriptOptsType<ITriggers, IState, 'submitLetter', null>;
+  constructor(opts) {
     super();
+    this.opts = opts;
   }
 
   public async init(

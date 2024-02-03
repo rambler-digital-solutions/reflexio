@@ -2,17 +2,17 @@ import { Drop } from './opts/drop';
 import { SetStatus } from './opts/setStatus';
 import { Trigger } from './opts/trigger';
 import { v4 } from 'uuid';
-import { Save } from './opts/save';
-import { TriggerOnly } from './opts/triggerOnly';
+// import { Save } from './opts/save';
+// import { TriggerOnly } from './opts/triggerOnly';
 import { Wait } from './opts/wait';
 import { Hook } from './opts/hook';
 import { Bind } from './opts/bind';
 
-export function prepareOpts(config, store, system) {
+export function prepareOpts(config, store, system, sliceName, injected) {
   const processUid = v4();
-  const trigger = Trigger(store, config, system, processUid);
+  const trigger = Trigger(store, config, system, processUid, sliceName);
 
-  const setStatus = SetStatus(store, config, system, processUid);
+  const setStatus = SetStatus(store, config, system, processUid, sliceName);
   //const save = Save(store, config, system, processUid);
   //const triggerOnly = TriggerOnly(store, config, system, processUid);
   const drop = Drop(system, config);
@@ -24,6 +24,7 @@ export function prepareOpts(config, store, system) {
   return {
     dispatch: store.dispatch,
     uid: processUid,
+    sliceName: sliceName,
     biteName: config.trigger,
     wait,
     hook, 
@@ -31,10 +32,11 @@ export function prepareOpts(config, store, system) {
     setStatus,
     drop,
     getCurrentState,
-    customOpts: config.config.customOpts,
+    injected,
+    addOpts: config.config.addOpts,
     bind,
     catchStatus: (status, args) => {
-      if(status === args.status && config.config.initOn === args.trigger) {
+      if(status === args.status && config.trigger === args.trigger) {
         return {
           isCatched: true,
           payload: args.payload,
@@ -44,8 +46,8 @@ export function prepareOpts(config, store, system) {
         isCatched: false,
       }
     },
-    catchEvent: (trigger, status, args) => {
-      if(status === args.status && trigger === args.trigger) {
+    catchEvent: (triggerName, status, args) => {
+      if(status === args.status && triggerName === args.trigger) {
         return {
           isCatched: true,
           payload: args.payload,

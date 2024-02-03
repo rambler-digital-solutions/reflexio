@@ -50,9 +50,10 @@ const onboardBite = Bite<
 export const popupSlice = Slice<
   IOnboardingTriggers,
   IOnboardingState,
-  ITriggers
+  ITriggers,
+  IState
 >(
-  'onboarding',
+  'onboarding' as any,
   {
     onboard: onboardBite,
   },

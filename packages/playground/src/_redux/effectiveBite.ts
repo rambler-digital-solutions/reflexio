@@ -60,7 +60,7 @@ export const effectiveBite = <
     } as any,
     {
       initOn: 'init',
-      customOpts: {
+      addOpts: {
         promise,
         onStart: opts && opts.onStart ? opts.onStart : null,
         onError: opts && opts.onError ? opts.onError : null,
@@ -90,7 +90,7 @@ class EffectScript {
       if (co && co.onStart) {
         co.onStart(this.opts.trigger);
       }
-      const result = await this.opts.customOpts.promise();
+      const result = await this.opts.addOpts.promise();
       this.opts.setStatus('done', result);
       if (co && co.onDone) {
         co.onDone(this.opts.trigger);

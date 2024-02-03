@@ -15,10 +15,10 @@ export class NotificationScrit extends Script<
   IState,
   'showNotification',
   'init',
-  {}
+  number
 > {
   constructor(
-    public opts: ScriptOptsType<ITriggers, IState, 'showNotification'>
+    public opts: ScriptOptsType<ITriggers, IState, 'showNotification', number>
   ) {
     super();
   }

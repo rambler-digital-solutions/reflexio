@@ -76,7 +76,12 @@ const deleteLetterBite = effectiveBite<
   doneReducer: deleteLetterReducer,
 });
 
-export const lettersSlice = Slice<ILettersTriggers, ILettersState, ITriggers>(
+export const lettersSlice = Slice<
+  ILettersTriggers,
+  ILettersState,
+  ITriggers,
+  IState
+>(
   'letters',
   {
     lettersList: lettersListBite,

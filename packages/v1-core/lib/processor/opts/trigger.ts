@@ -1,6 +1,6 @@
 import { getActionType } from '../../utils';
 
-export function Trigger(store, config, system, uid) {
+export function Trigger(store, config, system, uid, sourceSlice) {
   const sourceTrigger = config.trigger;
 
   return (actionType, actionStatus, actionArgs) => {
@@ -11,7 +11,8 @@ export function Trigger(store, config, system, uid) {
         store.dispatch({
           type: combynedType,
           payload: actionArgs,
-          source: `${sourceTrigger}:${uid}`
+          source: `${sourceTrigger}:${uid}`,
+          sourceSlice,
         });
       // } else if (system.config.env === 'dev') {
       //   console.log(

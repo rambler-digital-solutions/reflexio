@@ -31,7 +31,8 @@ const loadSettingsBite = effectiveBite<
 export const settingsSlice = Slice<
   ISettingsTriggers,
   ISettingsState,
-  ITriggers
+  ITriggers,
+  IState
 >(
   'settings',
   {

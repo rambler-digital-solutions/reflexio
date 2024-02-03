@@ -134,7 +134,12 @@ const preventCloseBite = Bite<
   }
 );
 
-export const composeSlice = Slice<IComposeTriggers, IComposeState, ITriggers>(
+export const composeSlice = Slice<
+  IComposeTriggers,
+  IComposeState,
+  ITriggers,
+  IState
+>(
   'compose',
   {
     setContent: setContentBite,

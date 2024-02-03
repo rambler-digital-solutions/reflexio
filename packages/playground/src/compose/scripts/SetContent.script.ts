@@ -18,7 +18,9 @@ export class SetContentScript extends Script<
   'init',
   {}
 > {
-  constructor(public opts: ScriptOptsType<ITriggers, IState, 'setContent'>) {
+  constructor(
+    public opts: ScriptOptsType<ITriggers, IState, 'setContent', null>
+  ) {
     super();
   }
 

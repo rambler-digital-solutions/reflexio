@@ -42,7 +42,7 @@ const openPopupBite = Bite<IPopupTriggers, IPopupState, 'openPopup', ITriggers>(
   }
 );
 
-export const popupSlice = Slice<IPopupTriggers, IPopupState, ITriggers>(
+export const popupSlice = Slice<IPopupTriggers, IPopupState, ITriggers, IState>(
   'popup',
   {
     openPopup: openPopupBite,

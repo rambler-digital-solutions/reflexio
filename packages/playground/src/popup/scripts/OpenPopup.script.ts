@@ -13,9 +13,11 @@ export class OpenPopupScript extends Script<
   IState,
   'openPopup',
   'init',
-  {}
+  null
 > {
-  constructor(public opts: ScriptOptsType<ITriggers, IState, 'openPopup'>) {
+  constructor(
+    public opts: ScriptOptsType<ITriggers, IState, 'openPopup', null>
+  ) {
     super();
   }
 

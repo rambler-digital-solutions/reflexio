@@ -4,14 +4,16 @@ import { getActionType, getTriggerAndStatus } from '../../utils';
 export function BeforeUpdate(
   instance,
   state,
-  actionType,
-  actionPayload,
+  action,
   reducers,
-  sliceName
+  sliceName,
+  
 ) {
   //const { trigger, status } = getTriggerAndStatus(actionType);
 
   //const reducer = pickReducer(reducers, trigger, status);
+ const actionType = action.type;
+  const actionPayload = action.payload;
   let propagate = true;
   let keepUpdate = false;
   const stopPropagate = (args?: { keepUpdate: boolean }) => {
@@ -26,12 +28,15 @@ export function BeforeUpdate(
       payload: actionPayload,
       trigger,
       status,
+      source: action.source,
+      sourceSlice: sliceName,
       hangOn: stopPropagate,
     };
 
 
     if(instance.updatable) {
-      const foundKey = Object.keys(instance.updatable).find( u => u === getActionType(updateArgs.trigger, updateArgs.status) )
+      const foundKey = Object.keys(instance.updatable)
+      .find( u => u === getActionType(updateArgs.trigger, updateArgs.status) )
       if(foundKey) {
         instance[instance.updatable[foundKey]](updateArgs)
       }

@@ -44,7 +44,8 @@ export const showNotificationBite = Bite<
 export const notificationSlice = Slice<
   INotificationTriggers,
   INotificationState,
-  ITriggers
+  ITriggers,
+  IState
 >(
   'notification',
   {
