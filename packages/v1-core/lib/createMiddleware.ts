@@ -14,37 +14,37 @@ export const makeProcMiddleware = (
   reducers,
   sliceName,
   injected,
-  sliceConfig,
+  sliceConfig
 ): Middleware => {
   const system = useSystem();
-
- 
 
   return (store) => (next) => (action) => {
     let ignore = false;
     let forceStopPropagate = false;
     const sourceSlice = action.sourceSlice;
     const actionType = action.type;
-    const isBiteHit = matchBiteName(configs, actionType)
-    if(sliceConfig?.ignoreExternal) {
-      if(sliceConfig.ignoreExternal  === 'ignoreAll') {
+    const isBiteHit = matchBiteName(configs, actionType);
+    if (sliceConfig?.ignoreExternal) {
+      if (sliceConfig.ignoreExternal === 'ignoreAll') {
+        ignore = true;
+      } else if (
+        sourceSlice &&
+        sliceConfig.ignoreExternal.length &&
+        sliceConfig.ignoreExternal.indexOf(sourceSlice) !== -1
+      ) {
         ignore = true;
       }
-      else if(sourceSlice 
-          && sliceConfig.ignoreExternal.length 
-          && sliceConfig.ignoreExternal.indexOf(sourceSlice) !== -1) {
-        ignore = true;
-      }
-    };
+    }
     const actionPayload = action.payload || null;
     const nexio = (args) => {
-      system.taksQueue.setCurrentTask(action)
-      return next(args)
+      system.taksQueue.setCurrentTask(action);
+
+      return next(args);
+    };
+    if (isBiteHit && ignore) {
+      return next(action);
     }
-    if(isBiteHit && ignore) {
-      return next(action)
-    }
-   
+
     const skipInit = action.opts && action.opts.noInit;
     const skipUpdate = action.opts && action.opts.noUpdate;
     const initConfig = matchInitTrigger(configs, actionType); /// Возвращает  1 конфиг
@@ -60,10 +60,10 @@ export const makeProcMiddleware = (
       if (instance) {
         onInit(instance, actionPayload);
       }
-      if(instance.updateAfter) {
+      if (instance.updateAfter) {
         // get list of events form config
         // check if contains then call
-        system.afterHandlers.push(() => instance.updateAfter)
+        system.afterHandlers.push(() => instance.updateAfter);
       }
     }
     if (updateConfigs.length && !skipUpdate) {
@@ -87,7 +87,8 @@ export const makeProcMiddleware = (
 
     system.resolveWait(action.type, action.payload);
 
-    return forceStopPropagate || (isBiteHit  && processorOpts && (!processorOpts.propagate)) 
+    return forceStopPropagate ||
+      (isBiteHit && processorOpts && !processorOpts.propagate)
       ? 0
       : nexio(action);
   };

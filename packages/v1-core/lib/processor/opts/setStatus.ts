@@ -8,7 +8,7 @@ export function SetStatus(store, config, system, uid, sourceSlice) {
         type: getActionType(config.trigger, status),
         payload: args,
         source: `${config.trigger}:${uid}`,
-        sourceSlice
+        sourceSlice,
       });
     }
   };

@@ -23,15 +23,19 @@ export function matchUpdateTrigger(configs, actionType) {
             matchedTrigger[Object.keys(matchedTrigger)[0]] === status
           ) {
             return true;
-          }
-          else if(Array.isArray(matchedTrigger[Object.keys(matchedTrigger)[0]])) {
-            if (matchedTrigger[Object.keys(matchedTrigger)[0]].includes(status)) {
-              return true
+          } else if (
+            Array.isArray(matchedTrigger[Object.keys(matchedTrigger)[0]])
+          ) {
+            if (
+              matchedTrigger[Object.keys(matchedTrigger)[0]].includes(status)
+            ) {
+              return true;
             }
           }
         }
       }
-      return false
+
+      return false;
     })
     .map((c) => ({
       config: configs[c],

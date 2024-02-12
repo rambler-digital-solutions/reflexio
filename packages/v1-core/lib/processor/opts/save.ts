@@ -7,14 +7,14 @@ export function Save(store, config, system, uid) {
     const process = system.findProcessByUid(uid);
     if (process.length) {
       //if (canTrigger && canTrigger.includes(actionType)) {
-        const combynedType = getActionType(actionType, actionStatus);
-        store.dispatch({
-          type: combynedType,
-          payload: actionArgs,
-          opts: {
-            noInit: true,
-          },
-        });
+      const combynedType = getActionType(actionType, actionStatus);
+      store.dispatch({
+        type: combynedType,
+        payload: actionArgs,
+        opts: {
+          noInit: true,
+        },
+      });
       // } else if (system.config.env === 'dev') {
       //   console.log(
       //     `WARNING!: ${config.trigger} can not trigger ${actionType}`

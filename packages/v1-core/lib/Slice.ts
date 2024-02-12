@@ -8,7 +8,7 @@ export const Slice = <ITriggers, IState, IRootTrigger, IRootState>(
   bites: MakeBiteType<ITriggers, IState, IRootTrigger>,
   initialState: IState,
   sliceConfig?: {
-    ignoreExternal?: Array<keyof IRootState> | 'ignoreAll'
+    ignoreExternal?: Array<keyof IRootState> | 'ignoreAll';
   }
 ) => {
   const reducer = Object.keys(bites).reduce(
@@ -23,15 +23,20 @@ export const Slice = <ITriggers, IState, IRootTrigger, IRootState>(
     }
   }, {});
 
-  let injected = {};
-
+  const injected = {};
 
   return {
-    inject<Inj extends Record<string, unknown>>(args: Inj){
+    inject<Inj extends Record<string, unknown>>(args: Inj) {
       Object.assign(injected, args);
       console.log('changed Inject');
     },
     reducer: { [sliceName]: makeReducer(reducer, initialState) },
-    middleware: makeProcMiddleware(processor, reducer, sliceName, injected, sliceConfig),
+    middleware: makeProcMiddleware(
+      processor,
+      reducer,
+      sliceName,
+      injected,
+      sliceConfig
+    ),
   };
 };

@@ -1,6 +1,5 @@
 import { MakeReducerType } from '../types';
 
-
 export const getNullReducersNames = <AC, StoreType>(
   reducers: MakeReducerType<AC, StoreType>
 ): Array<string> =>

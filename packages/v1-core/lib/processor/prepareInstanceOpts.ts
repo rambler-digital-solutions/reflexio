@@ -21,13 +21,14 @@ export function prepareOpts(config, store, system, sliceName, injected) {
   const wait = Wait(store, config, system, processUid);
   const hook = Hook(store, config, system, processUid);
   const bind = Bind(system, config);
+
   return {
     dispatch: store.dispatch,
     uid: processUid,
     sliceName: sliceName,
     biteName: config.trigger,
     wait,
-    hook, 
+    hook,
     trigger,
     setStatus,
     drop,
@@ -36,26 +37,28 @@ export function prepareOpts(config, store, system, sliceName, injected) {
     addOpts: config.config.addOpts,
     bind,
     catchStatus: (status, args) => {
-      if(status === args.status && config.trigger === args.trigger) {
+      if (status === args.status && config.trigger === args.trigger) {
         return {
           isCatched: true,
           payload: args.payload,
-        }
+        };
       }
+
       return {
         isCatched: false,
-      }
+      };
     },
     catchEvent: (triggerName, status, args) => {
-      if(status === args.status && triggerName === args.trigger) {
+      if (status === args.status && triggerName === args.trigger) {
         return {
           isCatched: true,
           payload: args.payload,
-        }
+        };
       }
+
       return {
         isCatched: false,
-      }
-    }
+      };
+    },
   };
 }

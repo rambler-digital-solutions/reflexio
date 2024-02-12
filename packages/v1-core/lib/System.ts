@@ -1,5 +1,5 @@
-import { TaskQueue } from "./TaskQueue";
-import { SystemConfig } from "./types";
+import { TaskQueue } from './TaskQueue';
+import { SystemConfig } from './types';
 
 interface ProcessorOpts {
   propagate: boolean;
@@ -18,21 +18,20 @@ export class System {
   }
 
   public config: SystemConfig = {
-    'env': 'prod'
+    env: 'prod',
   };
 
   public taksQueue: TaskQueue;
 
   constructor() {
-      this.taksQueue = new TaskQueue()
+    this.taksQueue = new TaskQueue();
   }
-
 
   public setConfig(conf: SystemConfig) {
     this.config = conf;
   }
 
-  public afterHandlers: Array<any> = []
+  public afterHandlers: Array<any> = [];
 
   public context: { [triggerer: string]: any } = {};
 
@@ -48,21 +47,21 @@ export class System {
     return arr.length > 1 ? arr[1] : null;
   };
 
-  public addWait = (trigger: string, {resolve, reject, args}, timeout) => {
-    const timeOutId = setTimeout(()=> {
-      if(this.waits[trigger]) {
-        this.waits[trigger].reject(`${trigger} TIMEOUT`)
-      } 
-    }, timeout || 5000)
-    this.waits[trigger] = {resolve, reject, args, id: timeOutId}
-  }
+  public addWait = (trigger: string, { resolve, reject, args }, timeout) => {
+    const timeOutId = setTimeout(() => {
+      if (this.waits[trigger]) {
+        this.waits[trigger].reject(`${trigger} TIMEOUT`);
+      }
+    }, timeout || 5000);
+    this.waits[trigger] = { resolve, reject, args, id: timeOutId };
+  };
 
   public resolveWait(trigger: string, args) {
-      if(this.waits[trigger]) {
-        this.waits[trigger].resolve(args)
-        clearTimeout(this.waits[trigger].id)
-        delete(this.waits[trigger])
-      }
+    if (this.waits[trigger]) {
+      this.waits[trigger].resolve(args);
+      clearTimeout(this.waits[trigger].id);
+      delete this.waits[trigger];
+    }
   }
 
   public findProcess(trigger: string) {

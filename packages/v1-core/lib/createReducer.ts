@@ -1,10 +1,9 @@
 import { useSystem } from './System';
 import { MakeReducerType } from './types';
 import { getNullReducersNames } from './utils';
- 
 
 function makeImmutable(state, payload, reducer) {
-  const stateCopy = {...state};
+  const stateCopy = { ...state };
   reducer(stateCopy, payload);
 
   return stateCopy;
@@ -26,7 +25,6 @@ export function makeReducer<AC, StoreType>(
     state: StoreType = initialState,
     action: { type: string; payload: unknown }
   ) {
-   
     const parts = action.type.split('/');
     const [trigger, status] = [parts[0], parts[1]];
     if (!status) {
