@@ -3,7 +3,7 @@ import { WatchArgsType } from '../../../../v1-core/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
 import { useSystem } from '../../../../v1-core/lib';
 import { InitArgsType, ScriptOptsType } from '../../../../v1-core/lib/types';
-import { Script } from '../../../../v1-core/lib/interfaces/IScript';
+import { Script } from '../../../../v1-core/lib/Script';
 import { PopupComposeContent } from '../components/PopupComposeContent';
 import { IComposeTriggers } from '../compose.config';
 

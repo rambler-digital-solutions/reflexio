@@ -33,7 +33,6 @@ export const LettersList = () => {
 
   React.useEffect(() => {
     trigger('lettersList', 'init', null);
-    trigger('setContent', 'init', null);
   }, []);
 
   return (

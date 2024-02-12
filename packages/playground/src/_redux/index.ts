@@ -32,6 +32,10 @@ function configureStore() {
   return store;
 }
 const store = configureStore();
+store.dispatch({
+  type: 'setContent/init',
+  payload: null,
+});
 
 export const dispatch = store.dispatch;
 export default store;

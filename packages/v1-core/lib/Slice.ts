@@ -1,7 +1,6 @@
 import { makeProcMiddleware } from './createMiddleware';
 import { makeReducer } from './createReducer';
 import { MakeBiteType } from './types';
-import { useSystem } from './System';
 
 export const Slice = <ITriggers, IState, IRootTrigger, IRootState>(
   sliceName: keyof IRootState,
@@ -28,7 +27,6 @@ export const Slice = <ITriggers, IState, IRootTrigger, IRootState>(
   return {
     inject<Inj extends Record<string, unknown>>(args: Inj) {
       Object.assign(injected, args);
-      console.log('changed Inject');
     },
     reducer: { [sliceName]: makeReducer(reducer, initialState) },
     middleware: makeProcMiddleware(
