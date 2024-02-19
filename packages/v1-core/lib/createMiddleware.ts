@@ -60,10 +60,10 @@ export const makeProcMiddleware = (
       if (instance) {
         onInit(instance, actionPayload);
       }
-      if (instance.updateAfter) {
+      if (instance.watchAfter) {
         // get list of events form config
         // check if contains then call
-        system.afterHandlers.push(() => instance.updateAfter);
+        system.afterHandlers.push(() => instance.watchAfter);
       }
     }
     if (updateConfigs.length && !skipUpdate) {

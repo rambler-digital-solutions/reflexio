@@ -5,7 +5,7 @@ import {
   Reducer,
   Middleware,
 } from 'redux';
-//import { useSystem } from './System';
+import { useSystem } from './System';
 
 export function configureRoot(args: {
   rootReducer: Reducer;
@@ -15,11 +15,11 @@ export function configureRoot(args: {
     args.rootReducer,
     compose(applyMiddleware(...args.middlewares))
   );
-  // const system = useSystem();
+  const system = useSystem();
 
-  // store.subscribe(() => {
-  //   system.afterHandlers.forEach((s) => s());
-  // });
+  store.subscribe(() => {
+    system.afterHandlers.forEach((s) => s());
+  });
   // store.subscribe(() => {
   //   // const nextTask = system.taksQueue.popTask();
   //   // if(nextTask) {
@@ -28,5 +28,6 @@ export function configureRoot(args: {
   //   //     })
   //   // }
   // });
+
   return store;
 }
