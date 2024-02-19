@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux';
+import { Dispatch, Store } from 'redux';
 
 export type SystemConfig = {
   env: 'dev' | 'prod' | 'test';
@@ -115,6 +115,7 @@ export type DefautOpts<
   injected?: Inj;
   sliceName: keyof IState;
   dispatch: Dispatch;
+  subscribe: Store['subscribe'];
   setStatus: SetStatusType<IRootTrigger, BiteName>;
   trigger: DispatcherType<IRootTrigger>;
   wait: WaiterType<IRootTrigger>;
@@ -124,6 +125,7 @@ export type DefautOpts<
   biteName: keyof IRootTrigger;
   uid: string;
   getCurrentState: () => IState;
+  getCurrentTask: () => string;
   drop: () => void;
   bind: BindHandlerType<IRootTrigger, BiteName>;
   catchStatus: CatchStatusType<IRootTrigger, BiteName>;

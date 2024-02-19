@@ -23,6 +23,8 @@ export function prepareOpts(config, store, system, sliceName, injected) {
   const bind = Bind(system, config);
 
   return {
+    subscribe: store.subscribe,
+    getCurrentTask: system.taksQueue.getCurrentTask,
     dispatch: store.dispatch,
     uid: processUid,
     sliceName: sliceName,

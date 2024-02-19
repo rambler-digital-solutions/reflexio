@@ -1,6 +1,6 @@
 {
     "name": "@reflexio/core-v1",
-    "version": "1.1.4",
+    "version": "1.2.4",
     "description": "Reflexio core-v1 package",
     "files": ["lib", "index.d.ts", "readme.md"],
     "keywords": ["react", "redux"],
