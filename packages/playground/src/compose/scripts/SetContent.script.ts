@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { WatchArgsType } from '../../../../v1-core/lib/types';
-import { IState, ITriggers } from 'src/_redux/types';
-import { useSystem } from '../../../../v1-core/lib';
-import { InitArgsType, ScriptOptsType } from '../../../../v1-core/lib/types';
-import { Script } from '../../../../v1-core/lib/Script';
-import { PopupComposeContent } from '../components/PopupComposeContent';
-import { IComposeTriggers } from '../compose.config';
+import {IState, ITriggers} from 'src/_redux/types';
+import {
+  WatchArgsType,
+  InitArgsType,
+  ScriptOptsType,
+} from '../../../../core-v1/lib/types';
+import {useSystem} from '../../../../core-v1/lib';
+import {Script} from '../../../../core-v1/lib/Script';
+import {PopupComposeContent} from '../components/PopupComposeContent';
+import {IComposeTriggers} from '../compose.config';
 
 /*
  ** This script is responsible for opening
@@ -19,12 +22,12 @@ export class SetContentScript extends Script<
   {}
 > {
   constructor(
-    public opts: ScriptOptsType<ITriggers, IState, 'setContent', null>
+    public opts: ScriptOptsType<ITriggers, IState, 'setContent', null>,
   ) {
     super();
   }
 
-  private forms: { [key: string]: { subject: string; body: string } } = {};
+  private forms: {[key: string]: {subject: string; body: string}} = {};
 
   private system;
 
@@ -54,8 +57,9 @@ export class SetContentScript extends Script<
               noCheck: true,
             });
           },
-        }
+        },
       );
+
       if (!resp) {
         this.opts.trigger('openPopup', 'open', null);
       } else {
@@ -78,15 +82,17 @@ export class SetContentScript extends Script<
       body: args.payload.body,
       subject: args.payload.subject,
     });
-    this.opts.trigger('setContent', 'openWindow', { id: '-1' });
+    this.opts.trigger('setContent', 'openWindow', {id: '-1'});
   }
 
   // if id = -1 => means we open brand new window
   // if id = null => means we hide currently opened window
   private handleOpenWindow(args) {
     this.opts.trigger('preventClose', 'init', null);
+
     if (args.payload.id) {
       const savedData = this.forms[args.payload.id];
+
       if (savedData) {
         this.opts.trigger('setFormState', '', {
           body: savedData.body,
@@ -94,14 +100,17 @@ export class SetContentScript extends Script<
         });
       }
     } else {
-      const { openedComposeId, subject, body } =
+      const {openedComposeId, subject, body} =
         this.opts.getCurrentState().compose;
+
       if (openedComposeId) {
         const savedData = this.forms[openedComposeId];
+
         this.opts.trigger('setContent', 'changeItem', {
           subject: (savedData && savedData.subject) || subject,
           id: openedComposeId,
         });
+
         if (!savedData) {
           this.opts.trigger('setContent', 'syncForm', {
             input: 'body',
@@ -112,6 +121,7 @@ export class SetContentScript extends Script<
             text: subject,
           });
         }
+
         this.opts.trigger('setFormState', '', {
           body: '',
           subject: '',
@@ -123,13 +133,16 @@ export class SetContentScript extends Script<
   //save form input into class property
   private handleSyncForm(args) {
     const currentId = this.opts.getCurrentState().compose.openedComposeId;
+
     if (currentId) {
       if (!this.forms[currentId]) {
         this.forms[currentId] = {} as any;
       }
+
       if (args.payload.input === 'subject') {
         this.forms[currentId].subject = args.payload.text;
       }
+
       if (args.payload.input === 'body') {
         this.forms[currentId].body = args.payload.text;
       }
@@ -138,8 +151,10 @@ export class SetContentScript extends Script<
 
   public handleCommitFormContent(args) {
     const currentId = this.opts.getCurrentState().compose.openedComposeId;
+
     if (currentId) {
       const savedData = this.forms[currentId];
+
       if (savedData) {
         this.opts.trigger('setFormState', '', {
           body: savedData.body,
@@ -153,16 +168,20 @@ export class SetContentScript extends Script<
     //console.log(this.opts.getCurrentState())
     console.log(args.status);
     console.log(args.payload);
+
     // console.log(this.system)
     if (args.status === 'syncForm') {
       this.handleSyncForm(args as any);
     }
+
     if (args.status === 'openWindow') {
       this.handleOpenWindow(args as any);
     }
+
     if (args.status === 'closeWindow') {
       this.handleCloseWindow(args as any);
     }
+
     if (args.status === 'commitFormContent') {
       this.handleCommitFormContent(args);
     }

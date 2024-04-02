@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
-import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '../../../v1-core/lib';
-import { OnboardScript } from './scripts/Onboard.script';
-import { BiteStatusWrap } from '../../../v1-core/lib/types';
+import {ReactElement} from 'react';
+import {IState, ITriggers} from 'src/_redux/types';
+import {Bite, Slice} from '../../../core-v1/lib';
+import {BiteStatusWrap} from '../../../core-v1/lib/types';
+import {OnboardScript} from './scripts/Onboard.script';
 
 export interface IOnboardingState {
   stage: number;
@@ -44,7 +44,7 @@ const onboardBite = Bite<
     instance: 'stable',
     script: OnboardScript,
     initOn: 'init',
-  }
+  },
 );
 
 export const popupSlice = Slice<
@@ -57,5 +57,5 @@ export const popupSlice = Slice<
   {
     onboard: onboardBite,
   },
-  onboardingInitialState
+  onboardingInitialState,
 );

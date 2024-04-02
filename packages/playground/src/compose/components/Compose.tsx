@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { IState, ITriggers } from '../../_redux/types';
-import { useReflector } from '@reflexio/react-v1/lib/useReflector';
-import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
-import { ComposeWrapper } from './ComposeWrapper';
+import {useReflector, useTrigger} from '@reflexio/react-v1';
+import {IState, ITriggers} from '../../_redux/types';
+import {ComposeWrapper} from './ComposeWrapper';
 import './Compose.less';
-import { PopupComposeContent } from './PopupComposeContent';
+import {PopupComposeContent} from './PopupComposeContent';
 
 export const Compose = () => {
-  const { subject, to, from, body } = useReflector<
+  const {subject, to, from, body} = useReflector<
     ITriggers,
     IState,
     IState['compose']
@@ -19,14 +18,14 @@ export const Compose = () => {
   }, []);
 
   return (
-    <div className='popupwindow'>
-      <div className='root'>
-        <div className='composeWrap'>
-          <div className='subject'>
+    <div className="popupwindow">
+      <div className="root">
+        <div className="composeWrap">
+          <div className="subject">
             <input
               defaultValue={subject}
-              name='Subject'
-              className='textInput'
+              name="Subject"
+              className="textInput"
               onChange={(e) =>
                 trigger('setContent', 'syncForm', {
                   input: 'subject',
@@ -37,27 +36,25 @@ export const Compose = () => {
           </div>
           <textarea
             defaultValue={body}
-            name='Body'
+            name="Body"
             onChange={(e) =>
               trigger('setContent', 'syncForm', {
                 input: 'body',
                 text: e.target.value,
               })
             }
-            className='body'
+            className="body"
           />
         </div>
-        <div className='composeButtonsGroup'>
+        <div className="composeButtonsGroup">
           <button
-            className='composeButtonsGroupItm'
-            onClick={() => trigger('submitLetter', 'init', null)}
-          >
+            className="composeButtonsGroupItm"
+            onClick={() => trigger('submitLetter', 'init', null)}>
             Сохранить
           </button>
           <button
-            className='composeButtonsGroupItm'
-            onClick={() => trigger('setContent', 'closeWindow', null)}
-          >
+            className="composeButtonsGroupItm"
+            onClick={() => trigger('setContent', 'closeWindow', null)}>
             Закрыть
           </button>
         </div>

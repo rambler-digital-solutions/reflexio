@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react';
-import { useReflector } from '@reflexio/react-v1/lib/useReflector';
-import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
-import { IState, ITriggers } from 'src/_redux/types';
-import { ComposeGrid } from 'src/compose/components/ComposeGrid';
+import {useReflector, useTrigger} from '@reflexio/react-v1';
+import {IState, ITriggers} from 'src/_redux/types';
+import {ComposeGrid} from 'src/compose/components/ComposeGrid';
 import './styles.less';
 
 export const LettersList = () => {
@@ -14,10 +13,10 @@ export const LettersList = () => {
   //   isLoading: state.letters.lettersList.loading,
   // }));
 
-  const { letters, isLoading } = useReflector<
+  const {letters, isLoading} = useReflector<
     ITriggers,
     IState,
-    { letters: IState['letters']['lettersList']['data']; isLoading: boolean }
+    {letters: IState['letters']['lettersList']['data']; isLoading: boolean}
   >(
     (state: IState) => ({
       letters: state.letters.lettersList.data,
@@ -28,7 +27,7 @@ export const LettersList = () => {
       console.log(payload);
 
       return true;
-    }
+    },
   );
 
   React.useEffect(() => {
@@ -36,32 +35,30 @@ export const LettersList = () => {
   }, []);
 
   return (
-    <div className='lettersListContainer'>
+    <div className="lettersListContainer">
       <button
-        className='lettersListButton'
-        onClick={() => trigger('setContent', 'openWindow', { id: '-1' })}
-      >
+        className="lettersListButton"
+        onClick={() => trigger('setContent', 'openWindow', {id: '-1'})}>
         Create new
       </button>
       <div>
         <ComposeGrid />
       </div>
-      {isLoading ? <div className='lettersList'>Loading ...</div> : null}
-      <div className='lettersList'>
+      {isLoading ? <div className="lettersList">Loading ...</div> : null}
+      <div className="lettersList">
         {letters && letters.length
           ? letters.map((l) => (
               <div
-                className='lettersListItem'
+                className="lettersListItem"
                 key={l.uid}
                 onClick={() =>
                   trigger('setContent', 'openFromList', {
                     body: l.body,
                     subject: l.subject,
                   })
-                }
-              >
-              {l.subject}{' '}
-            </div>
+                }>
+                {l.subject}{' '}
+              </div>
             ))
           : null}
       </div>

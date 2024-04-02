@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
 import store from '../_redux';
-import { ErrorBoundary } from '../_components';
+import {ErrorBoundary} from '../_components';
 
-import { LettersList } from '../letters/components/LettersList';
-import { Notification } from '../notification/components/Notification';
-import { Window } from '../popup/components/Window';
-import { ReflexProvider } from '../../../v1-react/lib';
+import {LettersList} from '../letters/components/LettersList';
+import {Notification} from '../notification/components/Notification';
+import {Window} from '../popup/components/Window';
+import {ReflexProvider} from '../../../react-v1/lib';
 
 /*
  ** In MULD-4 we implement popup window

@@ -1,10 +1,10 @@
-import { IState, ITriggers } from 'src/_redux/types';
+import {IState, ITriggers} from 'src/_redux/types';
 import {
   InitArgsType,
   ScriptOptsType,
   WatchArgsType,
-} from '../../../../v1-core/lib/types';
-import { Script } from '../../../../v1-core/lib/Script';
+} from '../../../../core-v1/lib/types';
+import {Script} from '../../../../core-v1/lib/Script';
 import {
   INotificationState,
   INotificationTriggers,
@@ -18,7 +18,7 @@ export class NotificationScrit extends Script<
   number
 > {
   constructor(
-    public opts: ScriptOptsType<ITriggers, IState, 'showNotification', number>
+    public opts: ScriptOptsType<ITriggers, IState, 'showNotification', number>,
   ) {
     super();
   }
@@ -26,7 +26,7 @@ export class NotificationScrit extends Script<
   private timeout;
 
   public init(
-    args: InitArgsType<INotificationTriggers, 'showNotification', 'init'>
+    args: InitArgsType<INotificationTriggers, 'showNotification', 'init'>,
   ) {
     this.timeout = setTimeout(() => {
       this.opts.trigger('showNotification', 'close', null);

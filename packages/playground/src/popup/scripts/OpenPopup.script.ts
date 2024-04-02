@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { IState, ITriggers } from 'src/_redux/types';
+import {IState, ITriggers} from 'src/_redux/types';
 import {
   InitArgsType,
   ScriptOptsType,
   WatchArgsType,
-} from '../../../../v1-core/lib/types';
-import { Script } from '../../../../v1-core/lib/Script';
-import { IPopupTriggers } from '../popup.config';
+} from '../../../../core-v1/lib/types';
+import {Script} from '../../../../core-v1/lib/Script';
+import {IPopupTriggers} from '../popup.config';
 
 export class OpenPopupScript extends Script<
   ITriggers,
@@ -16,7 +16,7 @@ export class OpenPopupScript extends Script<
   null
 > {
   constructor(
-    public opts: ScriptOptsType<ITriggers, IState, 'openPopup', null>
+    public opts: ScriptOptsType<ITriggers, IState, 'openPopup', null>,
   ) {
     super();
   }

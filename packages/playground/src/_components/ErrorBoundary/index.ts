@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import {Component} from 'react';
 
 interface ErrorBoundaryProps {
   onError?: () => void;
@@ -16,7 +16,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 
     this.props.onError && this.props.onError();
 
-    this.setState({ hasError: true });
+    this.setState({hasError: true});
   }
 
   render() {

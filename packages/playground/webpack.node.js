@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const ProjectDIR = path.resolve(__dirname, '../') + '/';
-const SourceDIR = ProjectDIR + '/';
-const BuildDIR = ProjectDIR + 'playground/build/';
 
-module.exports = ({
+const ProjectDIR = `${path.resolve(__dirname, '../')}/`;
+const SourceDIR = `${ProjectDIR}/`;
+const BuildDIR = `${ProjectDIR}playground/build/`;
+
+module.exports = {
   module: {
     rules: [
       {
@@ -21,12 +22,12 @@ module.exports = ({
   },
   resolve: {
     modules: [SourceDIR, 'node_modules'],
-    alias: { src: SourceDIR + '/playground/src' },
+    alias: {src: `${SourceDIR}/playground/src`},
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   mode: 'development',
   target: 'node',
-  entry: SourceDIR + '/playground/src/_redux/index.ts',
+  entry: `${SourceDIR}/playground/src/_redux/index.ts`,
   output: {
     path: BuildDIR,
     filename: 'index.js',

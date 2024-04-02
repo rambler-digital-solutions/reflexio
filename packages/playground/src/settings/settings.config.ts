@@ -1,13 +1,13 @@
-import { Slice } from '../../../v1-core/lib';
 import {
   effectiveBite,
   EffectiveState,
   EffectiveTrigger,
   effectiveInitialState,
 } from 'src/_redux/effectiveBite';
-import { IState, ITriggers } from 'src/_redux/types';
-import { ISettings } from './interfaces/Settings.interface';
-import { loadSetting } from 'src/_api/settings';
+import {IState, ITriggers} from 'src/_redux/types';
+import {loadSetting} from 'src/_api/settings';
+import {Slice} from '../../../core-v1/lib';
+import {ISettings} from './interfaces/Settings.interface';
 
 export interface ISettingsState {
   loadSettings: EffectiveState<null, ISettings, Error>;
@@ -38,5 +38,5 @@ export const settingsSlice = Slice<
   {
     loadSettings: loadSettingsBite,
   },
-  settingsInitialState
+  settingsInitialState,
 );

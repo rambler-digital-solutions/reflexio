@@ -1,43 +1,40 @@
-import { EffectCollection } from "./effect-collection";
-
-
+import {EffectCollection} from './effect-collection';
 
 export class App {
+  static instance: App;
 
-    static instance: App
+  public isReady: boolean;
 
-    public isReady: boolean
+  private calledState: {};
 
-    private calledState: {};
-
-    static getApp() {   
-        if(App.instance) {
-            return App.instance
-        }
-        return new App()
+  static getApp() {
+    if (App.instance) {
+      return App.instance;
     }
 
-    public setEffectCalledState = (id: string): void => {
-        if (!App.instance.calledState[id]) {
-            App.instance.calledState[id] = true;
-        }
-    };
-    
-    public getEffectCalledState = (id: string): boolean => {
-        return Boolean(App.instance.calledState[id]);
-    };
-    
-    public effectCollection = new EffectCollection();
-    
-    private state: any;
+    return new App();
+  }
 
-    public commitState(state: any) {
-        this.isReady = true
-        this.state = state
+  public setEffectCalledState = (id: string): void => {
+    if (!App.instance.calledState[id]) {
+      App.instance.calledState[id] = true;
     }
+  };
 
-    public getState() {
-        return this.state;
-    }
+  public getEffectCalledState = (id: string): boolean => {
+    return Boolean(App.instance.calledState[id]);
+  };
 
+  public effectCollection = new EffectCollection();
+
+  private state: any;
+
+  public commitState(state: any) {
+    this.isReady = true;
+    this.state = state;
+  }
+
+  public getState() {
+    return this.state;
+  }
 }
