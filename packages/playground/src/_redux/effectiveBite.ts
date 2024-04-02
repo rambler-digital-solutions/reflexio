@@ -1,5 +1,5 @@
-import {Bite} from '../../../core-v1/lib';
-import {DispatcherType, BiteStatusWrap} from '../../../core-v1/lib/types';
+import { Bite } from '../../../v1-core/lib';
+import { DispatcherType, BiteStatusWrap } from '../../../v1-core/lib/types';
 
 export type EffectiveState<I, D, E> = {
   input?: I;
@@ -29,11 +29,11 @@ export const effectiveBite = <
   ITrigger,
   IState,
   K extends keyof ITrigger,
-  IRootTrigger,
+  IRootTrigger
 >(
   promise,
   name: string,
-  opts?: EffectiveBiteOpts<IState, ITrigger>,
+  opts?: EffectiveBiteOpts<IState, ITrigger>
 ) => {
   const defaultStartReducer = (state: IState, payload: any) => {
     state[name].input = payload;
@@ -69,12 +69,12 @@ export const effectiveBite = <
       watchScope: [name],
       instance: opts && opts.mode ? (opts.mode as any) : 'stable',
       script: EffectScript,
-    } as any,
+    } as any
   ) as any;
 };
 
 export const effectiveInitialState = <I, D, E>(
-  state?: EffectiveState<I, D, E>,
+  state?: EffectiveState<I, D, E>
 ): EffectiveState<I, D, E> => ({
   data: state && state.data ? state.data : null,
   loading: state && state.loading ? state.loading : false,
@@ -86,22 +86,17 @@ class EffectScript {
 
   public async init(args) {
     const co = this.opts.customOpts;
-
     try {
       if (co && co.onStart) {
         co.onStart(this.opts.trigger);
       }
-
       const result = await this.opts.addOpts.promise();
-
       this.opts.setStatus('done', result);
-
       if (co && co.onDone) {
         co.onDone(this.opts.trigger);
       }
-    } catch (error) {
-      this.opts.setStatus('error', error);
-
+    } catch (err) {
+      this.opts.setStatus('error', err);
       if (co && co.onError) {
         co.onError(this.opts.trigger);
       }

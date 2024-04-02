@@ -1,3 +1,0 @@
-{
-  "extends": ["@rambler-tech/commitlint-config/shared"]
-}

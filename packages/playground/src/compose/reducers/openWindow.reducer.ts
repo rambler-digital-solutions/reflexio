@@ -5,7 +5,6 @@ export const openWindowReducer = (state, payload) => {
       id,
       subject: '',
     };
-
     state.composeItems = [newComposeItem, ...state.composeItems];
     state.openedComposeId = id;
   } else {

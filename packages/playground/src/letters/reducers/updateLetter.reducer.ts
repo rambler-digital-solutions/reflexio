@@ -1,5 +1,5 @@
-import {ILetter} from '../interfaces/Letter.interface';
-import {ILettersState} from '../letters.config';
+import { ILetter } from '../interfaces/Letter.interface';
+import { ILettersState } from '../letters.config';
 
 export const updateLetterReducer = (state: ILettersState, payload: any) => {
   const id = state.updateLetter.input.id;

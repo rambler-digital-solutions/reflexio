@@ -1,11 +1,11 @@
 import * as React from 'react';
-
 //import { useSelector } from 'react-redux';
-import {useReflector, useTrigger} from '@reflexio/react-v1';
-import {IState, ITriggers} from '../../_redux/types';
-import {Compose} from './Compose';
+import { IState, ITriggers } from '../../_redux/types';
+import { useReflector } from '@reflexio/react-v1/lib/useReflector';
+import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
+import { Compose } from './Compose';
 import './ComposeGrid.less';
-import {ComposeWrapper} from './ComposeWrapper';
+import { ComposeWrapper } from './ComposeWrapper';
 
 const ComposePanel = ({
   composeItems,
@@ -23,7 +23,7 @@ const ComposePanel = ({
     {composeItems.map((ci, i) => (
       <div key={ci.id} className={'composeButtonGridButtonWrap'}>
         <button
-          className="btn"
+          className='btn'
           onClick={() => onOpen(ci.id)} // openWindow
         >
           <span className={'btnText'}>{ci.subject || '(Без темы)'}</span>
@@ -34,16 +34,16 @@ const ComposePanel = ({
 );
 
 export const ComposeGrid = () => {
-  const {items, opened} = useReflector<
+  const { items, opened } = useReflector<
     ITriggers,
     IState,
-    {items: IState['compose']['composeItems']; opened: string}
+    { items: IState['compose']['composeItems']; opened: string }
   >(
     (state) => ({
       items: state.compose.composeItems,
       opened: state.compose.openedComposeId,
     }),
-    ['setContent'],
+    ['setContent']
   );
   const trigger = useTrigger<ITriggers>();
 
@@ -54,15 +54,16 @@ export const ComposeGrid = () => {
     return (
       <ComposePanel
         composeItems={items}
-        onOpen={(id) => trigger('setContent', 'openWindow', {id})}
-        onDrop={(id) => trigger('setContent', 'closeWindow', {id})}
+        onOpen={(id) => trigger('setContent', 'openWindow', { id })}
+        onDrop={(id) => trigger('setContent', 'closeWindow', { id })}
       />
     );
   }
 
   return (
     <ComposeWrapper
-      onClick={() => trigger('setContent', 'openWindow', {id: null})}>
+      onClick={() => trigger('setContent', 'openWindow', { id: null })}
+    >
       {items
         .filter((a) => a.id === opened)
         .map((c, i) => (

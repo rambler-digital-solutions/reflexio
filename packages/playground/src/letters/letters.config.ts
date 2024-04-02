@@ -1,38 +1,38 @@
+import { Bite, Slice } from '../../../v1-core/lib';
+import { BiteStatusWrap } from '../../../v1-core/lib/types';
 import {
   effectiveBite,
   EffectiveState,
   EffectiveTrigger,
   effectiveInitialState,
 } from 'src/_redux/effectiveBite';
-import {IState, ITriggers} from 'src/_redux/types';
-import {createLetter, loadLetters, updateLetter} from 'src/_api';
-import {Bite, Slice} from '../../../core-v1/lib';
-import {BiteStatusWrap} from '../../../core-v1/lib/types';
-import {ILetter} from './interfaces/Letter.interface';
-import {deleteLetterReducer} from './reducers/deleteLetter.reducer';
-import {updateLetterReducer} from './reducers/updateLetter.reducer';
-import {saveLetterReducer} from './reducers/saveLetter.reducer';
+import { ILetter } from './interfaces/Letter.interface';
+import { IState, ITriggers } from 'src/_redux/types';
+import { createLetter, loadLetters, updateLetter } from 'src/_api';
+import { deleteLetterReducer } from './reducers/deleteLetter.reducer';
+import { updateLetterReducer } from './reducers/updateLetter.reducer';
+import { saveLetterReducer } from './reducers/saveLetter.reducer';
 
 export interface ILettersState {
   lettersList: EffectiveState<null, Array<ILetter>, Error>;
-  saveLetter: EffectiveState<ILetter, {id: number}, Error>;
+  saveLetter: EffectiveState<ILetter, { id: number }, Error>;
   updateLetter: EffectiveState<
-    {id: number; newLetter: ILetter},
+    { id: number; newLetter: ILetter },
     boolean,
     Error
   >;
-  deleteLetter: EffectiveState<{id: number}, boolean, Error>;
+  deleteLetter: EffectiveState<{ id: number }, boolean, Error>;
 }
 
 export interface ILettersTriggers {
   lettersList: EffectiveTrigger<null, ILetter, Error>;
   saveLetter: EffectiveTrigger<ILetter, number, Error>;
   updateLetter: EffectiveTrigger<
-    {id: number; newLetter: ILetter},
+    { id: number; newLetter: ILetter },
     boolean,
     Error
   >;
-  deleteLetter: EffectiveTrigger<{id: number}, boolean, Error>;
+  deleteLetter: EffectiveTrigger<{ id: number }, boolean, Error>;
 }
 
 export const lettersInitialState: ILettersState = {
@@ -89,5 +89,5 @@ export const lettersSlice = Slice<
     deleteLetter: deleteLetterBite,
     saveLetter: saveLetterBite,
   },
-  lettersInitialState,
+  lettersInitialState
 );
