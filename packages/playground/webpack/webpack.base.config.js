@@ -2,13 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-const ProjectDIR = path.resolve(__dirname, '../../') + '/';
-const SourceDIR = ProjectDIR + '/';
-const BuildDIR = ProjectDIR + './build/';
+const ProjectDIR = `${path.resolve(__dirname, '../../')}/`;
+const SourceDIR = `${ProjectDIR}/`;
+const BuildDIR = `${ProjectDIR}./build/`;
 
 module.exports = {
   entry: {
-    app: SourceDIR + 'playground/src/_root/index.tsx',
+    app: `${SourceDIR}playground/src/_root/index.tsx`,
   },
   externals: {},
   output: {
@@ -28,7 +28,7 @@ module.exports = {
               '@babel/preset-typescript',
               '@babel/preset-react',
             ],
-            plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
+            plugins: [['@babel/plugin-proposal-decorators', {legacy: true}]],
           },
         },
         include: [path.resolve(SourceDIR)],
@@ -56,7 +56,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules', SourceDIR],
-    alias: { src: SourceDIR + '/playground/src' },
+    alias: {src: `${SourceDIR}/playground/src`},
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
 

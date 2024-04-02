@@ -1,0 +1,25 @@
+{
+  "name": "@reflexio/core-v1",
+  "version": "1.2.4",
+  "description": "Reflexio core-v1 package",
+  "keywords": ["react", "redux", "reflexio"],
+  "main": "dist",
+  "module": "dist",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rambler-digital-solutions/reflexio.git"
+  },
+  "author": "Konstantin Astapov",
+  "license": "MIT",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "peerDependencies": {
+    "redux": ">=4.0.5"
+  }
+}

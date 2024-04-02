@@ -1,0 +1,32 @@
+{
+  "name": "@reflexio/react-v1",
+  "version": "1.1.5",
+  "description": "Connecting react with reflexio core-v1",
+  "keywords": [
+    "react",
+    "redux",
+    "reflexio"
+  ],
+  "main": "dist",
+  "module": "dist",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rambler-digital-solutions/reflexio.git"
+  },
+  "author": "Konstantin Astapov",
+  "license": "MIT",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@reflexio/core-v1": "^1.2.4",
+    "@types/react": "^18.2.73",
+    "@types/uuid": "^9.0.8"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "redux": ">=4.0.5"
+  }
+}

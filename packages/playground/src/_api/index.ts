@@ -1,4 +1,4 @@
-import { ILetter } from 'src/letters/interfaces/Letter.interface';
+import {ILetter} from 'src/letters/interfaces/Letter.interface';
 
 export interface UpdateLetterArgs {
   id: number;
@@ -10,11 +10,11 @@ export interface CreateLetterArgs {
 }
 
 export const createLetter = async (
-  args: CreateLetterArgs
-): Promise<{ id: number }> =>
+  args: CreateLetterArgs,
+): Promise<{id: number}> =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({ id: Math.floor(Math.random() * 100) });
+      resolve({id: Math.floor(Math.random() * 100)});
     }, 600);
   });
 

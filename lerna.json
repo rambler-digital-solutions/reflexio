@@ -1,0 +1,22 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "packages": [
+    "packages/core-v1",
+    "packages/react-v1",
+    "packages/ssr"
+  ],
+  "command": {
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "message": "chore(release): publish",
+      "ignoreChanges": ["**/*.md"]
+    },
+    "publish": {
+      "yes": true,
+      "verifyAccess": false
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import './ComposeGrid.less';
 
 export const ComposeWrapper = ({
@@ -15,8 +15,7 @@ export const ComposeWrapper = ({
       }
     }}
     data-wrapper
-    className={'popupWrapper'}
-  >
+    className={'popupWrapper'}>
     {children}
   </div>
 );

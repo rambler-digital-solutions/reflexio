@@ -1,8 +1,8 @@
 import * as React from 'react';
+
 //import { useSelector } from 'react-redux';
-import { IState, ITriggers } from 'src/_redux/types';
-import { useReflector } from '@reflexio/react-v1/lib/useReflector';
-import { useTrigger } from '@reflexio/react-v1/lib/useTrigger';
+import {IState, ITriggers} from 'src/_redux/types';
+import {useReflector, useTrigger} from '@reflexio/react-v1';
 import './style.less';
 
 export const Notification = () => {
@@ -16,8 +16,7 @@ export const Notification = () => {
   return notifications.length ? (
     <div
       onClick={() => trigger('showNotification', 'close', null)}
-      className='notification'
-    >
+      className="notification">
       {notifications[0].content}
     </div>
   ) : null;

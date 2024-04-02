@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
-import { IState, ITriggers } from 'src/_redux/types';
-import { Bite, Slice } from '../../../v1-core/lib';
-import { BiteStatusWrap } from '../../../v1-core/lib/types';
-import { OpenPopupScript } from './scripts/OpenPopup.script';
+import {ReactElement} from 'react';
+import {IState, ITriggers} from 'src/_redux/types';
+import {Bite, Slice} from '../../../core-v1/lib';
+import {BiteStatusWrap} from '../../../core-v1/lib/types';
+import {OpenPopupScript} from './scripts/OpenPopup.script';
 
 export interface IPopupState {
   isOpen: boolean;
@@ -39,7 +39,7 @@ const openPopupBite = Bite<IPopupTriggers, IPopupState, 'openPopup', ITriggers>(
     instance: 'stable',
     script: OpenPopupScript,
     initOn: 'init',
-  }
+  },
 );
 
 export const popupSlice = Slice<IPopupTriggers, IPopupState, ITriggers, IState>(
@@ -47,5 +47,5 @@ export const popupSlice = Slice<IPopupTriggers, IPopupState, ITriggers, IState>(
   {
     openPopup: openPopupBite,
   },
-  popupInitialState
+  popupInitialState,
 );

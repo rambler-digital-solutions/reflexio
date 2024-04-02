@@ -1,13 +1,13 @@
-import { ILetter } from 'src/letters/interfaces/Letter.interface';
-import { IState, ITriggers } from '../_redux/types';
-import { Bite, Slice } from '../../../v1-core/lib';
-import { BiteStatusWrap } from '../../../v1-core/lib/types';
-import { changeItemReducer } from './reducers/changeItem.reducer';
-import { closeWindowRecucer } from './reducers/closeWindow.reducer';
-import { openWindowReducer } from './reducers/openWindow.reducer';
-import { PreventCloseScript } from './scripts/PreventClose.script';
-import { SetContentScript } from './scripts/SetContent.script';
-import { SubmitLetterScript } from './scripts/SubmitLetter.script';
+import {ILetter} from 'src/letters/interfaces/Letter.interface';
+import {IState, ITriggers} from '../_redux/types';
+import {Bite, Slice} from '../../../core-v1/lib';
+import {BiteStatusWrap} from '../../../core-v1/lib/types';
+import {changeItemReducer} from './reducers/changeItem.reducer';
+import {closeWindowRecucer} from './reducers/closeWindow.reducer';
+import {openWindowReducer} from './reducers/openWindow.reducer';
+import {PreventCloseScript} from './scripts/PreventClose.script';
+import {SetContentScript} from './scripts/SetContent.script';
+import {SubmitLetterScript} from './scripts/SubmitLetter.script';
 
 export interface IComposeState {
   openedComposeId: string | null;
@@ -33,11 +33,11 @@ const composeInitialState: IComposeState = {
 export interface IComposeTriggers {
   setContent: BiteStatusWrap<{
     init: null;
-    changeItem: { id: string; subject?: string };
-    openFromList: { subject: string; body: string };
-    openWindow: { id: string | null };
-    closeWindow: { id: string; noCheck?: boolean };
-    submit: { id: string };
+    changeItem: {id: string; subject?: string};
+    openFromList: {subject: string; body: string};
+    openWindow: {id: string | null};
+    closeWindow: {id: string; noCheck?: boolean};
+    submit: {id: string};
     commitFormContent: null;
     syncForm: {
       text: string;
@@ -52,9 +52,9 @@ export interface IComposeTriggers {
   }>;
   preventClose: BiteStatusWrap<{
     init: null;
-    set: { subject: string; body: string };
+    set: {subject: string; body: string};
     clear: null;
-    checkReq: { body: string; subject: string; passCb?: () => void };
+    checkReq: {body: string; subject: string; passCb?: () => void};
     checkResp: boolean;
   }>;
   setFormState: Partial<IComposeState>;
@@ -82,7 +82,7 @@ const setContentBite = Bite<
     script: SetContentScript,
     instance: 'stable',
     initOn: 'init',
-  }
+  },
 );
 
 const submitLetterBite = Bite<
@@ -101,7 +101,7 @@ const submitLetterBite = Bite<
     script: SubmitLetterScript,
     instance: 'stable',
     initOn: 'init',
-  }
+  },
 );
 
 const setFormStateBite = Bite<
@@ -131,7 +131,7 @@ const preventCloseBite = Bite<
     script: PreventCloseScript,
     instance: 'stable',
     initOn: 'init',
-  }
+  },
 );
 
 export const composeSlice = Slice<
@@ -147,5 +147,5 @@ export const composeSlice = Slice<
     setFormState: setFormStateBite,
     preventClose: preventCloseBite,
   },
-  composeInitialState
+  composeInitialState,
 );
