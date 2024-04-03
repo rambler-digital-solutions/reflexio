@@ -45,8 +45,6 @@
     "typescript": "^5.4.3"
   },
   "workspaces": [
-    "packages/core-v1",
-    "packages/react-v1",
-    "packages/ssr"
+    "packages/*"
   ]
 }
