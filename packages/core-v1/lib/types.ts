@@ -4,7 +4,7 @@ export type SystemConfig = {
   env: 'dev' | 'prod' | 'test';
 };
 
-export type GetByKey<T, K> = K extends keyof T ? T[K] : null;
+type GetByKey<T, K> = K extends keyof T ? T[K] : null;
 
 export type MakeReducerType<AC, StoreType> = {
   [T in keyof AC]: AC[T] extends Record<string, unknown>
@@ -17,21 +17,19 @@ export type MakeReducerType<AC, StoreType> = {
     : (state: StoreType, payload: AC[T]) => void;
 };
 
-export type MakeActionCreatorsType<AC> = {
-  [T in keyof AC]: (args: AC[T]) => void;
-};
-
-export type TriggerPhaseVals<IR> = {
+type TriggerPhaseVals<IR> = {
   [K in keyof IR]: IR[K] extends BiteStatusWrap<Record<string, unknown>>
     ? ReturnType<IR[K]>
     : never;
 };
+
 export type TriggerPhaseKeys<
   IR,
   K extends keyof IR,
 > = K extends keyof OmitNever<TriggerPhaseVals<IR>>
   ? keyof OmitNever<TriggerPhaseVals<IR>>[K]
   : '';
+
 type TriggerPhasePayload<
   IR,
   K extends keyof IR,
@@ -55,16 +53,13 @@ export type DispatcherType<IR> = <
   payload: TriggerPhasePayload<IR, K, S>,
 ) => void;
 
-export type WaiterType<IR> = <
-  K extends keyof IR,
-  S extends TriggerPhaseKeys<IR, K>,
->(
+type WaiterType<IR> = <K extends keyof IR, S extends TriggerPhaseKeys<IR, K>>(
   type: K,
   status: S,
   timeout?: number,
 ) => Promise<TriggerPhasePayload<IR, K, S>>;
 
-export type HookerType<IR> = <
+type HookerType<IR> = <
   K extends keyof IR,
   S extends TriggerPhaseKeys<IR, K>,
   P extends TriggerPhaseKeys<IR, K>,
@@ -76,14 +71,14 @@ export type HookerType<IR> = <
   timeout?: number,
 ) => Promise<TriggerPhasePayload<IR, K, P>>;
 
-export type CatchStatusType<IR, K extends keyof IR> = <
+type CatchStatusType<IR, K extends keyof IR> = <
   S extends TriggerPhaseKeys<IR, K>,
 >(
   status: S,
   args: unknown,
 ) => {payload: TriggerPhasePayload<IR, K, S>; isCatched: boolean};
 
-export type CatchEventType<IR> = <
+type CatchEventType<IR> = <
   K extends keyof IR,
   S extends TriggerPhaseKeys<IR, K>,
 >(
@@ -92,21 +87,21 @@ export type CatchEventType<IR> = <
   args: unknown,
 ) => {payload: TriggerPhasePayload<IR, K, S>; isCatched: boolean};
 
-export type SetStatusType<IR, K extends keyof IR> = <
+type SetStatusType<IR, K extends keyof IR> = <
   S extends TriggerPhaseKeys<IR, K>,
 >(
   status: S,
   payload: TriggerPhasePayload<IR, K, S>,
 ) => void;
 
-export type BindHandlerType<IR, K extends keyof IR> = <
+type BindHandlerType<IR, K extends keyof IR> = <
   S extends TriggerPhaseKeys<IR, K>,
 >(
   status: S,
   handlerName: string,
 ) => void;
 
-export type DefautOpts<
+type DefautOpts<
   IRootTrigger,
   IState,
   BiteName extends keyof IRootTrigger,
@@ -149,7 +144,7 @@ export type UpdateOnType<ITrigger> = Array<
 
 export type MakeBiteReducerType<
   ITrigger,
-  IRootTrigger,
+  _IRootTrigger,
   IState,
   BiteName extends keyof ITrigger,
 > =

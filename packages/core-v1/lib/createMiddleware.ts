@@ -18,84 +18,87 @@ export const makeProcMiddleware = (
 ): Middleware => {
   const system = useSystem();
 
-  return (store) => (next) => (action) => {
-    let ignore = false;
-    let forceStopPropagate = false;
-    const sourceSlice = action.sourceSlice;
-    const actionType = action.type;
-    const isBiteHit = matchBiteName(configs, actionType);
+  const handleInit = (store, actionType, actionPayload, skipInit) => {
+    const initConfig = matchInitTrigger(configs, actionType);
 
-    if (sliceConfig?.ignoreExternal) {
-      if (sliceConfig.ignoreExternal === 'ignoreAll') {
-        ignore = true;
-      } else if (
-        sourceSlice &&
-        sliceConfig.ignoreExternal.length &&
-        sliceConfig.ignoreExternal.indexOf(sourceSlice) !== -1
-      ) {
-        ignore = true;
-      }
+    if (!initConfig || skipInit) {
+      return;
     }
 
-    const actionPayload = action.payload || null;
-    const nexio = (args) => {
-      system.taksQueue.setCurrentTask(action);
+    const opts = prepareOpts(initConfig, store, system, sliceName, injected);
+    const instance = createProcessorInstance(
+      system,
+      initConfig.config,
+      opts,
+      actionType,
+    );
 
-      return next(args);
-    };
+    if (instance) {
+      onInit(instance, actionPayload);
+    }
+
+    if (instance?.watchAfter) {
+      system.afterHandlers.push(() => instance.watchAfter);
+    }
+  };
+
+  const handleUpdate = (store, action, skipUpdate) => {
+    if (skipUpdate) {
+      return false;
+    }
+
+    const updateConfigs = matchUpdateTrigger(configs, action.type);
+
+    return updateConfigs.reduce((forceStopPropagate, config) => {
+      const instances = getInstance(config.config, config.trigger, system);
+
+      return (
+        forceStopPropagate ||
+        instances.some(
+          (instance) =>
+            !BeforeUpdate(
+              instance,
+              store.getState(),
+              action,
+              reducers,
+              sliceName,
+            ),
+        )
+      );
+    }, false);
+  };
+
+  return (store) => (next) => (action) => {
+    const {
+      sourceSlice,
+      type: actionType,
+      payload: actionPayload,
+      opts,
+    } = action;
+    const isBiteHit = matchBiteName(configs, actionType);
+    const ignore =
+      sliceConfig?.ignoreExternal &&
+      (sliceConfig.ignoreExternal === 'ignoreAll' ||
+        (sourceSlice &&
+          sliceConfig.ignoreExternal.length &&
+          sliceConfig.ignoreExternal.includes(sourceSlice)));
 
     if (isBiteHit && ignore) {
       return next(action);
     }
 
-    const skipInit = action.opts && action.opts.noInit;
-    const skipUpdate = action.opts && action.opts.noUpdate;
-    const initConfig = matchInitTrigger(configs, actionType); /// Возвращает  1 конфиг
-    const updateConfigs = matchUpdateTrigger(configs, actionType); //Возвращает массив конфигов
+    handleInit(store, actionType, actionPayload, opts?.noInit);
 
-    if (initConfig && !skipInit) {
-      const opts = prepareOpts(initConfig, store, system, sliceName, injected);
-      const instance = createProcessorInstance(
-        system,
-        initConfig.config,
-        opts,
-        actionType,
-      );
-
-      if (instance) {
-        onInit(instance, actionPayload);
-      }
-
-      if (instance.watchAfter) {
-        // get list of events form config
-        // check if contains then call
-        system.afterHandlers.push(() => instance.watchAfter);
-      }
-    }
-
-    if (updateConfigs.length && !skipUpdate) {
-      updateConfigs.forEach((c) => {
-        const instances = getInstance(c.config, c.trigger, system);
-
-        instances.forEach((i) => {
-          const proppagate = BeforeUpdate(
-            i,
-            store.getState(),
-            action,
-            reducers,
-            sliceName,
-          );
-
-          if (!proppagate) {
-            forceStopPropagate = true;
-          }
-        });
-      });
-    }
-
+    const forceStopPropagate = handleUpdate(store, action, opts?.noUpdate);
     const processorOpts = system.getProcessorInfo(action.type);
 
-    system.resolveWait(action.type, action.payload);
+    system.resolveWait(action.type, actionPayload);
+
+    const nexio = (args) => {
+      system.taksQueue.setCurrentTask(action);
+
+      return next(args);
+    };
 
     return forceStopPropagate ||
       (isBiteHit && processorOpts && !processorOpts.propagate)

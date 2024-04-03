@@ -14,26 +14,22 @@ export function matchUpdateTrigger(configs, actionType) {
         }
 
         const matchedTrigger = watchScope.find((t) => {
-          const firstKey = Object.keys(t)[0];
+          const [firstKey] = Object.keys(t);
 
           return t === trigger || firstKey === trigger;
         });
 
-        if (matchedTrigger) {
-          if (typeof matchedTrigger === 'string') {
-            return true;
-          } else if (
-            matchedTrigger[Object.keys(matchedTrigger)[0]] === status
+        if (typeof matchedTrigger === 'string') {
+          return true;
+        } else if (matchedTrigger) {
+          const [firstKey] = Object.keys(matchedTrigger);
+          const matchedStatus = matchedTrigger[firstKey];
+
+          if (
+            matchedStatus === status ||
+            (Array.isArray(matchedStatus) && matchedStatus.includes(status))
           ) {
             return true;
-          } else if (
-            Array.isArray(matchedTrigger[Object.keys(matchedTrigger)[0]])
-          ) {
-            if (
-              matchedTrigger[Object.keys(matchedTrigger)[0]].includes(status)
-            ) {
-              return true;
-            }
           }
         }
       }

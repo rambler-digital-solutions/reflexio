@@ -5,7 +5,7 @@ export class App {
 
   public isReady: boolean;
 
-  private calledState: {};
+  private calledState: Record<string, boolean> = {};
 
   static getApp() {
     if (App.instance) {
@@ -16,9 +16,7 @@ export class App {
   }
 
   public setEffectCalledState = (id: string): void => {
-    if (!App.instance.calledState[id]) {
-      App.instance.calledState[id] = true;
-    }
+    App.instance.calledState[id] ||= true;
   };
 
   public getEffectCalledState = (id: string): boolean => {

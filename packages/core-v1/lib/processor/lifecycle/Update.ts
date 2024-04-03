@@ -7,9 +7,8 @@ export function BeforeUpdate(instance, state, action, reducers, sliceName) {
   const actionType = action.type;
   const actionPayload = action.payload;
   let propagate = true;
-  let keepUpdate = false;
-  const stopPropagate = (args?: {keepUpdate: boolean}) => {
-    keepUpdate = (args && args.keepUpdate) || false;
+
+  const stopPropagate = () => {
     propagate = false;
   };
 

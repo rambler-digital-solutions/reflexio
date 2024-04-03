@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOMServer, {
-  RenderToPipeableStreamOptions,
-  PipeableStream,
+  // type RenderToPipeableStreamOptions,
+  type PipeableStream,
 } from 'react-dom/server';
 import {App} from './core/app';
 
@@ -11,10 +11,10 @@ interface IState {
   [key: string]: unknown;
 }
 
-interface IServerRenderResultString {
-  html: string;
-  state: IState;
-}
+// interface IServerRenderResultString {
+//   html: string;
+//   state: IState;
+// }
 
 interface IServerRenderResultStream {
   stream: PipeableStream;
@@ -27,7 +27,9 @@ interface IServerRenderResultStream {
 // }
 
 export const serverRender = {
-  stream: async <T extends Function>(): Promise<IServerRenderResultStream> => {
+  stream: async <
+    _T extends () => void,
+  >(): Promise<IServerRenderResultStream> => {
     // opts?: IServerRenderOptions<T>,
     if (typeof ReactDOMServer.renderToPipeableStream === 'undefined') {
       throw new Error('Streaming is available only on React 18 or more');

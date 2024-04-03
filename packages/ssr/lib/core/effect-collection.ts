@@ -46,16 +46,16 @@ export class EffectCollection {
       results.forEach((result, num) => {
         const effect = waited[num];
 
+        if (!effect) {
+          return;
+        }
+
         if (result.status === 'fulfilled') {
-          if (effect) {
-            effect.done();
-          }
+          effect.done();
         }
 
         if (result.status === 'rejected') {
-          if (effect) {
-            effect.failed();
-          }
+          effect.failed();
         }
       });
     }

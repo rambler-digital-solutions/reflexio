@@ -23,8 +23,8 @@ export function createProcessorInstance(
 }
 
 function multipleMode(system, config, opt, actionType) {
-  const processor = config.script;
-  const newInstance = new processor(opt);
+  const Processor = config.script;
+  const newInstance = new Processor(opt);
   const processUid = opt.uid;
 
   system.upProcess(newInstance, actionType, processUid);
@@ -33,7 +33,7 @@ function multipleMode(system, config, opt, actionType) {
 }
 
 function stableMode(system, config, opt, actionType) {
-  const processor = config.script;
+  const Processor = config.script;
   const processUid = opt.uid;
   const found = system.findProcess(actionType);
 
@@ -41,7 +41,7 @@ function stableMode(system, config, opt, actionType) {
     return found[0];
   }
 
-  const newInstance = new processor(opt);
+  const newInstance = new Processor(opt);
 
   system.upProcess(newInstance, actionType, processUid);
 
@@ -49,7 +49,7 @@ function stableMode(system, config, opt, actionType) {
 }
 
 function refreshingMode(system, config, opt, actionType) {
-  const processor = config.script;
+  const Processor = config.script;
   const found = system.findProcess(actionType);
   const processUid = opt.uid;
 
@@ -57,7 +57,7 @@ function refreshingMode(system, config, opt, actionType) {
     system.downProcess(actionType);
   }
 
-  const newInstance = new processor(opt);
+  const newInstance = new Processor(opt);
 
   system.upProcess(newInstance, actionType, processUid);
 

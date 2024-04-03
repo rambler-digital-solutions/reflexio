@@ -1,9 +1,9 @@
 import {isClient} from '../utils';
 
 export class SsrScript {
-  constructor(private opts) {}
-
-  private condition;
+  constructor(private opts) {
+    this.opts = opts;
+  }
 
   public init() {
     const client = isClient();
@@ -18,7 +18,7 @@ export class SsrScript {
     }
   }
 
-  public update(args) {
+  public update(_args) {
     // checkIsReady
     // if(checkIsReady) {
     //     App.commitState()

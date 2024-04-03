@@ -1,6 +1,6 @@
 import {getActionType} from '../../utils';
 
-export function Wait(store, config, system, uid) {
+export function Wait(store, config, system, _uid) {
   //const canTrigger = config.config.canTrigger;
 
   return (actionType, actionStatus, timeout) => {

@@ -27,19 +27,15 @@ export function makeReducer<AC, StoreType>(
     state: StoreType = initialState,
     action: {type: string; payload: unknown},
   ) {
-    const parts = action.type.split('/');
-    const [trigger, status] = [parts[0], parts[1]];
+    const [trigger, status] = action.type.split('/');
+    const reducer = reducers[trigger];
 
     if (!status) {
-      if (reducers[trigger]) {
-        if (typeof reducers[trigger] === 'function') {
-          return makeImmutable(state, action.payload, reducers[trigger]);
-        }
+      if (typeof reducer === 'function') {
+        return makeImmutable(state, action.payload, reducer);
       }
-    } else if (reducers[trigger]) {
-      if (reducers[trigger][status]) {
-        return makeImmutable(state, action.payload, reducers[trigger][status]);
-      }
+    } else if (reducer?.[status]) {
+      return makeImmutable(state, action.payload, reducer[status]);
     }
 
     return state;

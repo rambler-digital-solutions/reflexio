@@ -47,12 +47,16 @@ export class System {
     return arr.length > 1 ? arr[1] : null;
   };
 
-  public addWait = (trigger: string, {resolve, reject, args}, timeout) => {
+  public addWait = (
+    trigger: string,
+    {resolve, reject, args},
+    timeout = 5000,
+  ) => {
     const timeOutId = setTimeout(() => {
       if (this.waits[trigger]) {
         this.waits[trigger].reject(`${trigger} TIMEOUT`);
       }
-    }, timeout || 5000);
+    }, timeout);
 
     this.waits[trigger] = {resolve, reject, args, id: timeOutId};
   };

@@ -1,5 +1,6 @@
 import {getActionType} from '../../utils';
 
+// eslint-disable-next-line import/no-unused-modules
 export function TriggerOnly(store, config, system, uid) {
   //const canTrigger = config.config.canTrigger;
 
