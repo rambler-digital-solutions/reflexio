@@ -12,6 +12,8 @@ export abstract class Script<
   PhK extends TriggerPhaseKeys<RTg, Bitename>,
   Inj = unknown,
 > {
+  updatable: Record<string, string>;
+
   abstract opts: ScriptOptsType<RTg, RSt, Bitename, Inj>;
 
   abstract watch(args: WatchArgsType<RTg, Bitename>): void;

@@ -12,7 +12,8 @@
       "@reflexio/*": ["./packages/*"]
     },
     "jsx": "react",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noEmitOnError": false
   },
   "include": ["packages", "types"],
   "exclude": ["node_modules", "**/dist"]

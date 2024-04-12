@@ -1,4 +1,4 @@
-import {getTriggerAndStatus} from './getTriggerAndStatus';
+import {getTriggerAndStatus} from '@reflexio/core-v1';
 
 export function matchActionType(actionType, updateOn) {
   const {trigger, status} = getTriggerAndStatus(actionType);
@@ -8,7 +8,7 @@ export function matchActionType(actionType, updateOn) {
   }
 
   const matchedTrigger = updateOn.find((t) => {
-    const firstKey = Object.keys(t)[0];
+    const [firstKey] = Object.keys(t);
 
     return t === trigger || firstKey === trigger;
   });
@@ -21,7 +21,8 @@ export function matchActionType(actionType, updateOn) {
     return true;
   }
 
-  const matchedStatus = matchedTrigger[Object.keys(matchedTrigger)[0]];
+  const [firstKey] = Object.keys(matchedTrigger);
+  const matchedStatus = matchedTrigger[firstKey];
 
   if (
     matchedStatus === status ||

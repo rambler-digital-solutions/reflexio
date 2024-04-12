@@ -129,7 +129,7 @@ type DefautOpts<
 
 type OmitNever<T> = {[K in keyof T as T[K] extends never ? never : K]: T[K]};
 
-export type BiteStatusWrap<Args> = (args: Args) => Args;
+type BiteStatusWrap<Args> = (args: Args) => Args;
 
 export type UpdateOnType<ITrigger> = Array<
   | Partial<

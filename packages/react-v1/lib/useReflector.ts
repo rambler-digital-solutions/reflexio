@@ -3,36 +3,27 @@ import type {UpdateOnType} from '@reflexio/core-v1';
 import {matchActionType} from './matchActionType';
 import {StoreContext} from './context';
 
-export type UseReflectorType = <Tr, K, S>(
+export function useReflector<Tr, K, S>(
   mapState: (args: K) => S,
   condition: UpdateOnType<Tr>,
   shouldUpdate?: (payload: any) => boolean,
-) => S;
-
-export const useReflector: UseReflectorType = (
-  mapState,
-  condition,
-  shouldUpdate,
-) => {
+): S {
   const ctx = useContext(StoreContext);
   const store = ctx.store;
   const system = ctx.system;
   const initialState = mapState(store.getState());
   const [state, setState] = useState(initialState);
 
-  let c;
-
-  if (typeof c === 'function') {
-    c = condition();
-  } else {
-    c = condition;
-  }
+  const conditions = typeof condition === 'function' ? condition() : condition;
 
   useEffect(() => {
     const subscribtion = store.subscribe(() => {
       const task = system.taksQueue.getCurrentTask();
 
-      if (!c.length || (task && matchActionType(task.type, c))) {
+      if (
+        !conditions.length ||
+        (task && matchActionType<Tr>(task.type, conditions))
+      ) {
         if (shouldUpdate) {
           if (shouldUpdate(task.payload)) {
             setState(mapState(store.getState()));
@@ -47,4 +38,4 @@ export const useReflector: UseReflectorType = (
   }, []);
 
   return state;
-};
+}

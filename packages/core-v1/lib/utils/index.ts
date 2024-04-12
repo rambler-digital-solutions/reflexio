@@ -3,13 +3,13 @@ import type {MakeReducerType} from '../types';
 export const getNullReducersNames = <AC, StoreType>(
   reducers: MakeReducerType<AC, StoreType>,
 ): Array<string> =>
-  Object.keys(reducers).reduce((acc: string[], cur: string) => {
-    if (reducers[cur] === null) {
+  Object.entries(reducers).reduce((acc: string[], [cur, reducer]) => {
+    if (reducer == null) {
       return [...acc, cur];
-    } else if (Object.keys(reducers[cur]).length) {
-      const subArr = Object.keys(reducers[cur])
-        .filter((key) => reducers[cur][key] === null)
-        .map((k) => `${cur}/${k}`);
+    } else if (Object.keys(reducer).length) {
+      const subArr = Object.entries(reducer)
+        .filter(([, value]) => value == null)
+        .map(([key]) => `${cur}/${key}`);
 
       return [...acc, ...subArr];
     }
@@ -19,14 +19,11 @@ export const getNullReducersNames = <AC, StoreType>(
 
 export const getTriggerAndStatus = (
   actionType: string,
-): {trigger: string; status: string | null} => {
-  const parts = actionType.split('/');
+): {trigger: string; status?: string} => {
+  const [trigger, status] = actionType.split('/');
 
-  return {
-    trigger: parts[0],
-    status: parts[1] || null,
-  };
+  return {trigger, status};
 };
 
-export const getActionType = (trigger: string, status: string): string =>
+export const getActionType = (trigger: string, status?: string): string =>
   trigger + (status ? `/${status}` : '');

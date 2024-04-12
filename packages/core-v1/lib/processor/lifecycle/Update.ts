@@ -1,11 +1,10 @@
 import {getActionType, getTriggerAndStatus} from '../../utils';
 
-export function BeforeUpdate(instance, state, action, reducers, sliceName) {
+export function BeforeUpdate(instance, _state, action, _reducers, sliceName) {
   //const { trigger, status } = getTriggerAndStatus(actionType);
 
   //const reducer = pickReducer(reducers, trigger, status);
-  const actionType = action.type;
-  const actionPayload = action.payload;
+  const {type: actionType, payload: actionPayload, source} = action;
   let propagate = true;
 
   const stopPropagate = () => {
@@ -18,7 +17,7 @@ export function BeforeUpdate(instance, state, action, reducers, sliceName) {
       payload: actionPayload,
       trigger,
       status,
-      source: action.source,
+      source,
       sourceSlice: sliceName,
       hangOn: stopPropagate,
     };
