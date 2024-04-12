@@ -1,12 +1,14 @@
-import {Store} from 'redux';
-import {IComposeState, IComposeTriggers} from '../compose/compose.config';
-import {ILettersState, ILettersTriggers} from '../letters/letters.config';
-import {
+import type {IComposeState, IComposeTriggers} from '../compose/compose.config';
+import type {ILettersState, ILettersTriggers} from '../letters/letters.config';
+import type {
   INotificationState,
   INotificationTriggers,
 } from '../notification/notification.config';
-import {IPopupState, IPopupTriggers} from '../popup/popup.config';
-import {ISettingsState, ISettingsTriggers} from '../settings/settings.config';
+import type {IPopupState, IPopupTriggers} from '../popup/popup.config';
+import type {
+  ISettingsState,
+  ISettingsTriggers,
+} from '../settings/settings.config';
 
 export type IState = {
   letters: ILettersState;

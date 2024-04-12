@@ -1,16 +1,15 @@
 import * as React from 'react';
 
-//import { useSelector } from 'react-redux';
 import {useReflector, useTrigger} from '@reflexio/react-v1';
-import {IState, ITriggers} from '../../_redux/types';
+import type {IState, ITriggers} from '../../_redux/types';
 import {Compose} from './Compose';
-import './ComposeGrid.less';
 import {ComposeWrapper} from './ComposeWrapper';
+import './ComposeGrid.less';
 
 const ComposePanel = ({
   composeItems,
   onOpen,
-  onDrop,
+  // onDrop,
 }: {
   composeItems: Array<{
     id: string;
@@ -20,7 +19,7 @@ const ComposePanel = ({
   onDrop: (id: string) => void;
 }) => (
   <div className={'composeButtonGrid'}>
-    {composeItems.map((ci, i) => (
+    {composeItems.map((ci) => (
       <div key={ci.id} className={'composeButtonGridButtonWrap'}>
         <button
           className="btn"

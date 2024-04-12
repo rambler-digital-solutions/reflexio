@@ -1,14 +1,12 @@
-import {ReactElement} from 'react';
-import {IState, ITriggers} from 'src/_redux/types';
-import {Bite, Slice} from '../../../core-v1/lib';
-import {BiteStatusWrap} from '../../../core-v1/lib/types';
+import {Bite, Slice, type BiteStatusWrap} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
 import {OnboardScript} from './scripts/Onboard.script';
 
-export interface IOnboardingState {
+interface IOnboardingState {
   stage: number;
 }
 
-export interface IOnboardingTriggers {
+interface IOnboardingTriggers {
   onboard: BiteStatusWrap<{
     init: null;
     start: null;
@@ -17,7 +15,7 @@ export interface IOnboardingTriggers {
   }>;
 }
 
-export const onboardingInitialState: IOnboardingState = {
+const onboardingInitialState: IOnboardingState = {
   stage: 0,
 };
 
@@ -29,13 +27,13 @@ const onboardBite = Bite<
 >(
   {
     init: null,
-    start: (state, payload) => {
+    start: (state, _payload) => {
       state.stage = 1;
     },
-    close: (state, payload) => {
+    close: (state, _payload) => {
       state.stage = 0;
     },
-    next: (state, payload) => {
+    next: (state, _payload) => {
       state.stage += 1;
     },
   },
@@ -47,6 +45,7 @@ const onboardBite = Bite<
   },
 );
 
+// eslint-disable-next-line import/no-unused-modules
 export const popupSlice = Slice<
   IOnboardingTriggers,
   IOnboardingState,

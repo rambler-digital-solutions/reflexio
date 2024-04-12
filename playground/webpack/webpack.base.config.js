@@ -1,19 +1,21 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-const ProjectDIR = `${path.resolve(__dirname, '../../')}/`;
-const SourceDIR = `${ProjectDIR}/`;
-const BuildDIR = `${ProjectDIR}./build/`;
+const projectDir = path.resolve(__dirname, '..');
+const sourceDir = path.resolve(projectDir, 'src');
+const reflexioDir = path.resolve(projectDir, '../packages');
+const buildDir = path.resolve(projectDir, 'dist');
 
 module.exports = {
   entry: {
-    app: `${SourceDIR}playground/src/_root/index.tsx`,
+    app: path.resolve(sourceDir, '_root/index.tsx'),
   },
   externals: {},
   output: {
     publicPath: '/',
-    path: path.resolve(BuildDIR),
+    path: buildDir,
     filename: 'app.js',
   },
   module: {
@@ -31,7 +33,7 @@ module.exports = {
             plugins: [['@babel/plugin-proposal-decorators', {legacy: true}]],
           },
         },
-        include: [path.resolve(SourceDIR)],
+        include: [sourceDir, reflexioDir],
       },
       {
         test: /\.less$/i,
@@ -55,8 +57,7 @@ module.exports = {
     ],
   },
   resolve: {
-    modules: ['node_modules', SourceDIR],
-    alias: {src: `${SourceDIR}/playground/src`},
+    modules: ['node_modules', sourceDir],
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
 
@@ -72,7 +73,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(ProjectDIR, 'playground/public/index.html'),
+      template: path.resolve(projectDir, 'public/index.html'),
     }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {

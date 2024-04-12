@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react';
 import {useReflector, useTrigger} from '@reflexio/react-v1';
-import {IState, ITriggers} from 'src/_redux/types';
-import {ComposeGrid} from 'src/compose/components/ComposeGrid';
+import type {IState, ITriggers} from '_redux/types';
+import {ComposeGrid} from '../../compose/components/ComposeGrid';
 import './styles.less';
 
 export const LettersList = () => {

@@ -5,12 +5,10 @@ import {notificationSlice} from '../notification/notification.config';
 import {popupSlice} from '../popup/popup.config';
 import {settingsSlice} from '../settings/settings.config';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   ...lettersSlice.reducer,
   ...settingsSlice.reducer,
   ...composeSlice.reducer,
   ...notificationSlice.reducer,
   ...popupSlice.reducer,
 });
-
-export default rootReducer;

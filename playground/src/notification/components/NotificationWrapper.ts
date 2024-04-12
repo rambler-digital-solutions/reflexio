@@ -1,2 +1,2 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+// eslint-disable-next-line import/no-unused-modules
 export const NotificationWrapper = () => {};

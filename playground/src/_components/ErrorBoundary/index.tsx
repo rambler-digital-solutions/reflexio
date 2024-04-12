@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 
 interface ErrorBoundaryProps {
   onError?: () => void;
@@ -6,7 +6,7 @@ interface ErrorBoundaryProps {
   children: JSX.Element;
 }
 
-class ErrorBoundary extends Component<ErrorBoundaryProps> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps> {
   state = {
     hasError: false,
   };
@@ -14,7 +14,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
   componentDidCatch(error, info) {
     console.log('ERROR', error, info);
 
-    this.props.onError && this.props.onError();
+    this.props.onError?.();
 
     this.setState({hasError: true});
   }
@@ -22,12 +22,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
   render() {
     if (this.state.hasError)
       return (
-        this.props.fallback ||
-        'Что-то пошло не так. Обновите страницу, пожалуйста.'
+        <>
+          {this.props.fallback ||
+            'Что-то пошло не так. Обновите страницу, пожалуйста.'}
+        </>
       );
 
     return this.props.children;
   }
 }
-
-export default ErrorBoundary;

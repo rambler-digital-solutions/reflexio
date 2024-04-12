@@ -1,8 +1,7 @@
-import {IState, ITriggers} from 'src/_redux/types';
-import {Bite, Slice} from '../../../core-v1/lib';
-import {BiteStatusWrap} from '../../../core-v1/lib/types';
-import {INotification} from './interfaces/Notification.interface';
-import {NotificationScrit} from './scripts/Notification.script';
+import {Bite, Slice, type BiteStatusWrap} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
+import type {INotification} from './interfaces/Notification.interface';
+import {NotificationScript} from './scripts/Notification.script';
 
 export interface INotificationState {
   notifications: Array<INotification>;
@@ -15,11 +14,11 @@ export interface INotificationTriggers {
   }>;
 }
 
-export const notificationInitialState: INotificationState = {
+const notificationInitialState: INotificationState = {
   notifications: [],
 };
 
-export const showNotificationBite = Bite<
+const showNotificationBite = Bite<
   INotificationTriggers,
   INotificationState,
   'showNotification',
@@ -29,12 +28,12 @@ export const showNotificationBite = Bite<
     init: (state, payload) => {
       state.notifications = [{content: payload}];
     },
-    close: (state, payload) => {
+    close: (state, _payload) => {
       state.notifications = [];
     },
   },
   {
-    script: NotificationScrit,
+    script: NotificationScript,
     instance: 'stable',
     initOn: 'init',
     watchScope: ['showNotification'],

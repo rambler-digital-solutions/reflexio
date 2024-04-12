@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-//import { useSelector } from 'react-redux';
-import {IState, ITriggers} from 'src/_redux/types';
 import {useReflector, useTrigger} from '@reflexio/react-v1';
+import type {IState, ITriggers} from '_redux/types';
 import './style.less';
 
 export const Notification = () => {

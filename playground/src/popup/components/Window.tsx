@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {useReflector, useTrigger} from '@reflexio/react-v1';
-import {IState, ITriggers} from 'src/_redux/types';
-import {IPopupState} from '../popup.config';
+import {useReflector} from '@reflexio/react-v1';
+import type {IState, ITriggers} from '_redux/types';
+import type {IPopupState} from '../popup.config';
 import './style.less';
 
 export const Window = () => {

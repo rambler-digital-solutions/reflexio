@@ -1,5 +1,8 @@
-import {Bite} from '../../../core-v1/lib';
-import {DispatcherType, BiteStatusWrap} from '../../../core-v1/lib/types';
+import {
+  Bite,
+  type DispatcherType,
+  type BiteStatusWrap,
+} from '@reflexio/core-v1';
 
 export type EffectiveState<I, D, E> = {
   input?: I;
@@ -15,7 +18,7 @@ export type EffectiveTrigger<I, D, E> = BiteStatusWrap<{
   error: E;
 }>;
 
-export interface EffectiveBiteOpts<State, Trigger> {
+interface EffectiveBiteOpts<State, Trigger> {
   mode?: string;
   onStart?: (trigger: DispatcherType<Trigger>) => void;
   onError?: (trigger: DispatcherType<Trigger>) => void;
@@ -82,9 +85,7 @@ export const effectiveInitialState = <I, D, E>(
 });
 
 class EffectScript {
-  constructor(private opts) {}
-
-  public async init(args) {
+  public async init(_args) {
     const co = this.opts.customOpts;
 
     try {

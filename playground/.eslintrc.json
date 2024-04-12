@@ -1,0 +1,8 @@
+{
+  "extends": ["../.eslintrc.json"],
+  "rules": {
+    "no-console": "off",
+    "@typescript-eslint/no-magic-numbers": "off",
+    "sonarjs/no-duplicate-string": "off"
+  }
+}

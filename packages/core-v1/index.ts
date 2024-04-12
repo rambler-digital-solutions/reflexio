@@ -5,4 +5,4 @@ export {Script} from './lib/Script';
 export {useSystem} from './lib/System';
 export {configureRoot} from './lib/configureRoot';
 export {getTriggerAndStatus, getActionType} from './lib/utils';
-export type {UpdateOnType, DispatcherType} from './lib/types';
+export type {UpdateOnType, DispatcherType, BiteStatusWrap} from './lib/types';

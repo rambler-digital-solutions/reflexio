@@ -1,4 +1,4 @@
-import {ILettersState} from '../letters.config';
+import type {ILettersState} from '../letters.config';
 
 export const deleteLetterReducer = (
   state: ILettersState,

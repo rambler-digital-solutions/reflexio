@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
-import {IState, ITriggers} from 'src/_redux/types';
 import {
-  WatchArgsType,
-  InitArgsType,
-  ScriptOptsType,
-} from '../../../../core-v1/lib/types';
-import {useSystem} from '../../../../core-v1/lib';
-import {Script} from '../../../../core-v1/lib/Script';
-import {PopupComposeContent} from '../components/PopupComposeContent';
-import {IComposeTriggers} from '../compose.config';
+  // useSystem,
+  Script,
+  type InitArgsType,
+  type ScriptOptsType,
+} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
+import type {IComposeTriggers} from '../compose.config';
 
 /*
  ** This script is responsible for opening
@@ -19,7 +16,7 @@ export class SetContentScript extends Script<
   IState,
   'setContent',
   'init',
-  {}
+  Record<string, any>
 > {
   constructor(
     public opts: ScriptOptsType<ITriggers, IState, 'setContent', null>,
@@ -29,11 +26,11 @@ export class SetContentScript extends Script<
 
   private forms: {[key: string]: {subject: string; body: string}} = {};
 
-  private system;
+  // private system;
 
-  public init(args: InitArgsType<IComposeTriggers, 'setContent', 'init'>) {
+  public init(_args: InitArgsType<IComposeTriggers, 'setContent', 'init'>) {
     console.log('CONTENT INIT');
-    this.system = useSystem();
+    // this.system = useSystem();
     this.opts.bind('openFromList', 'handleOpenFromList');
   }
 
@@ -149,7 +146,7 @@ export class SetContentScript extends Script<
     }
   }
 
-  public handleCommitFormContent(args) {
+  public handleCommitFormContent(_args) {
     const currentId = this.opts.getCurrentState().compose.openedComposeId;
 
     if (currentId) {

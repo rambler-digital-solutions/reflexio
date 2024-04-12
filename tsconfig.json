@@ -7,9 +7,12 @@
     "strictPropertyInitialization": false,
     "lib": ["dom", "esnext"],
     "baseUrl": ".",
-    "declaration": true,
     "paths": {
-      "@reflexio/*": ["./packages/*"]
+      "@reflexio/*": ["./packages/*"],
+      "_api/*": ["./playground/src/_api/*"],
+      "_components/*": ["./playground/src/_components/*"],
+      "_redux/*": ["./playground/src/_redux/*"],
+      "_root/*": ["./playground/src/_root/*"]
     },
     "jsx": "react",
     "skipLibCheck": true,

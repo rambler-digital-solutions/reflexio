@@ -27,7 +27,7 @@ export function makeReducer<AC, StoreType>(
     state: StoreType = initialState,
     action: {type: string; payload: unknown},
   ) {
-    const {trigger, status} = getTriggerAndStatus(actionType);
+    const {trigger, status} = getTriggerAndStatus(action.type);
     const reducer = reducers[trigger];
 
     if (!status) {

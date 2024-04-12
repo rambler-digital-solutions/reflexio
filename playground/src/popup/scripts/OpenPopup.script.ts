@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import {IState, ITriggers} from 'src/_redux/types';
 import {
-  InitArgsType,
-  ScriptOptsType,
-  WatchArgsType,
-} from '../../../../core-v1/lib/types';
-import {Script} from '../../../../core-v1/lib/Script';
-import {IPopupTriggers} from '../popup.config';
+  Script,
+  type InitArgsType,
+  type ScriptOptsType,
+  type WatchArgsType,
+} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
+import type {IPopupTriggers} from '../popup.config';
 
 export class OpenPopupScript extends Script<
   ITriggers,
@@ -21,10 +20,11 @@ export class OpenPopupScript extends Script<
     super();
   }
 
-  public init(args: InitArgsType<IPopupTriggers, 'openPopup', 'init'>) {
+  public init(_args: InitArgsType<IPopupTriggers, 'openPopup', 'init'>) {
     console.log(this.opts.getCurrentState().popup);
     // here we can implement popup queue
   }
 
-  public watch(args: WatchArgsType<IPopupTriggers, 'openPopup'>) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  public watch(_args: WatchArgsType<IPopupTriggers, 'openPopup'>) {}
 }

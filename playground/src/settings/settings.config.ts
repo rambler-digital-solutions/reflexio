@@ -1,13 +1,13 @@
+import {Slice} from '@reflexio/core-v1';
 import {
   effectiveBite,
   EffectiveState,
   EffectiveTrigger,
   effectiveInitialState,
-} from 'src/_redux/effectiveBite';
-import {IState, ITriggers} from 'src/_redux/types';
-import {loadSetting} from 'src/_api/settings';
-import {Slice} from '../../../core-v1/lib';
-import {ISettings} from './interfaces/Settings.interface';
+} from '_redux/effectiveBite';
+import type {IState, ITriggers} from '_redux/types';
+import {loadSetting} from '_api/settings';
+import type {ISettings} from './interfaces/Settings.interface';
 
 export interface ISettingsState {
   loadSettings: EffectiveState<null, ISettings, Error>;
@@ -17,7 +17,7 @@ export interface ISettingsTriggers {
   loadSettings: EffectiveTrigger<null, ISettings, Error>;
 }
 
-export const settingsInitialState: ISettingsState = {
+const settingsInitialState: ISettingsState = {
   loadSettings: effectiveInitialState(),
 };
 

@@ -1,16 +1,15 @@
-import {IState, ITriggers} from 'src/_redux/types';
 import {
-  InitArgsType,
-  ScriptOptsType,
-  WatchArgsType,
-} from '../../../../core-v1/lib/types';
-import {Script} from '../../../../core-v1/lib/Script';
-import {
-  INotificationState,
-  INotificationTriggers,
-} from '../notification.config';
+  Script,
+  type InitArgsType,
+  type ScriptOptsType,
+  type WatchArgsType,
+} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
+import type {INotificationTriggers} from '../notification.config';
 
-export class NotificationScrit extends Script<
+const NOTIFICATION_TIMEOUT = 2000;
+
+export class NotificationScript extends Script<
   ITriggers,
   IState,
   'showNotification',
@@ -23,21 +22,19 @@ export class NotificationScrit extends Script<
     super();
   }
 
-  private timeout;
+  private timeout: number;
 
   public init(
-    args: InitArgsType<INotificationTriggers, 'showNotification', 'init'>,
+    _args: InitArgsType<INotificationTriggers, 'showNotification', 'init'>,
   ) {
-    this.timeout = setTimeout(() => {
+    this.timeout = window.setTimeout(() => {
       this.opts.trigger('showNotification', 'close', null);
-    }, 2000);
+    }, NOTIFICATION_TIMEOUT);
   }
 
   public watch(args: WatchArgsType<ITriggers, 'showNotification'>) {
-    if (args.status === 'close') {
-      if (this.timeout) {
-        clearTimeout(this.timeout);
-      }
+    if (args.status === 'close' && this.timeout) {
+      window.clearTimeout(this.timeout);
     }
   }
 }

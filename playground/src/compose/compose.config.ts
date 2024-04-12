@@ -1,9 +1,7 @@
-import {ILetter} from 'src/letters/interfaces/Letter.interface';
-import {IState, ITriggers} from '../_redux/types';
-import {Bite, Slice} from '../../../core-v1/lib';
-import {BiteStatusWrap} from '../../../core-v1/lib/types';
+import {Bite, Slice, type BiteStatusWrap} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '../_redux/types';
 import {changeItemReducer} from './reducers/changeItem.reducer';
-import {closeWindowRecucer} from './reducers/closeWindow.reducer';
+import {closeWindowReducer} from './reducers/closeWindow.reducer';
 import {openWindowReducer} from './reducers/openWindow.reducer';
 import {PreventCloseScript} from './scripts/PreventClose.script';
 import {SetContentScript} from './scripts/SetContent.script';
@@ -71,9 +69,9 @@ const setContentBite = Bite<
     changeItem: changeItemReducer,
     openFromList: null,
     openWindow: openWindowReducer,
-    closeWindow: closeWindowRecucer,
+    closeWindow: closeWindowReducer,
     commitFormContent: null,
-    submit: closeWindowRecucer,
+    submit: closeWindowReducer,
     syncForm: null, // вытащить из хранилища форму и положить ее в стор
     done: null,
   },

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 
-const ProjectDIR = `${path.resolve(__dirname, '../')}/`;
-const SourceDIR = `${ProjectDIR}/`;
-const BuildDIR = `${ProjectDIR}playground/build/`;
+const projectDir = path.resolve(__dirname, '..');
+const sourceDir = path.resolve(projectDir, 'src');
+const buildDir = path.resolve(projectDir, 'dist');
 
 module.exports = {
   module: {
@@ -16,20 +16,19 @@ module.exports = {
             presets: ['@babel/preset-env', '@babel/preset-typescript'],
           },
         },
-        include: [path.resolve(SourceDIR)],
+        include: [sourceDir],
       },
     ],
   },
   resolve: {
-    modules: [SourceDIR, 'node_modules'],
-    alias: {src: `${SourceDIR}/playground/src`},
+    modules: [sourceDir, 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   mode: 'development',
   target: 'node',
-  entry: `${SourceDIR}/playground/src/_redux/index.ts`,
+  entry: path.resolve(sourceDir, '_redux/index.ts'),
   output: {
-    path: BuildDIR,
+    path: buildDir,
     filename: 'index.js',
     library: '$',
     libraryTarget: 'umd',

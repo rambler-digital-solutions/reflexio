@@ -1,14 +1,13 @@
+import {Slice} from '@reflexio/core-v1';
 import {
   effectiveBite,
   EffectiveState,
   EffectiveTrigger,
   effectiveInitialState,
-} from 'src/_redux/effectiveBite';
-import {IState, ITriggers} from 'src/_redux/types';
-import {createLetter, loadLetters, updateLetter} from 'src/_api';
-import {Bite, Slice} from '../../../core-v1/lib';
-import {BiteStatusWrap} from '../../../core-v1/lib/types';
-import {ILetter} from './interfaces/Letter.interface';
+} from '_redux/effectiveBite';
+import type {IState, ITriggers} from '_redux/types';
+import {createLetter, loadLetters, updateLetter} from '_api/index';
+import type {ILetter} from './interfaces/Letter.interface';
 import {deleteLetterReducer} from './reducers/deleteLetter.reducer';
 import {updateLetterReducer} from './reducers/updateLetter.reducer';
 import {saveLetterReducer} from './reducers/saveLetter.reducer';
@@ -35,7 +34,7 @@ export interface ILettersTriggers {
   deleteLetter: EffectiveTrigger<{id: number}, boolean, Error>;
 }
 
-export const lettersInitialState: ILettersState = {
+const lettersInitialState: ILettersState = {
   lettersList: effectiveInitialState(),
   saveLetter: effectiveInitialState(),
   updateLetter: effectiveInitialState(),

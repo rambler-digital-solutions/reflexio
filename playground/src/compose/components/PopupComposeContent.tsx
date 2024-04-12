@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useReflector, useTrigger} from '@reflexio/react-v1';
+import {useTrigger} from '@reflexio/react-v1';
 import {ITriggers} from '../../_redux/types';
 
 export const PopupComposeContent = () => {

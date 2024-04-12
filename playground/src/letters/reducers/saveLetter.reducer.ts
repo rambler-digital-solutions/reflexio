@@ -1,5 +1,4 @@
-import {ILetter} from '../interfaces/Letter.interface';
-import {ILettersState} from '../letters.config';
+import type {ILettersState} from '../letters.config';
 
 export const saveLetterReducer = (
   state: ILettersState,
@@ -7,7 +6,11 @@ export const saveLetterReducer = (
 ) => {
   const newLetter = state.saveLetter.input;
 
+  if (!newLetter) {
+    return;
+  }
+
   newLetter.uid = payload.id;
   console.log(`saveLetterReducer ${payload.id}`);
-  state.lettersList.data.push(newLetter);
+  state.lettersList.data?.push(newLetter);
 };

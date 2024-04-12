@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import {IState, ITriggers} from 'src/_redux/types';
 import {
-  InitArgsType,
-  ScriptOptsType,
-  WatchArgsType,
-} from '../../../../core-v1/lib/types';
-import {IComposeTriggers} from '../compose.config';
-import {Script} from '../../../../core-v1/lib/Script';
+  Script,
+  type InitArgsType,
+  type ScriptOptsType,
+  type WatchArgsType,
+} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
+import type {IComposeTriggers} from '../compose.config';
 
 export class SubmitLetterScript extends Script<
   ITriggers,
@@ -16,14 +15,13 @@ export class SubmitLetterScript extends Script<
   null
 > {
   public opts: ScriptOptsType<ITriggers, IState, 'submitLetter', null>;
+
   constructor(opts) {
     super();
     this.opts = opts;
   }
 
-  public async init(
-    args: InitArgsType<IComposeTriggers, 'submitLetter', 'init'>,
-  ) {
+  public init(_args: InitArgsType<IComposeTriggers, 'submitLetter', 'init'>) {
     const {openedComposeId} = this.opts.getCurrentState().compose;
 
     // save
@@ -39,8 +37,7 @@ export class SubmitLetterScript extends Script<
       to: '',
       uid: 123,
     }); // запускаем скрипт сохранения
-
-    const savedId = await this.opts.wait('saveLetter', 'done');
+    // const savedId = await this.opts.wait('saveLetter', 'done');
 
     //Here we can throw notification that savedId was just created. For example
     this.opts.trigger('setContent', 'closeWindow', {
@@ -52,5 +49,6 @@ export class SubmitLetterScript extends Script<
     this.opts.drop(); // убиваем инстанс
   }
 
-  public watch(args: WatchArgsType<IComposeTriggers, 'submitLetter'>) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  public watch(_args: WatchArgsType<IComposeTriggers, 'submitLetter'>) {}
 }

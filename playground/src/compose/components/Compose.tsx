@@ -1,16 +1,14 @@
 import * as React from 'react';
 import {useReflector, useTrigger} from '@reflexio/react-v1';
-import {IState, ITriggers} from '../../_redux/types';
-import {ComposeWrapper} from './ComposeWrapper';
-import './Compose.less';
+import type {IState, ITriggers} from '../../_redux/types';
 import {PopupComposeContent} from './PopupComposeContent';
+import './Compose.less';
 
 export const Compose = () => {
-  const {subject, to, from, body} = useReflector<
-    ITriggers,
-    IState,
-    IState['compose']
-  >((state: IState) => state.compose, ['setContent']);
+  const {subject, body} = useReflector<ITriggers, IState, IState['compose']>(
+    (state: IState) => state.compose,
+    ['setContent'],
+  );
   const trigger = useTrigger<ITriggers>();
 
   React.useEffect(() => {

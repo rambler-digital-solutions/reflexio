@@ -3,7 +3,7 @@ export const loadSetting = () => {
     login: 'asapovk@gmail.com',
   };
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(settings);
     }, 1200);

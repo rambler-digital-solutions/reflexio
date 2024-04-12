@@ -1,31 +1,29 @@
-import {ILetter} from 'src/letters/interfaces/Letter.interface';
+import type {ILetter} from '../letters/interfaces/Letter.interface';
 
-export interface UpdateLetterArgs {
+interface UpdateLetterArgs {
   id: number;
   newLetter: ILetter;
 }
 
-export interface CreateLetterArgs {
+interface CreateLetterArgs {
   newLetter: ILetter;
 }
 
-export const createLetter = async (
-  args: CreateLetterArgs,
-): Promise<{id: number}> =>
-  new Promise((resolve, reject) => {
+export const createLetter = (_args: CreateLetterArgs): Promise<{id: number}> =>
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve({id: Math.floor(Math.random() * 100)});
     }, 600);
   });
 
-export const updateLetter = async (args: UpdateLetterArgs): Promise<boolean> =>
-  new Promise((resolve, reject) => {
+export const updateLetter = (_args: UpdateLetterArgs): Promise<boolean> =>
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve(true);
     }, 600);
   });
 
-export const loadLetters = async (): Promise<Array<ILetter>> => {
+export const loadLetters = (): Promise<Array<ILetter>> => {
   const letters: Array<ILetter> = [
     {
       uid: 1,
@@ -57,7 +55,7 @@ export const loadLetters = async (): Promise<Array<ILetter>> => {
     },
   ];
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(letters);
     }, 1000);

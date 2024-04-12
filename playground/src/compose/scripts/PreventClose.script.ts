@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import {IState, ITriggers} from 'src/_redux/types';
 import {
-  InitArgsType,
-  ScriptOptsType,
-  WatchArgsType,
-} from '../../../../core-v1/lib/types';
-import {Script} from '../../../../core-v1/lib/Script';
+  Script,
+  type InitArgsType,
+  type ScriptOptsType,
+  type WatchArgsType,
+} from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
 
 export class PreventCloseScript extends Script<
   ITriggers,
@@ -29,7 +28,7 @@ export class PreventCloseScript extends Script<
     super();
   }
 
-  init(args: InitArgsType<ITriggers, 'preventClose', 'init'>): void {
+  init(_args: InitArgsType<ITriggers, 'preventClose', 'init'>): void {
     console.log('prevent close init');
     console.log(this.opts.injected);
   }
