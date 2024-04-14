@@ -8,10 +8,10 @@ export function Trigger(store, config, system, uid, sourceSlice) {
 
     if (process.length) {
       //if (canTrigger && canTrigger.includes(actionType)) {
-      const combynedType = getActionType(actionType, actionStatus);
+      const combinedType = getActionType(actionType, actionStatus);
 
       store.dispatch({
-        type: combynedType,
+        type: combinedType,
         payload: actionArgs,
         source: `${sourceTrigger}:${uid}`,
         sourceSlice,

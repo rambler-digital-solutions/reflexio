@@ -7,14 +7,11 @@ interface ProcessorOpts {
 
 export class System {
   static instance: System;
-  static useSystem() {
-    if (!this.instance) {
-      this.instance = new System();
 
-      return this.instance;
-    } else {
-      return this.instance;
-    }
+  static useSystem() {
+    this.instance ??= new System();
+
+    return this.instance;
   }
 
   public config: SystemConfig = {

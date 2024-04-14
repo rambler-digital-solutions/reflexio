@@ -48,24 +48,27 @@ export const makeProcMiddleware = (
     }
 
     const updateConfigs = matchUpdateTrigger(configs, action.type);
+    let forceStopPropagate = false;
 
-    return updateConfigs.reduce((forceStopPropagate, config) => {
+    updateConfigs.forEach((config) => {
       const instances = getInstance(config.config, config.trigger, system);
 
-      return (
-        forceStopPropagate ||
-        instances.some(
-          (instance) =>
-            !BeforeUpdate(
-              instance,
-              store.getState(),
-              action,
-              reducers,
-              sliceName,
-            ),
-        )
-      );
-    }, false);
+      instances.forEach((instance) => {
+        const propagate = BeforeUpdate(
+          instance,
+          store.getState(),
+          action,
+          reducers,
+          sliceName,
+        );
+
+        if (!propagate) {
+          forceStopPropagate = true;
+        }
+      });
+    });
+
+    return forceStopPropagate;
   };
 
   return (store) => (next) => (action) => {

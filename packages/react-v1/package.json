@@ -22,8 +22,7 @@
   },
   "dependencies": {
     "@reflexio/core-v1": "^1.2.4",
-    "@types/react": "^18.2.73",
-    "@types/uuid": "^9.0.8"
+    "@types/react": "^18.2.73"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

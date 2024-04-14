@@ -5,5 +5,8 @@ module.exports = {
   moduleDirectories: ['packages', 'node_modules'],
   collectCoverage: true,
   coverageReporters: ['text'],
+  moduleNameMapper: {
+    uuid: require.resolve('uuid'),
+  },
   // setupFilesAfterEnv: ['./jest.setup.js']
 };

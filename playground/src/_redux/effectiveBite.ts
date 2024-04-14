@@ -1,8 +1,11 @@
 import {
   Bite,
+  Script,
+  type ScriptOptsType,
   type DispatcherType,
   type BiteStatusWrap,
 } from '@reflexio/core-v1';
+import type {IState, ITriggers} from '_redux/types';
 
 export type EffectiveState<I, D, E> = {
   input?: I;
@@ -84,8 +87,15 @@ export const effectiveInitialState = <I, D, E>(
   loaded: state && state.loaded ? state.loaded : false,
 });
 
-class EffectScript {
-  public async init(_args) {
+class EffectScript extends Script<ITriggers, IState, any, any, null> {
+  public opts: ScriptOptsType<ITriggers, IState, any, null>;
+
+  constructor(opts) {
+    super();
+    this.opts = opts;
+  }
+
+  public async init() {
     const co = this.opts.customOpts;
 
     try {
@@ -110,4 +120,7 @@ class EffectScript {
       this.opts.drop();
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  public watch() {}
 }

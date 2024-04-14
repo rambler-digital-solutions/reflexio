@@ -1,3 +1,12 @@
+import type {Store} from 'redux';
+import type {System} from '@reflexio/core-v1';
 import {createContext} from 'react';
 
-export const StoreContext = createContext({});
+interface StoreContextValue {
+  store: Store;
+  system: System;
+}
+
+export const StoreContext = createContext<StoreContextValue>(
+  {} as StoreContextValue,
+);

@@ -1,7 +1,7 @@
 import {getActionType} from '../../utils';
 
 // eslint-disable-next-line import/no-unused-modules
-export function TriggerOnly(store, config, system, uid) {
+export function TriggerOnly(store, _config, system, uid) {
   //const canTrigger = config.config.canTrigger;
 
   return (actionType, actionStatus, actionArgs) => {
@@ -9,10 +9,10 @@ export function TriggerOnly(store, config, system, uid) {
 
     if (process.length) {
       //if (canTrigger && canTrigger.includes(actionType)) {
-      const combynedType = getActionType(actionType, actionStatus);
+      const combinedType = getActionType(actionType, actionStatus);
 
       store.dispatch({
-        type: combynedType,
+        type: combinedType,
         payload: actionArgs,
         opts: {
           noUpdate: true,

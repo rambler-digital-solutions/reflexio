@@ -16,7 +16,7 @@
     },
     "jsx": "react",
     "skipLibCheck": true,
-    "noEmitOnError": false
+    "strict": false
   },
   "include": ["packages", "types"],
   "exclude": ["node_modules", "**/dist"]

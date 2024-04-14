@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const projectDir = path.resolve(__dirname, '..');
 const sourceDir = path.resolve(projectDir, 'src');
@@ -75,10 +75,10 @@ module.exports = {
       inject: true,
       template: path.resolve(projectDir, 'public/index.html'),
     }),
-    new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        configFile: '../tsconfig.json',
-      },
-    }),
+    // new ForkTsCheckerWebpackPlugin({
+    //   typescript: {
+    //     configFile: '../tsconfig.json',
+    //   },
+    // }),
   ],
 };

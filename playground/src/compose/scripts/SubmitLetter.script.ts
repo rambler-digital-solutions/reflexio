@@ -21,7 +21,9 @@ export class SubmitLetterScript extends Script<
     this.opts = opts;
   }
 
-  public init(_args: InitArgsType<IComposeTriggers, 'submitLetter', 'init'>) {
+  public async init(
+    _args: InitArgsType<IComposeTriggers, 'submitLetter', 'init'>,
+  ) {
     const {openedComposeId} = this.opts.getCurrentState().compose;
 
     // save
@@ -37,7 +39,7 @@ export class SubmitLetterScript extends Script<
       to: '',
       uid: 123,
     }); // запускаем скрипт сохранения
-    // const savedId = await this.opts.wait('saveLetter', 'done');
+    await this.opts.wait('saveLetter', 'done');
 
     //Here we can throw notification that savedId was just created. For example
     this.opts.trigger('setContent', 'closeWindow', {

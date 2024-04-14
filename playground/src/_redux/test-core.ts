@@ -1,11 +1,9 @@
 import {getActionType, type DispatcherType} from '@reflexio/core-v1';
-import type {IState, ITriggers} from './types';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const store = require('../../dist');
+import {store} from ".";
+import type {ITriggers} from './types';
 
 export const useTrigger = () => {
-  const dispatch = store.default.dispatch;
+  const dispatch = store.dispatch;
 
   const trigger: DispatcherType<ITriggers> = (trigger, status, payload) => {
     const combinedType = getActionType(trigger, status as any);
@@ -16,4 +14,6 @@ export const useTrigger = () => {
   return trigger;
 };
 
-export const getState: () => IState = store.default.getState;
+export const getState = () => {
+  return store.getState();
+};

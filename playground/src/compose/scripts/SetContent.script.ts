@@ -1,5 +1,5 @@
 import {
-  // useSystem,
+  useSystem,
   Script,
   type InitArgsType,
   type ScriptOptsType,
@@ -26,11 +26,11 @@ export class SetContentScript extends Script<
 
   private forms: {[key: string]: {subject: string; body: string}} = {};
 
-  // private system;
+  private system;
 
   public init(_args: InitArgsType<IComposeTriggers, 'setContent', 'init'>) {
     console.log('CONTENT INIT');
-    // this.system = useSystem();
+    this.system = useSystem();
     this.opts.bind('openFromList', 'handleOpenFromList');
   }
 

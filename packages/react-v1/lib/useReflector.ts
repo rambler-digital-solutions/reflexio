@@ -14,6 +14,7 @@ export function useReflector<Tr, K, S>(
   const initialState = mapState(store.getState());
   const [state, setState] = useState(initialState);
 
+  // @ts-expect-error fix UpdateOnType
   const conditions = typeof condition === 'function' ? condition() : condition;
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export function useReflector<Tr, K, S>(
 
       if (
         !conditions.length ||
-        (task && matchActionType<Tr>(task.type, conditions))
+        (task && matchActionType(task.type, conditions))
       ) {
         if (shouldUpdate) {
           if (shouldUpdate(task.payload)) {

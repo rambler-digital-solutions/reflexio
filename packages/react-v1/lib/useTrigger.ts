@@ -6,9 +6,9 @@ export const useTrigger = <Tr>(reactSource?: string) => {
   const ctx = useContext(StoreContext);
   const store = ctx.store;
   const trigger: DispatcherType<Tr> = (trigger, status, payload) => {
-    const combynedType = getActionType(trigger as any, status as any);
+    const combinedType = getActionType(trigger as any, status as any);
 
-    store.dispatch({type: combynedType, payload, uiSource: reactSource});
+    store.dispatch({type: combinedType, payload, uiSource: reactSource});
   };
 
   return trigger;
