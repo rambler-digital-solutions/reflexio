@@ -1,26 +1,51 @@
 {
   "name": "reflexio",
-  "private": true,
   "description": "Business flow manager, more than just state manager",
-  "scripts": {},
-  "workspaces": [
-    "packages/*"
-  ],
-  "author": "Konstantin Astapov",
-  "license": "MIT",
-  "readme": "README.md",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/reflexio/reflexio.git"
-  },
   "keywords": [
     "reflexio"
   ],
+  "scripts": {
+    "build": "lerna exec -- tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint '**/*.{js,ts,tsx}'",
+    "format": "prettier --write '**/*.{js,ts,tsx}' && eslint '**/*.{js,ts,tsx}' --fix",
+    "typecheck": "tsc --noEmit",
+    "sizecheck": "lerna exec -- tsc && size-limit",
+    "release": "lerna version && lerna publish from-package",
+    "prepare": "[ -n \"$CI\" ] && exit 0 || husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rambler-digital-solutions/reflexio.git"
+  },
+  "author": "Konstantin Astapov",
+  "license": "MIT",
+  "private": true,
   "devDependencies": {
-    "@reflexio/reflexio-on-redux": "*",
+    "@commitlint/cli": "^19.2.1",
+    "@rambler-tech/commitlint-config": "^0.1.1",
+    "@rambler-tech/eslint-config": "^0.13.0",
+    "@rambler-tech/prettier-config": "^0.1.0",
+    "@rambler-tech/ts-config": "^0.1.1",
+    "@size-limit/preset-small-lib": "^11.1.2",
+    "@types/jest": "^29.5.12",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lerna": "^8.1.2",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "redux": "^4.2.1",
-    "uuid": "^8.3.2"
-  }
+    "react-redux": "^9.1.0",
+    "redux": "^4",
+    "size-limit": "^11.1.2",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.3"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

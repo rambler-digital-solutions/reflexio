@@ -1,0 +1,10 @@
+[
+  {
+    "path": "packages/core-v1/dist/index.js",
+    "limit": "3.8 KB"
+  },
+  {
+    "path": "packages/react-v1/dist/index.js",
+    "limit": "3.5 KB"
+  }
+]

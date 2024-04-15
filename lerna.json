@@ -1,0 +1,18 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "packages": ["packages/*"],
+  "command": {
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "message": "chore(release): publish",
+      "ignoreChanges": ["**/*.md"]
+    },
+    "publish": {
+      "yes": true,
+      "verifyAccess": false
+    }
+  }
+}

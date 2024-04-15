@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@rambler-tech/eslint-config/semi",
+    "@rambler-tech/eslint-config/ts"
+  ],
+  "rules": {
+    "max-params": "off",
+    "new-cap": "off"
+  }
+}

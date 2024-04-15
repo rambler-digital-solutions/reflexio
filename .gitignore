@@ -1,3 +1,11 @@
+.DS_Store
 node_modules
+npm-debug.log
+yarn-error.log
+lerna-debug.log
+coverage
+.nyc_output
+.vscode
+.idea
 dist
-build
+spec.*

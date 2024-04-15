@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@reflexio/*": ["../packages/*"],
+      "_api/*": ["./src/_api/*"],
+      "_components/*": ["./src/_components/*"],
+      "_redux/*": ["./src/_redux/*"],
+      "_root/*": ["./src/_root/*"]
+    }
+  },
+  "include": [".", "../packages"]
+}

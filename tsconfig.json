@@ -1,0 +1,23 @@
+{
+  "extends": "@rambler-tech/ts-config/base",
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esnext",
+    "sourceMap": false,
+    "strictPropertyInitialization": false,
+    "lib": ["dom", "esnext"],
+    "baseUrl": ".",
+    "paths": {
+      "@reflexio/*": ["./packages/*"],
+      "_api/*": ["./playground/src/_api/*"],
+      "_components/*": ["./playground/src/_components/*"],
+      "_redux/*": ["./playground/src/_redux/*"],
+      "_root/*": ["./playground/src/_root/*"]
+    },
+    "jsx": "react",
+    "skipLibCheck": true,
+    "strict": false
+  },
+  "include": ["packages", "types"],
+  "exclude": ["node_modules", "**/dist"]
+}
