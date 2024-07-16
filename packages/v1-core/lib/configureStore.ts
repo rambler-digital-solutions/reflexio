@@ -10,14 +10,6 @@ export function configureStore(rootReducer, middlewares) {
     const system = useSystem();
 
     store.subscribe(() => {
-        system.afterHandlers.forEach( s => s())
-    })
-    store.subscribe(() => {
-        // const nextTask = system.taksQueue.popTask();
-        // if(nextTask) {
-        //     store.dispatch({
-        //         type: 
-        //     })
-        // }
+        system.afterEffects.handleAfterEffect(store.dispatch)
     })
 }

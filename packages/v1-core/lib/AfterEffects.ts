@@ -15,22 +15,32 @@ import { UpdateOnType } from "./types";
 export class AfterEffects {
     private finalMap: any = {};
     private removeCheckMap: any = {};
-    constructor(private getCurrentTask: () => any) {}
+    constructor(private getCurrentTask: () => {type: string, payload: string}) {}
 
     public handleAfterEffect = (dispather: (action) => void) => {
         const currentTask = this.getCurrentTask();
+        const dispatchPayload = currentTask;
         if(currentTask) {
             const {trigger, status} = getTriggerAndStatus(currentTask.type);
             if(this.finalMap[trigger]) {
                 for( let key in this.finalMap[trigger]) {
                     if(this.finalMap[trigger][key] === '_ALLSTATUSES_') {
-                        //dispatch key
+                        dispather({
+                            type: `${key}/__AFTEREFFECTS__`,
+                            payload: dispatchPayload
+                        })
                     }
                     else if(this.finalMap[trigger][key] === status ) {
-                         //dispatch key
+                        dispather({
+                            type: `${key}/__AFTEREFFECTS__`,
+                            payload: dispatchPayload
+                        })
                     }
                     else if(this.finalMap[trigger][key].includes(status)) {
-                          //dispatch key
+                        dispather({
+                            type: `${key}/__AFTEREFFECTS__`,
+                            payload: dispatchPayload
+                        })
                     }
                 }
             }

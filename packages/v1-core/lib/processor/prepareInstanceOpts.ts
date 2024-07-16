@@ -7,6 +7,8 @@ import { v4 } from 'uuid';
 import { Wait } from './opts/wait';
 import { Hook } from './opts/hook';
 import { Bind } from './opts/bind';
+import { SetStateNoEffect } from './opts/setStateNoEffect';
+import { SetState } from './opts/setState';
 
 export function prepareOpts(config, store, system, sliceName, injected) {
   const processUid = v4();
@@ -14,7 +16,8 @@ export function prepareOpts(config, store, system, sliceName, injected) {
 
   const setStatus = SetStatus(store, config, system, processUid, sliceName);
   //const save = Save(store, config, system, processUid);
-  //const triggerOnly = TriggerOnly(store, config, system, processUid);
+  const setStateNoEffect = SetStateNoEffect(store, config, system, processUid, sliceName);
+  const setState = SetState(store, config, system, processUid, sliceName);
   const drop = Drop(system, config);
   //const state = store.getState();
   const getCurrentState = store.getState;
@@ -35,6 +38,8 @@ export function prepareOpts(config, store, system, sliceName, injected) {
     injected,
     addOpts: config.config.addOpts,
     bind,
+    setState,
+    setStateNoEffect,
     catchStatus: (status, args) => {
       if(status === args.status && config.trigger === args.trigger) {
         return {

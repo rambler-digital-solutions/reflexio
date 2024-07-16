@@ -26,7 +26,7 @@ export const makeProcMiddleware = (
     let forceStopPropagate = false;
     const sourceSlice = action.sourceSlice;
     const actionType = action.type;
-    const { trigger, status } = getTriggerAndStatus(actionType);
+    //const { trigger, status } = getTriggerAndStatus(actionType);
     const isBiteHit = matchBiteName(configs, actionType)
     if(sliceConfig?.ignoreExternal) {
       if(sliceConfig.ignoreExternal  === 'ignoreAll') {
@@ -49,6 +49,7 @@ export const makeProcMiddleware = (
    
     const skipInit = action.opts && action.opts.noInit;
     const skipUpdate = action.opts && action.opts.noUpdate;
+    // matchAfterEffect
     const initConfig = matchInitTrigger(configs, actionType); /// Возвращает  1 конфиг
     const updateConfigs = matchUpdateTrigger(configs, actionType); //Возвращает массив конфигов
     if (initConfig && !skipInit) {
@@ -65,7 +66,7 @@ export const makeProcMiddleware = (
       if(instance.afterEffects) {
         // get list of events form config
         // check if contains then call
-        system.afterHandlers.push(trigger)
+        system.afterEffects.addAfterEffect(initConfig.config.updateOn, initConfig.trigger)
       }
     }
     if (updateConfigs.length && !skipUpdate) {

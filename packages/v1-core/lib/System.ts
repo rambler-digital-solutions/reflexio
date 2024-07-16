@@ -1,3 +1,4 @@
+import { AfterEffects } from "./AfterEffects";
 import { TaskQueue } from "./TaskQueue";
 import { SystemConfig } from "./types";
 
@@ -22,9 +23,11 @@ export class System {
   };
 
   public taksQueue: TaskQueue;
+  public afterEffects: AfterEffects;
 
   constructor() {
       this.taksQueue = new TaskQueue()
+      this.afterEffects = new AfterEffects(() => this.taksQueue.getCurrentTask())
   }
 
 
@@ -32,7 +35,8 @@ export class System {
     this.config = conf;
   }
 
-  public afterHandlers: Array<any> = []
+
+  //public afterHandlers: Array<any> = []
 
   public context: { [triggerer: string]: any } = {};
 

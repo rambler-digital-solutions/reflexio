@@ -29,6 +29,10 @@ function configureStore() {
     compose(applyMiddleware(...middlewares))
   );
 
+  store.subscribe(()=> {
+    system.afterEffects.handleAfterEffect(store.dispatch)
+  })
+
   return store;
 }
 const store = configureStore();
