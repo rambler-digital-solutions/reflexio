@@ -8,6 +8,7 @@ import { matchInitTrigger } from './processor/matchInitTrigger';
 import { matchUpdateTrigger } from './processor/matchUpdateTrigger';
 import { prepareOpts } from './processor/prepareInstanceOpts';
 import { useSystem } from './System';
+import { getTriggerAndStatus } from './utils';
 
 export const makeProcMiddleware = (
   configs,
@@ -25,6 +26,7 @@ export const makeProcMiddleware = (
     let forceStopPropagate = false;
     const sourceSlice = action.sourceSlice;
     const actionType = action.type;
+    const { trigger, status } = getTriggerAndStatus(actionType);
     const isBiteHit = matchBiteName(configs, actionType)
     if(sliceConfig?.ignoreExternal) {
       if(sliceConfig.ignoreExternal  === 'ignoreAll') {
@@ -60,10 +62,10 @@ export const makeProcMiddleware = (
       if (instance) {
         onInit(instance, actionPayload);
       }
-      if(instance.updateAfter) {
+      if(instance.afterEffects) {
         // get list of events form config
         // check if contains then call
-        system.afterHandlers.push(() => instance.updateAfter)
+        system.afterHandlers.push(trigger)
       }
     }
     if (updateConfigs.length && !skipUpdate) {

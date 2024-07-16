@@ -135,6 +135,8 @@ export type DefautOpts<
   bind: BindHandlerType<IRootTrigger, BiteName>;
   catchStatus: CatchStatusType<IRootTrigger, BiteName>;
   catchEvent: CatchEventType<IRootTrigger>;
+  catchAfterEvent: null;
+  catchAfterStatus: null;
 };
 
 
