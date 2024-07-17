@@ -88,8 +88,6 @@ export class AfterEffects {
                 this.finalMap[objectkey][biteName] = objectValues;
             }
         }
-        console.log(this.finalMap);
-        console.log(this.removeCheckMap);
     
     }
 }

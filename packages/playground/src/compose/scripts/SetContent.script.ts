@@ -68,7 +68,7 @@ export class SetContentScript extends EffectiveScript<
     }
   }
   afterEffects(args: WatchArgsType<ITriggers, 'setContent'>): void {
-      console.log(args);
+      console.log(args.status);
       console.log('this is after effect');
       console.log(this.opts.getCurrentState())
       if(!this.opts.getCurrentState().compose.openedComposeId) {
