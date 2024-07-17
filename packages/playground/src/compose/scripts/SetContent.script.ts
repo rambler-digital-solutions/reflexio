@@ -70,9 +70,12 @@ export class SetContentScript extends EffectiveScript<
   afterEffects(args: WatchArgsType<ITriggers, 'setContent'>): void {
       console.log(args);
       console.log('this is after effect');
-
-      this.opts.trigger('showNotification', 'init', 'After effect');
+      console.log(this.opts.getCurrentState())
+      if(!this.opts.getCurrentState().compose.openedComposeId) {
+        this.opts.trigger('showNotification', 'init', 'After effect');
       
+      }
+     
       
   }
 
