@@ -25,22 +25,27 @@ export class AfterEffects {
             if(this.finalMap[trigger]) {
                 for( let key in this.finalMap[trigger]) {
                     if(this.finalMap[trigger][key] === '_ALLSTATUSES_') {
-                        dispather({
-                            type: `${key}/__AFTEREFFECTS__`,
-                            payload: dispatchPayload
+                        setTimeout(()=> {
+                            dispather({
+                                type: `${key}/__AFTEREFFECTS__`,
+                                payload: dispatchPayload
+                            })
                         })
                     }
                     else if(this.finalMap[trigger][key] === status ) {
-                        dispather({
-                            type: `${key}/__AFTEREFFECTS__`,
-                            payload: dispatchPayload
-                        })
+                        setTimeout(()=> {
+                            dispather({
+                                type: `${key}/__AFTEREFFECTS__`,
+                                payload: dispatchPayload
+                            })})
                     }
                     else if(this.finalMap[trigger][key].includes(status)) {
-                        dispather({
-                            type: `${key}/__AFTEREFFECTS__`,
-                            payload: dispatchPayload
-                        })
+                        setTimeout(() => {
+                            dispather({
+                                type: `${key}/__AFTEREFFECTS__`,
+                                payload: dispatchPayload
+                            })
+                        })  
                     }
                 }
             }
@@ -83,6 +88,8 @@ export class AfterEffects {
                 this.finalMap[objectkey][biteName] = objectValues;
             }
         }
+        console.log(this.finalMap);
+        console.log(this.removeCheckMap);
     
     }
 }

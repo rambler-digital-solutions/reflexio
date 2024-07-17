@@ -123,11 +123,12 @@ export type DefautOpts<
   sliceName: keyof IState;
   dispatch: Dispatch;
   setStatus: SetStatusType<IRootTrigger, BiteName>;
+  setState: SetStatusType<IRootTrigger, BiteName>;
+  setStateNoEffect: SetStatusType<IRootTrigger, BiteName>;
   trigger: DispatcherType<IRootTrigger>;
   wait: WaiterType<IRootTrigger>;
   hook: HookerType<IRootTrigger>;
   addOpts?: unknown;
-  save: DispatcherType<IRootTrigger>;
   biteName: keyof IRootTrigger;
   uid: string;
   getCurrentState: () => IState;
@@ -135,8 +136,6 @@ export type DefautOpts<
   bind: BindHandlerType<IRootTrigger, BiteName>;
   catchStatus: CatchStatusType<IRootTrigger, BiteName>;
   catchEvent: CatchEventType<IRootTrigger>;
-  catchAfterEvent: null;
-  catchAfterStatus: null;
 };
 
 

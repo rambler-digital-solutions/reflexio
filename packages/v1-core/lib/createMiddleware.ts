@@ -66,7 +66,7 @@ export const makeProcMiddleware = (
       if (instance) {
         onInit(instance, actionPayload);
         if(instance.afterEffects) {
-          system.afterEffects.addAfterEffect(initConfig.config.updateOn, initConfig.trigger)
+          system.afterEffects.addAfterEffect(initConfig.config.watchScope, initConfig.trigger)
         }
       }
     }
@@ -87,12 +87,13 @@ export const makeProcMiddleware = (
         });
       });
     }
-    if(status === '__AFTEREFFECTS__') {
+    if(status === '__AFTEREFFECTS__' && isBiteHit) {
+      forceStopPropagate  = true;
       const afInstances = getInstance(configs[trigger], trigger, system);
       if(afInstances) {
-        afInstances.forEach( afi => {
+        afInstances.forEach( afi => 
           AfterEffects(afi, action, sliceName)
-        })
+        )
       }
     }
 

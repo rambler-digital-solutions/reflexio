@@ -6,7 +6,7 @@ import {
 } from '../../../../v1-core/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
 import { IComposeTriggers } from '../compose.config';
-import { Script } from '../../../../v1-core/lib/interfaces/IScript';
+import { Script } from '../../../../v1-core/lib/scripts/Script';
 
 export class SubmitLetterScript extends Script<
   ITriggers,

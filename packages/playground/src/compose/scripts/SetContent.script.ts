@@ -3,7 +3,8 @@ import { WatchArgsType } from '../../../../v1-core/lib/types';
 import { IState, ITriggers } from 'src/_redux/types';
 import { useSystem } from '../../../../v1-core/lib';
 import { InitArgsType, ScriptOptsType } from '../../../../v1-core/lib/types';
-import { Script } from '../../../../v1-core/lib/interfaces/IScript';
+import { Script } from '../../../../v1-core/lib/scripts/Script';
+import { EffectiveScript } from '../../../../v1-core/lib/scripts/EffectiveScript';
 import { PopupComposeContent } from '../components/PopupComposeContent';
 import { IComposeTriggers } from '../compose.config';
 
@@ -11,7 +12,7 @@ import { IComposeTriggers } from '../compose.config';
  ** This script is responsible for opening
  ** and closing window, managing form content.
  */
-export class SetContentScript extends Script<
+export class SetContentScript extends EffectiveScript<
   ITriggers,
   IState,
   'setContent',
@@ -65,6 +66,14 @@ export class SetContentScript extends Script<
         });
       }
     }
+  }
+  afterEffects(args: WatchArgsType<ITriggers, 'setContent'>): void {
+      console.log(args);
+      console.log('this is after effect');
+
+      this.opts.trigger('showNotification', 'init', 'After effect');
+      
+      
   }
 
   // when window is getting opened we need this to restore saved state
