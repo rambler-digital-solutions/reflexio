@@ -3,6 +3,10 @@ import { getTriggerAndStatus } from '../utils';
 export function matchUpdateTrigger(configs, actionType) {
   const { trigger, status } = getTriggerAndStatus(actionType);
 
+  if(status && status === '__AFTEREFFECTS__') {
+    return []
+  }
+
   return Object.keys(configs)
     .filter((c) => {
       const conf = configs[c];

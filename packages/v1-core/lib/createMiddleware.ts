@@ -9,6 +9,7 @@ import { matchUpdateTrigger } from './processor/matchUpdateTrigger';
 import { prepareOpts } from './processor/prepareInstanceOpts';
 import { useSystem } from './System';
 import { getTriggerAndStatus } from './utils';
+import { AfterEffects } from './processor/lifecycle/AfterEffects';
 
 export const makeProcMiddleware = (
   configs,
@@ -26,7 +27,7 @@ export const makeProcMiddleware = (
     let forceStopPropagate = false;
     const sourceSlice = action.sourceSlice;
     const actionType = action.type;
-    //const { trigger, status } = getTriggerAndStatus(actionType);
+    const { trigger, status } = getTriggerAndStatus(actionType);
     const isBiteHit = matchBiteName(configs, actionType)
     if(sliceConfig?.ignoreExternal) {
       if(sliceConfig.ignoreExternal  === 'ignoreAll') {
@@ -49,7 +50,9 @@ export const makeProcMiddleware = (
    
     const skipInit = action.opts && action.opts.noInit;
     const skipUpdate = action.opts && action.opts.noUpdate;
+    const skipEffect = action.opts && action.opts.notEffect;
     // matchAfterEffect
+    // TODO
     const initConfig = matchInitTrigger(configs, actionType); /// Возвращает  1 конфиг
     const updateConfigs = matchUpdateTrigger(configs, actionType); //Возвращает массив конфигов
     if (initConfig && !skipInit) {
@@ -62,11 +65,9 @@ export const makeProcMiddleware = (
       );
       if (instance) {
         onInit(instance, actionPayload);
-      }
-      if(instance.afterEffects) {
-        // get list of events form config
-        // check if contains then call
-        system.afterEffects.addAfterEffect(initConfig.config.updateOn, initConfig.trigger)
+        if(instance.afterEffects) {
+          system.afterEffects.addAfterEffect(initConfig.config.updateOn, initConfig.trigger)
+        }
       }
     }
     if (updateConfigs.length && !skipUpdate) {
@@ -86,6 +87,15 @@ export const makeProcMiddleware = (
         });
       });
     }
+    if(status === '__AFTEREFFECTS__') {
+      const afInstances = getInstance(configs[trigger], trigger, system);
+      if(afInstances) {
+        afInstances.forEach( afi => {
+          AfterEffects(afi, action, sliceName)
+        })
+      }
+    }
+
     const processorOpts = system.getProcessorInfo(action.type);
 
     system.resolveWait(action.type, action.payload);
