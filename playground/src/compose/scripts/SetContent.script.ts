@@ -1,8 +1,9 @@
 import {
   useSystem,
-  Script,
+  EffectiveScript,
   type InitArgsType,
   type ScriptOptsType,
+  type WatchArgsType,
 } from '@reflexio/core-v1';
 import type {IState, ITriggers} from '_redux/types';
 import type {IComposeTriggers} from '../compose.config';
@@ -11,7 +12,7 @@ import type {IComposeTriggers} from '../compose.config';
  ** This script is responsible for opening
  ** and closing window, managing form content.
  */
-export class SetContentScript extends Script<
+export class SetContentScript extends EffectiveScript<
   ITriggers,
   IState,
   'setContent',
@@ -19,9 +20,9 @@ export class SetContentScript extends Script<
   Record<string, any>
 > {
   constructor(
-    public opts: ScriptOptsType<ITriggers, IState, 'setContent', null>,
+    opts: ScriptOptsType<ITriggers, IState, 'setContent', null>,
   ) {
-    super();
+    super(opts);
   }
 
   private forms: {[key: string]: {subject: string; body: string}} = {};
@@ -66,6 +67,15 @@ export class SetContentScript extends Script<
         });
       }
     }
+  }
+  afterEffects(args: WatchArgsType<ITriggers, 'setContent'>): void {
+    console.log(args);
+    console.log('this is after effect');
+    console.log(this.opts.getCurrentState())      
+    if(!this.opts.getCurrentState().compose.openedComposeId) {
+      this.opts.trigger('showNotification', 'init', 'After effect');
+    }
+      
   }
 
   // when window is getting opened we need this to restore saved state
@@ -182,8 +192,8 @@ export class SetContentScript extends Script<
     if (args.status === 'commitFormContent') {
       this.handleCommitFormContent(args);
     }
-    // if(args.status === 'openFromList') {
-    //     this.handleOpenFromList(args as any)
-    // }
+    if(args.status === 'openFromList') {
+        this.handleOpenFromList(args as any)
+    }
   }
 }

@@ -112,11 +112,12 @@ type DefautOpts<
   dispatch: Dispatch;
   subscribe: Store['subscribe'];
   setStatus: SetStatusType<IRootTrigger, BiteName>;
+  setState: SetStatusType<IRootTrigger, BiteName>;
+  setStateNoEffect: SetStatusType<IRootTrigger, BiteName>;
   trigger: DispatcherType<IRootTrigger>;
   wait: WaiterType<IRootTrigger>;
   hook: HookerType<IRootTrigger>;
   addOpts?: unknown;
-  save: DispatcherType<IRootTrigger>;
   biteName: keyof IRootTrigger;
   uid: string;
   getCurrentState: () => IState;

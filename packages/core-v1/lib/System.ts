@@ -1,5 +1,6 @@
-import {TaskQueue} from './TaskQueue';
-import type {SystemConfig} from './types';
+import { AfterEffects } from "./AfterEffects";
+import { TaskQueue } from "./TaskQueue";
+import { SystemConfig } from "./types";
 
 interface ProcessorOpts {
   propagate: boolean;
@@ -19,16 +20,19 @@ export class System {
   };
 
   public taksQueue: TaskQueue;
+  public afterEffects: AfterEffects;
 
   constructor() {
-    this.taksQueue = new TaskQueue();
+      this.taksQueue = new TaskQueue()
+      this.afterEffects = new AfterEffects(() => this.taksQueue.getCurrentTask())
   }
 
   public setConfig(conf: SystemConfig) {
     this.config = conf;
   }
 
-  public afterHandlers: Array<any> = [];
+
+  //public afterHandlers: Array<any> = []
 
   public context: {[triggerer: string]: any} = {};
 
