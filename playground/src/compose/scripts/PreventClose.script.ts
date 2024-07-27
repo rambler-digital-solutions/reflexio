@@ -86,7 +86,7 @@ export class PreventCloseScript extends Script<
     const setEvent = this.opts.catchStatus('set', args);
 
     if (setEvent.isCatched) {
-      this.handleSet(setEvent.payload);
+      this.handleSet(args);
     }
   }
 }

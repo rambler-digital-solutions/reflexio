@@ -63,3 +63,32 @@ function refreshingMode(system, config, opt, actionType) {
 
   return newInstance; //.init(actionPayload);
 }
+
+///on init instance  => add to system configure {trigger => []}
+///on drop instance => remove from system's map
+// for s of config.config.watchScope,  
+// s.
+//
+/**
+ * store.subscribe(() => {
+ *    /// call for check => 
+ *    const currentTask = system.taskQueue.currentTask
+ *    const afterEffectsMap = system.afterEffectsMap
+ *    if(match(currentTask, afterEffectsMap)) {
+ *      store.dispatch({
+ *          type: biteName/__AFTER_EFFECTS__, 
+ *          payload: {
+ *            taskTrigger: 
+ *            taskStatus:
+ *            taskPayload:
+ *            taskSourceBite:
+ *            taskSourceSlice:
+ *          }
+ *      })
+ *    }
+ * })
+ * 
+ * 
+ * 
+ * 
+ */

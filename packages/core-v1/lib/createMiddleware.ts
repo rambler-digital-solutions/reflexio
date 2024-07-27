@@ -8,6 +8,8 @@ import {matchInitTrigger} from './processor/matchInitTrigger';
 import {matchUpdateTrigger} from './processor/matchUpdateTrigger';
 import {prepareOpts} from './processor/prepareInstanceOpts';
 import {useSystem} from './System';
+import { AfterEffects } from './processor/lifecycle/AfterEffects';
+import { getTriggerAndStatus } from './utils';
 
 export const makeProcMiddleware = (
   configs,
@@ -35,11 +37,11 @@ export const makeProcMiddleware = (
 
     if (instance) {
       onInit(instance, actionPayload);
+      if(instance.afterEffects) {
+        system.afterEffects.addAfterEffect(initConfig.config.watchScope, initConfig.trigger)
+      }
     }
 
-    if (instance?.watchAfter) {
-      system.afterHandlers.push(() => instance.watchAfter);
-    }
   };
 
   const handleUpdate = (store, action, skipUpdate) => {
@@ -79,6 +81,7 @@ export const makeProcMiddleware = (
       opts,
     } = action;
     const isBiteHit = matchBiteName(configs, actionType);
+    const { trigger, status } = getTriggerAndStatus(actionType);
     const ignore =
       sliceConfig?.ignoreExternal &&
       (sliceConfig.ignoreExternal === 'ignoreAll' ||
@@ -92,7 +95,17 @@ export const makeProcMiddleware = (
 
     handleInit(store, actionType, actionPayload, opts?.noInit);
 
-    const forceStopPropagate = handleUpdate(store, action, opts?.noUpdate);
+    let  forceStopPropagate = handleUpdate(store, action, opts?.noUpdate);
+
+    if(status === '__AFTEREFFECTS__' && isBiteHit) {
+      forceStopPropagate  = true;
+      const afInstances = getInstance(configs[trigger], trigger, system);
+      if(afInstances) {
+        afInstances.forEach( afi => 
+          AfterEffects(afi, action, sliceName)
+        )
+      }
+    }
     const processorOpts = system.getProcessorInfo(action.type);
 
     system.resolveWait(action.type, actionPayload);

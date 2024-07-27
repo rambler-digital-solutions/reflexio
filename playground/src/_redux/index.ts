@@ -6,6 +6,7 @@ import {notificationSlice} from '../notification/notification.config';
 import {popupSlice} from '../popup/popup.config';
 import {settingsSlice} from '../settings/settings.config';
 import {rootReducer} from './reducer';
+const system = useSystem();
 
 composeSlice.inject({
   someData: 'someData For Testing',
@@ -26,10 +27,16 @@ function configureStore() {
     popupSlice.middleware,
   ];
 
-  return createStore(rootReducer, compose(applyMiddleware(...middlewares)));
+  const store = createStore(rootReducer, compose(applyMiddleware(...middlewares)));
+
+  return store
 }
 
 export const store = configureStore();
+
+store.subscribe(()=> {
+  system.afterEffects.handleAfterEffect(store.dispatch)
+})
 
 store.dispatch({
   type: 'setContent/init',
