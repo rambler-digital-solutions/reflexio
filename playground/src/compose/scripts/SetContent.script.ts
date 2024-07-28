@@ -72,9 +72,12 @@ export class SetContentScript extends EffectiveScript<
     console.log(args);
     console.log('this is after effect');
     console.log(this.opts.getCurrentState())      
-    if(!this.opts.getCurrentState().compose.openedComposeId) {
-      this.opts.trigger('showNotification', 'init', 'After effect');
-    }
+    //if(this.opts.getCurrentState().compose.openedComposeId) {
+      //this.opts.trigger('showNotification', 'init', 'After effect');
+      setTimeout(()=> {
+        this.opts.setStateNoEffect('openWindow', {id:null});
+      },1000)
+    //}
       
   }
 

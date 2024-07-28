@@ -37,6 +37,7 @@ export const makeProcMiddleware = (
 
     if (instance) {
       onInit(instance, actionPayload);
+
       if(instance.afterEffects) {
         system.afterEffects.addAfterEffect(initConfig.config.watchScope, initConfig.trigger)
       }
@@ -97,15 +98,23 @@ export const makeProcMiddleware = (
 
     let  forceStopPropagate = handleUpdate(store, action, opts?.noUpdate);
 
+    const noEffect = actionPayload?.opts?.noEffect;
+  
     if(status === '__AFTEREFFECTS__' && isBiteHit) {
+      
       forceStopPropagate  = true;
+
+      if(!noEffect) {
       const afInstances = getInstance(configs[trigger], trigger, system);
+
       if(afInstances) {
         afInstances.forEach( afi => 
           AfterEffects(afi, action, sliceName)
         )
       }
+     }
     }
+
     const processorOpts = system.getProcessorInfo(action.type);
 
     system.resolveWait(action.type, actionPayload);
