@@ -16,17 +16,15 @@ export class SetContentScript extends EffectiveScript<
   ITriggers,
   IState,
   'setContent',
-  'init',
-  Record<string, any>
+  'init'
 > {
-  constructor(
-    opts: ScriptOptsType<ITriggers, IState, 'setContent', null>,
-  ) {
+  constructor(opts) {
     super(opts);
   }
 
   private forms: {[key: string]: {subject: string; body: string}} = {};
 
+  
   private system;
 
   public init(_args: InitArgsType<IComposeTriggers, 'setContent', 'init'>) {

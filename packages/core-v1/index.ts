@@ -1,4 +1,10 @@
 /* eslint-disable import/no-unused-modules */
+/*!
+ * Reflexio
+ * Copyright (c) 2024 Konstantin Astapov.
+ * Licensed under the MIT License (MIT), see
+ * https://github.com/rambler-digital-solutions/reflexio
+ */
 export {Slice} from './lib/Slice';
 export {Bite} from './lib/Bite';
 export {Script} from './lib/Script';

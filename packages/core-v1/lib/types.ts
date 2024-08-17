@@ -2,6 +2,7 @@ import type {Dispatch, Store} from 'redux';
 
 export type SystemConfig = {
   env: 'dev' | 'prod' | 'test';
+  afTimeout: number; 
 };
 
 type GetByKey<T, K> = K extends keyof T ? T[K] : null;

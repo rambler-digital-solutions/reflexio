@@ -1,3 +1,5 @@
+/* eslint-disable sonar/for-in */
+/* eslint-disable no-useless-constructor */
 import { getTriggerAndStatus } from "./utils";
 import { UpdateOnType } from "./types";
 
@@ -15,8 +17,40 @@ import { UpdateOnType } from "./types";
 export class AfterEffects {
     private finalMap: any = {};
     private removeCheckMap: any = {};
-    constructor(private getCurrentTask: () => {type: string, payload: string}) {}
+    constructor(private getCurrentTask: () => {type: string, payload: string}, private timeout: number) {}
 
+    private dispatchAf(trigger, status, key, payload, dispather: (action) => void) {
+        if(this.finalMap[trigger][key] === '_ALLSTATUSES_') {
+            setTimeout(()=> {
+                dispather({
+                    type: `${key}/__AFTEREFFECTS__`,
+                    payload
+                })
+            },this.timeout)
+         
+            return;
+        }
+
+        if(this.finalMap[trigger][key] === status ) {
+            setTimeout(()=> {
+                dispather({
+                    type: `${key}/__AFTEREFFECTS__`,
+                    payload
+                })},this.timeout)
+
+            return;
+        }
+
+        if(this.finalMap[trigger][key].includes(status)) {
+            setTimeout(() => {
+                dispather({
+                    type: `${key}/__AFTEREFFECTS__`,
+                    payload
+                })
+            },this.timeout)  
+        }
+    }
+     
     public handleAfterEffect = (dispather: (action) => void) => {
         const currentTask = this.getCurrentTask();
         const dispatchPayload = currentTask;
@@ -26,32 +60,9 @@ export class AfterEffects {
 
             if(this.finalMap[trigger]) {
                 for( const key in this.finalMap[trigger]) {
-                    if(this.finalMap[trigger][key] === '_ALLSTATUSES_') {
-                        setTimeout(()=> {
-                            dispather({
-                                type: `${key}/__AFTEREFFECTS__`,
-                                payload: dispatchPayload
-                            })
-                        })
-                    }
-                    else if(this.finalMap[trigger][key] === status ) {
-                        setTimeout(()=> {
-                            dispather({
-                                type: `${key}/__AFTEREFFECTS__`,
-                                payload: dispatchPayload
-                            })})
-                    }
-                    else if(this.finalMap[trigger][key].includes(status)) {
-                        setTimeout(() => {
-                            dispather({
-                                type: `${key}/__AFTEREFFECTS__`,
-                                payload: dispatchPayload
-                            })
-                        })  
-                    }
+                    this.dispatchAf(trigger, status, key, dispatchPayload, dispather)
                 }
             }
-            //TODO
         }
         //check if current task has after effects
         //if is => dispatch after effects

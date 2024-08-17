@@ -17,6 +17,7 @@ export class System {
 
   public config: SystemConfig = {
     env: 'prod',
+    afTimeout: 1,
   };
 
   public taksQueue: TaskQueue;
@@ -24,7 +25,7 @@ export class System {
 
   constructor() {
       this.taksQueue = new TaskQueue()
-      this.afterEffects = new AfterEffects(() => this.taksQueue.getCurrentTask())
+      this.afterEffects = new AfterEffects(() => this.taksQueue.getCurrentTask(), this.config.afTimeout)
   }
 
   public setConfig(conf: SystemConfig) {
